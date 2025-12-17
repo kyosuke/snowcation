@@ -1,0 +1,143 @@
+---
+import { getCollection } from "astro:content";
+
+interface Props {
+  resortId: string;
+}
+
+const { resortId } = Astro.props;
+
+const hotels = await getCollection("hotels", ({ data }) => {
+  return data.parent_resort === resortId;
+});
+---
+
+<div class="hotel-list">
+  <h2>周辺ホテル情報</h2>
+  {
+    hotels.length === 0 ? (
+      <p>登録されているホテルはありません。</p>
+    ) : (
+      <div class="grid">
+        {hotels.map((hotel) => (
+          <div class="hotel-card">
+            <h3>{hotel.data.title}</h3>
+
+            <div class="hotel-section">
+              <h4>アクセス</h4>
+              <ul>
+                <li>
+                  <strong>拠点から:</strong> {hotel.data.access?.from_hub}
+                </li>
+                {hotel.data.access?.shuttle && <li>送迎あり</li>}
+              </ul>
+            </div>
+
+            <div class="hotel-section">
+              <h4>ワーケーション環境</h4>
+              <ul>
+                <li>
+                  <strong>WiFi:</strong> {hotel.data.work_env?.wifi}
+                </li>
+                {hotel.data.work_env?.desk && (
+                  <li>
+                    <strong>机:</strong> {hotel.data.work_env.desk}
+                  </li>
+                )}
+                {hotel.data.work_env?.meeting_space && (
+                  <li>
+                    <strong>会議:</strong> {hotel.data.work_env.meeting_space}
+                  </li>
+                )}
+              </ul>
+            </div>
+
+            <div class="hotel-section">
+              <h4>生活環境</h4>
+              <ul>
+                {hotel.data.living_env?.restaurants && (
+                  <li>
+                    <strong>食事:</strong> {hotel.data.living_env.restaurants}
+                  </li>
+                )}
+                {hotel.data.living_env?.convenience_store && (
+                  <li>
+                    <strong>コンビニ:</strong>{" "}
+                    {hotel.data.living_env.convenience_store}
+                  </li>
+                )}
+              </ul>
+            </div>
+
+            <div class="hotel-section">
+              <h4>温泉</h4>
+              <ul>
+                <li>
+                  {hotel.data.onsen?.available ? "あり" : "なし"} (
+                  {hotel.data.onsen?.type})
+                </li>
+                {hotel.data.onsen?.sauna && <li>サウナあり</li>}
+              </ul>
+            </div>
+
+            {hotel.data.cost?.lift_ticket_deal && (
+              <div class="hotel-section">
+                <h4>リフト券優待</h4>
+                <p class="discount-badge">{hotel.data.cost.lift_ticket_deal}</p>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .hotel-list {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--sl-color-gray-5);
+  }
+  .grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+  .hotel-card {
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    background: var(--sl-color-gray-6);
+  }
+  .hotel-card h3 {
+    margin-top: 0;
+    font-size: 1.25rem;
+  }
+  .hotel-section {
+    margin-top: 1rem;
+  }
+  .hotel-section h4 {
+    font-size: 0.9rem;
+    color: var(--sl-color-gray-3);
+    margin-bottom: 0.25rem;
+  }
+  .discount-badge {
+    background-color: var(--sl-color-accent-low);
+    color: var(--sl-color-accent-high);
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin: 0;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.9rem;
+  }
+  li {
+    margin-bottom: 0.25rem;
+  }
+</style>
