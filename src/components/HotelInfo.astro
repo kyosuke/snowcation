@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 
 interface Props {
   resortId: string;
@@ -10,82 +10,25 @@ const { resortId } = Astro.props;
 const hotels = await getCollection("hotels", ({ data }) => {
   return data.parent_resort === resortId;
 });
+
+const hotelContents = await Promise.all(
+  hotels.map(async (hotel) => {
+    const { Content } = await render(hotel);
+    return { hotel, Content };
+  })
+);
 ---
 
 <div class="hotel-list">
-  <h2>周辺ホテル情報</h2>
+  <h2>スキーイン・スキーアウト ホテル</h2>
   {
-    hotels.length === 0 ? (
+    hotelContents.length === 0 ? (
       <p>登録されているホテルはありません。</p>
     ) : (
       <div class="grid">
-        {hotels.map((hotel) => (
+        {hotelContents.map(({ Content }) => (
           <div class="hotel-card">
-            <h3>{hotel.data.title}</h3>
-
-            <div class="hotel-section">
-              <h4>アクセス</h4>
-              <ul>
-                <li>
-                  <strong>拠点から:</strong> {hotel.data.access?.from_hub}
-                </li>
-                {hotel.data.access?.shuttle && <li>送迎あり</li>}
-              </ul>
-            </div>
-
-            <div class="hotel-section">
-              <h4>ワーケーション環境</h4>
-              <ul>
-                <li>
-                  <strong>WiFi:</strong> {hotel.data.work_env?.wifi}
-                </li>
-                {hotel.data.work_env?.desk && (
-                  <li>
-                    <strong>机:</strong> {hotel.data.work_env.desk}
-                  </li>
-                )}
-                {hotel.data.work_env?.meeting_space && (
-                  <li>
-                    <strong>会議:</strong> {hotel.data.work_env.meeting_space}
-                  </li>
-                )}
-              </ul>
-            </div>
-
-            <div class="hotel-section">
-              <h4>生活環境</h4>
-              <ul>
-                {hotel.data.living_env?.restaurants && (
-                  <li>
-                    <strong>食事:</strong> {hotel.data.living_env.restaurants}
-                  </li>
-                )}
-                {hotel.data.living_env?.convenience_store && (
-                  <li>
-                    <strong>コンビニ:</strong>{" "}
-                    {hotel.data.living_env.convenience_store}
-                  </li>
-                )}
-              </ul>
-            </div>
-
-            <div class="hotel-section">
-              <h4>温泉</h4>
-              <ul>
-                <li>
-                  {hotel.data.onsen?.available ? "あり" : "なし"} (
-                  {hotel.data.onsen?.type})
-                </li>
-                {hotel.data.onsen?.sauna && <li>サウナあり</li>}
-              </ul>
-            </div>
-
-            {hotel.data.cost?.lift_ticket_deal && (
-              <div class="hotel-section">
-                <h4>リフト券優待</h4>
-                <p class="discount-badge">{hotel.data.cost.lift_ticket_deal}</p>
-              </div>
-            )}
+            <Content />
           </div>
         ))}
       </div>
@@ -113,6 +56,11 @@ const hotels = await getCollection("hotels", ({ data }) => {
   .hotel-card h3 {
     margin-top: 0;
     font-size: 1.25rem;
+  }
+  .description {
+    font-size: 0.9rem;
+    color: var(--sl-color-gray-2);
+    margin: 0.5rem 0 1rem;
   }
   .hotel-section {
     margin-top: 1rem;
