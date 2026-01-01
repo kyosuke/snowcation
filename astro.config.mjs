@@ -10,7 +10,7 @@ export default defineConfig({
     integrations: [
         mermaid(),
         starlight({
-            title: 'Snowcation Guide',
+            title: 'Snowcation',
             defaultLocale: 'ja',
             social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/kyosuke/snowcation' }],
             sidebar: [
