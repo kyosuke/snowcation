@@ -95,11 +95,22 @@ import OnsenInfo from '../../../components/OnsenInfo.astro';
 
 ```mermaid
 flowchart LR
-    Tokyo[東京駅] -->|東北新幹線<br/>約80〜100分| Koriyama[郡山駅]
-    Koriyama -->|有料路線バス<br/>約110分 / 1,870円| Grandeco[Grandeco]
-    
-    Koriyama -->|JR 磐越西線<br/>約40分| Inawashiro[猪苗代駅]
-    Inawashiro -->|無料シャトルバス<br/>約40分| Grandeco
+  classDef station fill:#0f02,stroke:#080;
+  Tokyo:::station@{ shape: rounded, label: "東京駅" }
+  Koriyama:::station@{ shape: rounded, label: "郡山駅" }
+  Inawashiro:::station@{ shape: rounded, label: "猪苗代駅" }
+
+  Shinkansen@{ shape: stadium, label: "東北新幹線 約80〜100分" }
+  Bus@{ shape: stadium, label: "有料路線バス 約110分" }
+  JR@{ shape: stadium, label: "JR 磐越西線 約40分" }
+  ShuttleBus@{ shape: stadium, label: "無料シャトルバス 約40分" }
+
+  Grandeco@{ shape: circle, label: "グランデコホテル" }
+
+  Tokyo -.- Shinkansen -.-> Koriyama
+  Koriyama -..- Bus -..-> Grandeco
+  Koriyama -.- JR -.-> Inawashiro
+  Inawashiro -.- ShuttleBus -.-> Grandeco
 ```
 
 <Aside type="caution">
