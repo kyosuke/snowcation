@@ -101,16 +101,16 @@ flowchart LR
   Inawashiro:::station@{ shape: rounded, label: "猪苗代駅" }
 
   Shinkansen@{ shape: stadium, label: "東北新幹線 約80〜100分" }
-  Bus@{ shape: stadium, label: "有料路線バス 約110分" }
+  Bus@{ shape: stadium, label: "[土日・特定日・年末年始] 有料路線バス 約110分" }
   JR@{ shape: stadium, label: "JR 磐越西線 約40分" }
   ShuttleBus@{ shape: stadium, label: "無料シャトルバス 約40分" }
 
   Grandeco@{ shape: circle, label: "グランデコホテル" }
 
   Tokyo -.- Shinkansen -.-> Koriyama
-  Koriyama -..- Bus -..-> Grandeco
   Koriyama -.- JR -.-> Inawashiro
   Inawashiro -.- ShuttleBus -.-> Grandeco
+  Koriyama -.- Bus -..-> Grandeco
 ```
 
 <Aside type="caution">
@@ -139,9 +139,11 @@ flowchart LR
 | 5便 | 15:45 | 16:35 | 猪苗代 16:53 → 郡山 17:36 |
 
 <Aside type="note">
-事前予約制です。前日の17:00までにお申し込みください。ご予約が定員に達した場合はご乗車できません。
+事前予約制。前日の17:00までにお申し込みください。ご予約が定員に達した場合はご乗車できません。
 気象状況や道路状況により到着時刻が遅れる場合がございます。
 </Aside>
+
+https://resort.en-hotel.com/grandeco/hotel/ja/access/
 
 </details>
 
