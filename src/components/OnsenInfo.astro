@@ -1,0 +1,217 @@
+---
+import IconHotTub from '~icons/material-symbols-light/hot-tub-rounded';
+import IconBathOutdoor from '~icons/material-symbols-light/bath-outdoor-outline-rounded';
+import IconWaterDrop from '~icons/material-symbols-light/water-drop-outline-rounded';
+import IconSauna from '~icons/material-symbols-light/sauna-rounded';
+import IconShower from '~icons/material-symbols-light/shower-outline-rounded';
+import IconKey from '~icons/material-symbols-light/key-outline-rounded';
+import IconAir from '~icons/material-symbols-light/air-rounded';
+import IconSchedule from '~icons/material-symbols-light/schedule-outline-rounded';
+import IconOnsen from '~icons/material-symbols-light/onsen-rounded';
+
+interface Props {
+  name: string;
+  hours: string;
+  quality?: string;
+  // Facilities keys: 'indoor', 'outdoor', 'cold', 'sauna', 'washing'
+  facilities?: string[]; 
+  // Amenities keys: 'locker', 'dryer'
+  amenities?: string[];
+}
+
+const { name, hours, quality, facilities = [], amenities = [] } = Astro.props;
+
+const facilityMap: Record<string, { icon: typeof IconHotTub; label: string }> = {
+  indoor: { icon: IconHotTub, label: '内湯' },
+  outdoor: { icon: IconBathOutdoor, label: '露天' },
+  cold: { icon: IconWaterDrop, label: '水風呂' },
+  sauna: { icon: IconSauna, label: 'サウナ' },
+  washing: { icon: IconShower, label: '洗い場' },
+};
+
+const amenityMap: Record<string, { icon: typeof IconKey; label: string }> = {
+  locker: { icon: IconKey, label: '鍵付きロッカー' },
+  dryer: { icon: IconAir, label: 'ドライヤー' },
+};
+---
+
+<div class="onsen-card">
+  <div class="onsen-header">
+    <div class="onsen-title">{name}</div>
+    <div class="onsen-row meta-row">
+      <span class="icon"><IconSchedule /></span>
+      <span>{hours}</span>
+    </div>
+    {quality && (
+      <div class="onsen-row quality-row">
+        <span class="icon"><IconOnsen /></span>
+        <span>{quality}</span>
+      </div>
+    )}
+  </div>
+  
+  <hr class="onsen-divider" />
+  
+  <div class="onsen-body">
+    {facilities.length > 0 && (
+      <div class="onsen-section facilities-section">
+        <div class="facility-list">
+           {facilities.map(f => {
+             const item = facilityMap[f];
+             if (!item) return null;
+             const IconComponent = item.icon;
+             return (
+               <div class="facility-item">
+                 <span class="facility-icon"><IconComponent /></span>
+                 <span class="facility-label">{item.label}</span>
+               </div>
+             );
+           })}
+        </div>
+      </div>
+    )}
+
+    {amenities.length > 0 && (
+      <div class="onsen-section amenities-section">
+        <div class="amenity-list">
+           {amenities.map((a, index) => {
+             const item = amenityMap[a];
+             if (!item) return null;
+             const IconComponent = item.icon;
+             return (
+                <>
+                  <span class="amenity-item">
+                      <IconComponent /> {item.label}
+                  </span>
+                  {index < amenities.length - 1 && <span class="separator"> / </span>}
+                </>
+             );
+           })}
+        </div>
+      </div>
+    )}
+  </div>
+</div>
+
+<style>
+  .onsen-card {
+    border: 1px solid var(--sl-color-gray-5);
+    background-color: var(--sl-color-gray-6);
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-shadow: var(--sl-shadow-sm);
+  }
+
+  .onsen-header {
+    margin: 0 0 0.5rem;
+  }
+
+  .onsen-title {
+    font-size: var(--sl-text-lg);
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+    color: var(--sl-color-white);
+  }
+
+  .onsen-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-2);
+  }
+
+  .onsen-row .icon {
+    font-size: var(--sl-text-xl);
+    display: flex;
+    align-items: center;
+  }
+  
+  .meta-row {
+    font-family: var(--sl-font-mono);
+  }
+
+  .quality-row {
+    color: var(--sl-color-text);
+  }
+
+  .onsen-divider {
+    border: 0;
+    border-top: 1px dashed var(--sl-color-gray-4);
+    margin: 0.5rem 0;
+  }
+
+  .onsen-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .onsen-section {
+  }
+
+  /* Facilities */
+  .facilities-section {
+    text-align: center;
+    margin: 0;
+  }
+
+  .facility-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .facility-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.125rem;
+    margin: 0;
+  }
+
+  .facility-icon {
+    font-size: var(--sl-text-2xl);
+    color: var(--sl-color-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  .facility-icon :global(svg) {
+    display: block;
+  }
+
+  .facility-label {
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
+  }
+
+  /* Amenities */
+
+  .amenities-section {
+    margin: 0;
+  }
+  
+  .amenity-list {
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-2);
+    margin-top: 0.25rem;
+  }
+  
+  .amenity-item {
+    display: flex;
+    gap: 0.25rem;
+  }
+  
+  .separator {
+      margin: 0 0.25rem;
+      color: var(--sl-color-gray-4);
+  }
+</style>

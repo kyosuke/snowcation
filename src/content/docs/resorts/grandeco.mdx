@@ -17,7 +17,8 @@ access:
   time_from_tokyo: "約3時間10分 (新幹線+バス)"
 ---
 
-import { Steps, Aside } from '@astrojs/starlight/components';
+import { Steps, Aside, CardGrid } from '@astrojs/starlight/components';
+import OnsenInfo from '../../../components/OnsenInfo.astro';
 
 初心者向けコースが多く、家族連れや初級者にも優しいゲレンデ。標高が高いため積雪量が多く、オープン期間も11月下旬から4月中旬までと長い。雪質は非常に良く、パウダー好きも満足できる環境。
 
@@ -73,11 +74,20 @@ import { Steps, Aside } from '@astrojs/starlight/components';
 - **作業スペース**: ラウンジに仕事ができるスペースあり。
 - **サービス**: 宿泊者はセルフのコーヒーが無料。ラウンジでの焼きマシュマロサービスもある。
 
-### 温泉 (ぶなの湯)
-- **設備**: 内風呂、露天風呂、サウナ完備。
-  - **水風呂**: 設定温度 9.3℃と非常に強力。
+### 温泉
+
+<CardGrid>
+  <OnsenInfo
+    name="ぶなの湯"
+    hours="6:00 - 24:00"
+    quality="単純泉"
+    facilities={['indoor', 'outdoor', 'sauna', 'cold', 'washing']}
+    amenities={['dryer']}
+  />
+</CardGrid>
+
 - **アメニティ**: 部屋の浴衣で温泉への移動が可能。温泉・レストランへはスリッパでの移動もOK。
-- **おもてなし**: 宿泊者向けの無料アイスキャンディサービスあり。
+- **おもてなし**: 宿泊者向けの無料アイスキャンディサービスあり
 
 ## アクセス
 

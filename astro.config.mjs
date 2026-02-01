@@ -2,11 +2,19 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import mermaid from 'astro-mermaid';
+import Icons from 'unplugin-icons/vite';
 
 import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
 export default defineConfig({
+    vite: {
+        plugins: [
+            Icons({
+                compiler: 'astro',
+            }),
+        ],
+    },
     integrations: [
         mermaid(),
         starlight({
