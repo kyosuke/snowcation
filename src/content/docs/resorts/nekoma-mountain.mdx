@@ -16,7 +16,8 @@ access:
   time_from_tokyo: "約3時間 (新幹線+バス)"
 ---
 
-import { Steps, Aside } from '@astrojs/starlight/components';
+import { Steps, Aside, CardGrid } from '@astrojs/starlight/components';
+import OnsenInfo from '../../../components/OnsenInfo.astro';
 
 
 2023-2024シーズンより旧アルツ磐梯と旧猫魔スキー場が連結した福島の広いスキー場。
@@ -100,13 +101,17 @@ import { Steps, Aside } from '@astrojs/starlight/components';
 
 ### 温泉
 
-#### 朱嶺の湯
-- **営業時間**: 6:30〜14:00（最終入場13:30）、15:00〜24:00（最終入場23:30）
-- 内湯1：源泉掛け流し
-- サウナあり
-- 水風呂なし
-- 露天なし
+<CardGrid>
+  <OnsenInfo
+    name="朱嶺の湯"
+    hours="6:30〜14:00 / 15:00〜24:00"
+    quality="単純泉"
+    facilities={['indoor', 'sauna', 'washing']}
+    amenities={['dryer']}
+  />
+</CardGrid>
 
+- おもてなし: 宿泊者向けの無料のお茶、アイスキャンディサービスあり
 
 ## アクセス
 
