@@ -1,0 +1,75 @@
+---
+title: "オニコウベスキー場"
+description: "コースのバリエーション豊富、広大な下部ゲレンデと自然地形を活かした上部コースが魅力"
+details:
+  location: "宮城県 大崎市"
+  elevation: "1,100m / 580m"
+  courses: 10
+  longest_run: "2,500m"
+  max_gradient: "30°"
+  facilities:
+    - "レンタル"
+    - "スクール"
+    - "レストラン"
+access:
+  train_hub: "古川駅 (新幹線)"
+  time_from_tokyo: "約3時間 (新幹線+車)"
+---
+
+import { Steps, Aside, CardGrid } from '@astrojs/starlight/components';
+import OnsenInfo from '../../../components/OnsenInfo.astro';
+
+コースのバリエーションが素晴らしく、広さもある下部のゲレンデと自然の地形を生かした上部のコースがおすすめのゲレンデ。
+
+- **下部ゲレンデ**: 広さがあり、初心者から中級者まで楽しめる開放的なコース
+- **上部コース**: 自然の地形を活かしたバリエーション豊かなコースで上級者も満足
+- **宮城県のスキー場**: 東北新幹線でアクセスしやすい宮城県のゲレンデ
+
+## ゲレンデ情報
+
+公式サイト: https://www.onikoube.com/snow/
+
+## [リゾートパーク ホテルオニコウベ](https://www.oni3800.com/)
+
+オニコウベスキー場に隣接するリゾートホテル。2つの温泉浴場があり、スキー後のリラックスに最適。
+
+### 温泉
+
+<CardGrid>
+  <OnsenInfo
+    name="3F 大浴場"
+    hours="5:00〜24:00"
+    quality="アルカリ性単純泉"
+    facilities={['indoor', 'cold', 'washing']}
+    amenities={['dryer']}
+  />
+  <OnsenInfo
+    name="荒雄の湯"
+    hours="14:00〜24:00"
+    quality="アルカリ性単純泉"
+    facilities={['indoor', 'outdoor', 'cold', 'sauna', 'washing']}
+    amenities={['locker', 'dryer']}
+  />
+</CardGrid>
+
+- **3F 大浴場**: 朝5:00から深夜24:00まで利用可能。早朝から滑る前にも、夜遅くまでゆっくり入浴できる
+- **荒雄の湯**: 露天風呂とサウナを完備した充実の温泉施設
+
+## アクセス
+
+東京からは東北新幹線で古川駅へ。そこから車またはバスで移動。
+
+```mermaid
+flowchart LR
+  classDef station fill:#0f02,stroke:#080;
+  Tokyo:::station@{ shape: rounded, label: "東京駅" }
+  Furukawa:::station@{ shape: rounded, label: "古川駅" }
+
+  Shinkansen@{ shape: stadium, label: "東北新幹線 約120分" }
+  Car@{ shape: stadium, label: "車 約60分" }
+
+  Onikoube@{ shape: circle, label: "オニコウベ" }
+
+  Tokyo -.- Shinkansen -.-> Furukawa
+  Furukawa -.- Car -.-> Onikoube
+```
