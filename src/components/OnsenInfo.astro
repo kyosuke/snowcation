@@ -1,4 +1,14 @@
 ---
+import IconHotTub from '~icons/material-symbols-light/hot-tub-rounded';
+import IconBathOutdoor from '~icons/material-symbols-light/bath-outdoor-outline-rounded';
+import IconWaterDrop from '~icons/material-symbols-light/water-drop-outline-rounded';
+import IconSauna from '~icons/material-symbols-light/sauna-rounded';
+import IconShower from '~icons/material-symbols-light/shower-outline-rounded';
+import IconKey from '~icons/material-symbols-light/key-outline-rounded';
+import IconAir from '~icons/material-symbols-light/air-rounded';
+import IconSchedule from '~icons/material-symbols-light/schedule-outline-rounded';
+import IconOnsen from '~icons/material-symbols-light/onsen-rounded';
+
 interface Props {
   name: string;
   hours: string;
@@ -11,17 +21,17 @@ interface Props {
 
 const { name, hours, quality, facilities = [], amenities = [] } = Astro.props;
 
-const facilityMap: Record<string, { icon: string; label: string }> = {
-  indoor: { icon: '🛁', label: '内湯' },
-  outdoor: { icon: '🍃', label: '露天' },
-  cold: { icon: '❄️', label: '水風呂' },
-  sauna: { icon: '🧖', label: 'サウナ' },
-  washing: { icon: '🚿', label: '洗い場' },
+const facilityMap: Record<string, { icon: typeof IconHotTub; label: string }> = {
+  indoor: { icon: IconHotTub, label: '内湯' },
+  outdoor: { icon: IconBathOutdoor, label: '露天' },
+  cold: { icon: IconWaterDrop, label: '水風呂' },
+  sauna: { icon: IconSauna, label: 'サウナ' },
+  washing: { icon: IconShower, label: '洗い場' },
 };
 
-const amenityMap: Record<string, { icon: string; label: string }> = {
-  locker: { icon: '🔑', label: '鍵付きロッカー' },
-  dryer: { icon: '💨', label: 'ドライヤー' },
+const amenityMap: Record<string, { icon: typeof IconKey; label: string }> = {
+  locker: { icon: IconKey, label: '鍵付きロッカー' },
+  dryer: { icon: IconAir, label: 'ドライヤー' },
 };
 ---
 
@@ -29,33 +39,33 @@ const amenityMap: Record<string, { icon: string; label: string }> = {
   <div class="onsen-header">
     <div class="onsen-title">{name}</div>
     <div class="onsen-row meta-row">
-      <span class="icon">🕒</span>
+      <span class="icon"><IconSchedule /></span>
       <span>{hours}</span>
     </div>
+    {quality && (
+      <div class="onsen-row quality-row">
+        <span class="icon"><IconOnsen /></span>
+        <span>{quality}</span>
+      </div>
+    )}
   </div>
   
   <hr class="onsen-divider" />
   
   <div class="onsen-body">
-    {quality && (
-      <div class="onsen-row quality-row">
-        <span class="icon">♨️</span>
-        <span>{quality}</span>
-      </div>
-    )}
-
     {facilities.length > 0 && (
       <div class="onsen-section facilities-section">
-        <div class="facility-icons">
+        <div class="facility-list">
            {facilities.map(f => {
              const item = facilityMap[f];
-             return item ? <span class="facility-icon-wrapper">[{item.icon}]</span> : null;
-           })}
-        </div>
-        <div class="facility-labels">
-            {facilities.map(f => {
-             const item = facilityMap[f];
-             return item ? <span class="facility-label">{item.label}</span> : null;
+             if (!item) return null;
+             const IconComponent = item.icon;
+             return (
+               <div class="facility-item">
+                 <span class="facility-icon"><IconComponent /></span>
+                 <span class="facility-label">{item.label}</span>
+               </div>
+             );
            })}
         </div>
       </div>
@@ -63,18 +73,19 @@ const amenityMap: Record<string, { icon: string; label: string }> = {
 
     {amenities.length > 0 && (
       <div class="onsen-section amenities-section">
-        <div class="section-title">[脱衣所設備]</div>
         <div class="amenity-list">
            {amenities.map((a, index) => {
              const item = amenityMap[a];
-             return item ? (
+             if (!item) return null;
+             const IconComponent = item.icon;
+             return (
                 <>
                   <span class="amenity-item">
-                      {item.icon} {item.label}
+                      <IconComponent /> {item.label}
                   </span>
                   {index < amenities.length - 1 && <span class="separator"> / </span>}
                 </>
-             ) : null;
+             );
            })}
         </div>
       </div>
@@ -95,11 +106,11 @@ const amenityMap: Record<string, { icon: string; label: string }> = {
   }
 
   .onsen-header {
-    margin-bottom: 0.5rem;
+    margin: 0 0 0.5rem;
   }
 
   .onsen-title {
-    font-size: 1.1rem;
+    font-size: var(--sl-text-lg);
     font-weight: bold;
     margin-bottom: 0.25rem;
     color: var(--sl-color-white);
@@ -109,8 +120,14 @@ const amenityMap: Record<string, { icon: string; label: string }> = {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.9rem;
+    font-size: var(--sl-text-sm);
     color: var(--sl-color-gray-2);
+  }
+
+  .onsen-row .icon {
+    font-size: var(--sl-text-xl);
+    display: flex;
+    align-items: center;
   }
   
   .meta-row {
@@ -118,65 +135,79 @@ const amenityMap: Record<string, { icon: string; label: string }> = {
   }
 
   .quality-row {
-    margin-bottom: 1.5rem;
-    font-weight: 500;
     color: var(--sl-color-text);
   }
 
   .onsen-divider {
     border: 0;
     border-top: 1px dashed var(--sl-color-gray-4);
-    margin: 0.5rem 0 1rem 0;
+    margin: 0.5rem 0;
   }
 
   .onsen-body {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem;
   }
 
   .onsen-section {
-    display: flex;
-    flex-direction: column;
   }
 
   /* Facilities */
   .facilities-section {
     text-align: center;
+    margin: 0;
   }
 
-  .facility-icons {
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-bottom: 0.25rem;
-    font-size: 1.2rem;
-  }
-
-  .facility-labels {
+  .facility-list {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     gap: 0.75rem;
-    font-size: 0.8rem;
-    color: var(--sl-color-gray-3);
   }
-  
-  .facility-icon-wrapper {
-      letter-spacing: 0.1em;
+
+  .facility-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.125rem;
+    margin: 0;
+  }
+
+  .facility-icon {
+    font-size: var(--sl-text-2xl);
+    color: var(--sl-color-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  .facility-icon :global(svg) {
+    display: block;
+  }
+
+  .facility-label {
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
   }
 
   /* Amenities */
-  .section-title {
-    font-size: 0.85rem;
-    color: var(--sl-color-gray-3);
-    margin-bottom: 0.25rem;
-  }
 
+  .amenities-section {
+    margin: 0;
+  }
+  
   .amenity-list {
-    font-size: 0.9rem;
+    font-size: var(--sl-text-sm);
     color: var(--sl-color-gray-2);
+    margin-top: 0.25rem;
+  }
+  
+  .amenity-item {
+    display: flex;
+    gap: 0.25rem;
   }
   
   .separator {
