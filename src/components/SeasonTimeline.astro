@@ -18,10 +18,11 @@ interface Props {
 
 const { seasons, closures = [] } = Astro.props;
 
-const parseDate = (s: string) => new Date(s + 'T00:00:00');
+const parseStart = (s: string) => new Date(s + 'T06:00:00');
+const parseEnd   = (s: string) => new Date(s + 'T18:00:00');
 
 // Derive base year from the earliest season (Nov–May spans two calendar years)
-const firstDate = parseDate(seasons[0].start);
+const firstDate = parseStart(seasons[0].start);
 const baseYear = firstDate.getMonth() >= 6 ? firstDate.getFullYear() : firstDate.getFullYear() - 1;
 
 // Fixed axis: Nov 1 → Jun 1 (always shows 11月〜5月)
@@ -33,15 +34,15 @@ const toPct = (d: Date) => ((d.getTime() - axisStart.getTime()) / totalMs) * 100
 
 // Season segments
 const segments = seasons.map(s => {
-  const start = parseDate(s.start);
-  const end   = parseDate(s.end);
+  const start = parseStart(s.start);
+  const end   = parseEnd(s.end);
   return { ...s, leftPct: toPct(start), widthPct: toPct(end) - toPct(start), startDate: start, endDate: end };
 });
 
 // Closure segments
 const closureSegments = closures.map(c => {
-  const start = parseDate(c.start);
-  const end   = parseDate(c.end);
+  const start = parseStart(c.start);
+  const end   = parseEnd(c.end);
   return { leftPct: toPct(start), widthPct: toPct(end) - toPct(start), startDate: start, endDate: end };
 });
 
