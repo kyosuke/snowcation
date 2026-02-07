@@ -18,6 +18,7 @@ access:
 
 import { Steps, Aside, CardGrid } from '@astrojs/starlight/components';
 import OnsenInfo from '../../../components/OnsenInfo.astro';
+import SeasonTimeline from '../../../components/SeasonTimeline.astro';
 
 
 2023-2024シーズンより旧アルツ磐梯と旧猫魔スキー場が連結した福島の広いスキー場。
@@ -30,12 +31,28 @@ import OnsenInfo from '../../../components/OnsenInfo.astro';
 
 ## 25-26シーズン営業期間
 
-北エリアと南エリアで営業期間が異なる。
+### 北エリア
 
-| エリア | 予定日 | 実際のオープン日 | 営業終了予定 |
-|---|---|---|---|
-| **北エリア** | 2025/11/29(土) | 2025/12/6(土) | 2026/5/6(水・祝) |
-| **南エリア** | 2025/12/13(土) | 2025/12/19(金) | 2026/4/5(日) |
+<SeasonTimeline
+  seasons={[
+    { name: '営業期間', start: '2025-11-29', end: '2026-03-27', color: '#34A853' },
+    { name: '営業期間（春）', start: '2026-03-28', end: '2026-05-06', color: '#FBBC05' },
+  ]}
+  closures={[
+    { start: '2025-11-29', end: '2025-12-06' },
+  ]}
+/>
+
+### 南エリア
+
+<SeasonTimeline
+  seasons={[
+    { name: '営業期間', start: '2025-12-13', end: '2026-04-05', color: '#34A853' },
+  ]}
+  closures={[
+    { start: '2025-12-13', end: '2025-12-19' },
+  ]}
+/>
 
 <details>
 <summary>2025-26シーズンオープン時</summary>

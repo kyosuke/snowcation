@@ -1,0 +1,274 @@
+---
+interface Season {
+  name: string;
+  start: string; // YYYY-MM-DD
+  end: string;   // YYYY-MM-DD
+  color: string;
+}
+
+interface Closure {
+  start: string; // YYYY-MM-DD
+  end: string;   // YYYY-MM-DD
+}
+
+interface Props {
+  seasons: Season[];
+  closures?: Closure[];
+}
+
+const { seasons, closures = [] } = Astro.props;
+
+const parseStart = (s: string) => new Date(s + 'T06:00:00');
+const parseEnd   = (s: string) => new Date(s + 'T18:00:00');
+
+// Derive base year from the earliest season (Nov–May spans two calendar years)
+const firstDate = parseStart(seasons[0].start);
+const baseYear = firstDate.getMonth() >= 6 ? firstDate.getFullYear() : firstDate.getFullYear() - 1;
+
+// Fixed axis: Nov 1 → Jun 1 (always shows 11月〜5月)
+const axisStart = new Date(baseYear, 10, 1);     // Nov 1
+const axisEnd   = new Date(baseYear + 1, 5, 1);  // Jun 1
+const totalMs   = axisEnd.getTime() - axisStart.getTime();
+
+const toPct = (d: Date) => ((d.getTime() - axisStart.getTime()) / totalMs) * 100;
+
+// Season segments
+const segments = seasons.map(s => {
+  const start = parseStart(s.start);
+  const end   = parseEnd(s.end);
+  return { ...s, leftPct: toPct(start), widthPct: toPct(end) - toPct(start), startDate: start, endDate: end };
+});
+
+// Closure segments
+const closureSegments = closures.map(c => {
+  const start = parseStart(c.start);
+  const end   = parseEnd(c.end);
+  return { leftPct: toPct(start), widthPct: toPct(end) - toPct(start), startDate: start, endDate: end };
+});
+
+// Month definitions (JS 0-indexed month, year)
+const monthDefs: [number, number][] = [
+  [10, baseYear],      // 11月
+  [11, baseYear],      // 12月
+  [0,  baseYear + 1],  //  1月
+  [1,  baseYear + 1],  //  2月
+  [2,  baseYear + 1],  //  3月
+  [3,  baseYear + 1],  //  4月
+  [4,  baseYear + 1],  //  5月
+];
+
+const monthData = monthDefs.map(([m, y], i) => {
+  const start = new Date(y, m, 1);
+  const next  = i < monthDefs.length - 1
+    ? new Date(monthDefs[i + 1][1], monthDefs[i + 1][0], 1)
+    : axisEnd;
+  return {
+    label: `${m + 1}月`,
+    leftPct: toPct(start),
+    centerPct: (toPct(start) + toPct(next)) / 2,
+  };
+});
+
+// Boundary lines (skip the first month — it's the axis start)
+const boundaryLines = monthData.slice(1).map(m => m.leftPct);
+
+const formatDate = (d: Date) => `${d.getMonth() + 1}/${d.getDate()}`;
+---
+
+<div class="season-timeline">
+  <div class="timeline-track">
+    {boundaryLines.map(left => (
+      <div class="grid-line" style={`left:${left}%`} />
+    ))}
+
+    {segments.map(seg => (
+      <div
+        class="segment"
+        style={`left:${seg.leftPct}%;width:${seg.widthPct}%;background:${seg.color}`}
+        title={`${seg.name}: ${formatDate(seg.startDate)} 〜 ${formatDate(seg.endDate)}`}
+      >
+        {seg.widthPct > 15 && <span class="segment-label">{seg.name}</span>}
+      </div>
+    ))}
+
+    {closureSegments.map(c => (
+      <div
+        class="closure-overlay"
+        style={`left:${c.leftPct}%;width:${c.widthPct}%`}
+        title={`休業: ${formatDate(c.startDate)} 〜 ${formatDate(c.endDate)}`}
+      />
+    ))}
+  </div>
+
+  <div class="timeline-axis">
+    {monthData.map(m => (
+      <span class="axis-label" style={`left:${m.centerPct}%`}>{m.label}</span>
+    ))}
+  </div>
+
+  <ul class="timeline-legend">
+    {segments.map(seg => (
+      <li class="legend-item">
+        <span class="legend-dot" style={`background:${seg.color}`} />
+        <span class="legend-text">
+          <strong>{seg.name}</strong>
+          <span class="legend-dates">{formatDate(seg.startDate)} 〜 {formatDate(seg.endDate)}</span>
+        </span>
+      </li>
+    ))}
+    {closureSegments.length > 0 && (
+      <li class="legend-item">
+        <span class="legend-dot closure-dot" />
+        <span class="legend-text">
+          <strong>クローズ</strong>
+          {closureSegments.map(c => (
+            <span class="legend-dates">{formatDate(c.startDate)} 〜 {formatDate(c.endDate)}</span>
+          ))}
+        </span>
+      </li>
+    )}
+  </ul>
+</div>
+
+<style>
+  .season-timeline {
+    margin: 1rem 0;
+  }
+  
+  .season-timeline div {
+    margin-top: 0;
+  }
+
+  /* Track */
+  .timeline-track {
+    position: relative;
+    height: 2.5rem;
+    border-radius: 0.375rem;
+    overflow: hidden;
+    background: var(--sl-color-gray-6);
+  }
+
+  /* Month grid lines */
+  .grid-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    border-left: 1px dashed var(--sl-color-gray-4);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  /* Season segments */
+  .segment {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: opacity 0.15s;
+    z-index: 1;
+  }
+
+  .segment:hover {
+    opacity: 0.85;
+  }
+
+  .segment-label {
+    font-size: var(--sl-text-xs);
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+    padding: 0 0.25rem;
+    pointer-events: none;
+  }
+
+  /* Closure overlay (hatched pattern) */
+  .closure-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 3;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      -45deg,
+      rgba(0, 0, 0, 0.25),
+      rgba(0, 0, 0, 0.25) 2px,
+      transparent 2px,
+      transparent 6px
+    );
+  }
+
+  /* Axis */
+  .timeline-axis {
+    position: relative;
+    height: 1.5rem;
+  }
+
+  .axis-label {
+    position: absolute;
+    transform: translateX(-50%);
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
+    top: 0.25rem;
+    white-space: nowrap;
+  }
+
+  /* Legend */
+  .timeline-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    list-style: none;
+    margin: 0.25rem 0 0;
+    padding: 0;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: baseline;
+    gap: 0.375rem;
+    margin-top: 0;
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-2);
+  }
+
+  .legend-dot {
+    display: inline-block;
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+    position: relative;
+    top: 0.05rem;
+  }
+
+  .closure-dot {
+    background:
+      repeating-linear-gradient(
+        -45deg,
+        rgba(0, 0, 0, 0.3),
+        rgba(0, 0, 0, 0.3) 1px,
+        var(--sl-color-gray-4) 1px,
+        var(--sl-color-gray-4) 3px
+      );
+  }
+
+  .legend-text {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+
+  .legend-text strong {
+    color: var(--sl-color-white);
+  }
+
+  .legend-dates {
+    font-family: var(--sl-font-mono);
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
+  }
+</style>
