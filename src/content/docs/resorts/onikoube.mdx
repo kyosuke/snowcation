@@ -18,12 +18,24 @@ access:
 
 import { Steps, Aside, CardGrid } from '@astrojs/starlight/components';
 import OnsenInfo from '../../../components/OnsenInfo.astro';
+import SeasonTimeline from '../../../components/SeasonTimeline.astro';
 
 コースのバリエーションが素晴らしく、広さもある下部のゲレンデと自然の地形を生かした上部のコースがおすすめのゲレンデ。
 
 - **下部ゲレンデ**: 広さがあり、初心者から中級者まで楽しめる開放的なコース
 - **上部コース**: 自然の地形を活かしたバリエーション豊かなコースで上級者も満足
 - **宮城県のスキー場**: 東北新幹線でアクセスしやすい宮城県のゲレンデ
+
+## 25-26シーズン営業期間
+
+<SeasonTimeline
+  seasons={[
+    { name: 'レギュラーシーズン', start: '2025-12-12', end: '2026-03-22', color: '#34A853' },
+  ]}
+  closures={[
+    { start: '2025-12-12', end: '2025-12-20' },
+  ]}
+/>
 
 ## ゲレンデ情報
 
