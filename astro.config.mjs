@@ -1,7 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-import mermaid from 'astro-mermaid';
+import astroD2 from 'astro-d2';
 import Icons from 'unplugin-icons/vite';
 
 import cloudflare from '@astrojs/cloudflare';
@@ -16,7 +16,11 @@ export default defineConfig({
         ],
     },
     integrations: [
-        mermaid(),
+        astroD2({
+            layout: 'elk',
+            theme: { default: '104', dark: '200' },
+            experimental: { useD2js: true },
+        }),
         starlight({
             title: 'Snowcation',
             defaultLocale: 'ja',

@@ -134,19 +134,25 @@ import SeasonTimeline from '../../../components/SeasonTimeline.astro';
 
 東京からは東北新幹線で郡山駅へ。そこから直通バスで約90分。
 
-```mermaid
-flowchart LR
-  classDef station fill:#0f02,stroke:#080;
-  Tokyo:::station@{ shape: rounded, label: "東京駅" }
-  Koriyama:::station@{ shape: rounded, label: "郡山駅" }
+```d2
+direction: right
 
-  Shinkansen@{ shape: stadium, label: "東北新幹線 約80〜100分" }
-  Bus@{ shape: stadium, label: "路線バス 約90分" }
+Tokyo: 東京駅
+Koriyama: 郡山駅
+Bandaisan: 磐梯山温泉ホテル {shape: circle}
 
-  Bandaisan@{ shape: circle, label: "磐梯山温泉ホテル" }
-
-  Tokyo -.- Shinkansen -.-> Koriyama
-  Koriyama -.- Bus -.-> Bandaisan
+Tokyo -> Koriyama: "東北新幹線\n約80〜100分" {
+  style: {
+    stroke-dash: 2
+    italic: false
+  }
+}
+Koriyama -> Bandaisan: "路線バス\n約90分" {
+  style: {
+    stroke-dash: 2
+    italic: false
+  }
+}
 ```
 
 <details>
