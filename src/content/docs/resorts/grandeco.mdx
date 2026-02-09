@@ -103,24 +103,38 @@ import SeasonTimeline from '../../../components/SeasonTimeline.astro';
 |---|---|---|---|
 | 行き | 3時間30分 | 6:40 | 10:10 |
 
-```mermaid
-flowchart LR
-  classDef station fill:#0f02,stroke:#080;
-  Tokyo:::station@{ shape: rounded, label: "東京駅" }
-  Koriyama:::station@{ shape: rounded, label: "郡山駅" }
-  Inawashiro:::station@{ shape: rounded, label: "猪苗代駅" }
+```d2
+direction: right
 
-  Shinkansen@{ shape: stadium, label: "東北新幹線 約80〜100分" }
-  Bus@{ shape: stadium, label: "[土日・特定日・年末年始] 有料路線バス 約110分" }
-  JR@{ shape: stadium, label: "JR 磐越西線 約40分" }
-  ShuttleBus@{ shape: stadium, label: "無料シャトルバス 約40分" }
+Tokyo: 東京駅
+Koriyama: 郡山駅
+Inawashiro: 猪苗代駅
+Grandeco: グランデコホテル {shape: circle}
 
-  Grandeco@{ shape: circle, label: "グランデコホテル" }
-
-  Tokyo -.- Shinkansen -.-> Koriyama
-  Koriyama -.- JR -.-> Inawashiro
-  Inawashiro -.- ShuttleBus -.-> Grandeco
-  Koriyama -.- Bus -..-> Grandeco
+Tokyo -> Koriyama: "東北新幹線\n約80〜100分" {
+  style: {
+    stroke-dash: 2
+    italic: false
+  }
+}
+Koriyama -> Inawashiro: "JR 磐越西線\n約40分" {
+  style: {
+    stroke-dash: 2
+    italic: false
+  }
+}
+Inawashiro -> Grandeco: "無料シャトルバス\n約40分" {
+  style: {
+    stroke-dash: 2
+    italic: false
+  }
+}
+Koriyama -> Grandeco: "[土日・特定日・年末年始]\n有料路線バス 約110分" {
+  style: {
+    stroke-dash: 2
+    italic: false
+  }
+}
 ```
 
 <details>

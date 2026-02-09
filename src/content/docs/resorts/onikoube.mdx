@@ -71,24 +71,38 @@ import SeasonTimeline from '../../../components/SeasonTimeline.astro';
 
 東京からは東北新幹線で古川駅へ。そこから送迎シャトルバスまたはJR陸羽東線で移動。
 
-```mermaid
-flowchart LR
-  classDef station fill:#0f02,stroke:#080;
-  Tokyo:::station@{ shape: rounded, label: "東京駅" }
-  Furukawa:::station@{ shape: rounded, label: "古川駅" }
-  Naruko:::station@{ shape: rounded, label: "鳴子温泉駅" }
+```d2
+direction: right
 
-  Shinkansen@{ shape: stadium, label: "東北新幹線 約120分" }
-  Shuttle@{ shape: stadium, label: "送迎シャトルバス 約70分" }
-  JR@{ shape: stadium, label: "JR陸羽東線 約46分" }
-  Bus@{ shape: stadium, label: "大崎市営バス 約45分" }
+Tokyo: 東京駅
+Furukawa: 古川駅
+Naruko: 鳴子温泉駅
+Onikoube: ホテルオニコウベ {shape: circle}
 
-  Onikoube@{ shape: circle, label: "ホテルオニコウベ" }
-
-  Tokyo -.- Shinkansen -.-> Furukawa
-  Furukawa -..- Shuttle -..-> Onikoube
-  Furukawa -.- JR -.-> Naruko
-  Naruko -.- Bus -.-> Onikoube
+Tokyo -> Furukawa: "東北新幹線\n約120分" {
+  style: {
+    stroke-dash: 2
+    italic: false
+  }
+}
+Furukawa -> Onikoube: "送迎シャトルバス\n約70分" {
+  style: {
+    stroke-dash: 2
+    italic: false
+  }
+}
+Furukawa -> Naruko: "JR陸羽東線\n約46分" {
+  style: {
+    stroke-dash: 2
+    italic: false
+  }
+}
+Naruko -> Onikoube: "大崎市営バス\n 約45分" {
+  style: {
+    stroke-dash: 2
+    italic: false
+  }
+}
 ```
 
 <details>
