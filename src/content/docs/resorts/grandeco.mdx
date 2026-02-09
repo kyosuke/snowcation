@@ -20,6 +20,8 @@ access:
 import { Steps, Aside, CardGrid } from '@astrojs/starlight/components';
 import OnsenInfo from '../../../components/OnsenInfo.astro';
 import SeasonTimeline from '../../../components/SeasonTimeline.astro';
+import LiftInfo from '../../../components/LiftInfo.astro';
+import GondolaInfo from '../../../components/GondolaInfo.astro';
 
 初心者向けコースが多く、家族連れや初級者にも優しいゲレンデ。標高が高いため積雪量が多く、オープン期間も11月下旬から4月中旬までと長い。雪質は非常に良く、パウダー好きも満足できる環境。
 
@@ -44,10 +46,16 @@ import SeasonTimeline from '../../../components/SeasonTimeline.astro';
 ## ゲレンデ設備
 
 - **ゴンドラ・リフト**:
-  - 第1リフト（フード・足おきあり）
-  - 第2リフト（フード・足おきあり・土日のみ運行）
-  - 第3リフト（フード・足おきあり）
-  - 6人乗りゴンドラ
+
+<GondolaInfo gondolas={[
+  { name: 'ゴンドラ', capacity: 6, length: 2392, cabinSize: 'narrow', externalRack: 'ski' },
+]} />
+
+<LiftInfo lifts={[
+  { name: '第1クワッド', capacity: 4, length: 1496, hood: true, footrest: true, safetyBar: true },
+  { name: '第2クワッド', capacity: 4, length: 1011, hood: true, footrest: true, safetyBar: true },
+  { name: '第3クワッド', capacity: 4, length: 1138, hood: true, footrest: true, safetyBar: true },
+]} />
 
 - **レストラン**:
   - **マウンテンセンター (ベース)**: ハンバーガーや山塩ラーメンが人気。
