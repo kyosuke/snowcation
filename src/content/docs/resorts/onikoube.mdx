@@ -19,6 +19,8 @@ access:
 import { Steps, Aside, CardGrid } from '@astrojs/starlight/components';
 import OnsenInfo from '../../../components/OnsenInfo.astro';
 import SeasonTimeline from '../../../components/SeasonTimeline.astro';
+import LiftInfo from '../../../components/LiftInfo.astro';
+import GondolaInfo from '../../../components/GondolaInfo.astro';
 
 コースのバリエーションが素晴らしく、広さもある下部のゲレンデと自然の地形を生かした上部のコースがおすすめのゲレンデ。
 
@@ -37,7 +39,20 @@ import SeasonTimeline from '../../../components/SeasonTimeline.astro';
   ]}
 />
 
-## ゲレンデ情報
+## リフト・ゴンドラ
+
+<GondolaInfo gondolas={[
+  { name: 'テレキャビン', capacity: 4, length: 1882, cabinSize: 'narrow', externalRack: 'ski' },
+]} />
+
+<LiftInfo lifts={[
+  { name: '第1ペアリフト', capacity: 2, length: 551,  hood: false, footrest: false, safetyBar: false },
+  { name: '第2ペアリフト', capacity: 2, length: 817,  hood: false, footrest: false, safetyBar: false },
+  { name: '第3ペアリフト', capacity: 2, length: 500,  hood: false, footrest: false, safetyBar: false },
+  { name: '小柴ペアリフト', capacity: 2, length: 900,  hood: false, footrest: false, safetyBar: false },
+  { name: '第5ペアリフト', capacity: 2, length: 351,  hood: false, footrest: false, safetyBar: false },
+  { name: '第6ペアリフト', capacity: 2, length: 750,  hood: false, footrest: false, safetyBar: false },
+]} />
 
 公式サイト: https://www.onikoube.com/snow/
 

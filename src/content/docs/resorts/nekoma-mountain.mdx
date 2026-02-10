@@ -19,6 +19,7 @@ access:
 import { Steps, Aside, CardGrid } from '@astrojs/starlight/components';
 import OnsenInfo from '../../../components/OnsenInfo.astro';
 import SeasonTimeline from '../../../components/SeasonTimeline.astro';
+import LiftInfo from '../../../components/LiftInfo.astro';
 
 
 2023-2024シーズンより旧アルツ磐梯と旧猫魔スキー場が連結した福島の広いスキー場。
@@ -77,6 +78,36 @@ import SeasonTimeline from '../../../components/SeasonTimeline.astro';
 ※ 12/16〜12/18に利用して確認
 
 </details>
+
+## リフト・ゴンドラ
+
+### 北エリア
+
+<LiftInfo lifts={[
+  { name: 'デビルキャットチェア',         capacity: 2, length: 676,  hood: false, footrest: false, safetyBar: false },
+  { name: 'フォレストキャットチェア',     capacity: 2, length: 676,  hood: false, footrest: false, safetyBar: false },
+  { name: 'フレンドリーキャットエクスプレス', capacity: 4, length: 802, hood: false, footrest: false, safetyBar: true },
+  { name: 'エキサイトキャットチェア',     capacity: 2, length: 692,  hood: false, footrest: false, safetyBar: false },
+  { name: 'ディープキャットチェア',       capacity: 2, length: 861,  hood: false, footrest: false, safetyBar: false },
+]} />
+
+### 南エリア
+
+<LiftInfo lifts={[
+  { name: 'バトウチェア',               capacity: 2, length: 740,  hood: false, footrest: false, safetyBar: false },
+  { name: 'アルツエクスプレス',         capacity: 4, length: 1910, hood: true,  footrest: true,  safetyBar: true  },
+  { name: 'ファーストチェア',           capacity: 2, length: 700,  hood: false, footrest: false, safetyBar: false },
+  { name: 'ホワイトバレーチェア',       capacity: 2, length: 760,  hood: false, footrest: false, safetyBar: false },
+  { name: 'ブラックバレーエクスプレス', capacity: 4, length: 780,  hood: false, footrest: false, safetyBar: true  },
+  { name: 'ロックチェア',               capacity: 2, length: 510,  hood: false, footrest: false, safetyBar: false },
+  { name: '霧氷チェア',                 capacity: 2, length: 710,  hood: false, footrest: false, safetyBar: false },
+]} />
+
+### 連結リフト
+
+<LiftInfo lifts={[
+  { name: 'ニャルツチェア', capacity: 2, length: 750, hood: false, footrest: false, safetyBar: true  },
+]} />
 
 ## [星野リゾート 磐梯山温泉ホテル](https://hoshinoresorts.com/ja/hotels/bandai/)
 
