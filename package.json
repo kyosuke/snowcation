@@ -10,7 +10,7 @@
 		"astro": "astro",
 		"deploy": "astro build && wrangler deploy",
 		"cf-typegen": "wrangler types",
-		"knip": "npx --yes knip --config knip.json"
+		"knip": "knip"
 	},
 	"dependencies": {
 		"@astrojs/cloudflare": "^12.6.10",
@@ -22,6 +22,7 @@
 	"devDependencies": {
 		"@iconify-json/material-symbols-light": "^1.2.53",
 		"@types/node": "^24.10.0",
+		"knip": "^5.85.0",
 		"unplugin-icons": "^23.0.1",
 		"wrangler": "^4.46.0"
 	}
