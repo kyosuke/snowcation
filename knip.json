@@ -1,0 +1,6 @@
+{
+  "$schema": "https://unpkg.com/knip@latest/schema-jsonc.json",
+  "entry": ["astro.config.mjs", "src/content.config.ts"],
+  "project": ["src/**/*.{astro,js,mjs,cjs,ts,mts,cts,jsx,tsx,md,mdx}"],
+  "ignore": ["dist/**", ".astro/**"]
+}
