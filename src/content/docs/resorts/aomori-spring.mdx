@@ -1,0 +1,187 @@
+---
+title: "青森スプリング・スキーリゾート"
+description: "岩木山の北斜面に広がる、最長3.4kmと標高差545mが魅力の青森のスノーリゾート"
+details:
+  location: "青森県 西津軽郡鰺ヶ沢町"
+  elevation: "921m / 376m"
+  courses: 22
+  longest_run: "3,400m"
+  max_gradient: "30°"
+  facilities:
+    - "レンタル"
+    - "スクール"
+    - "レストラン"
+access:
+  train_hub: "青森空港"
+  time_from_tokyo: "約3時間30分〜4時間 (羽田→青森空港 + 二次交通)"
+---
+
+import { Steps, Aside, CardGrid } from '@astrojs/starlight/components';
+import OnsenInfo from '../../../components/OnsenInfo.astro';
+import SeasonTimeline from '../../../components/SeasonTimeline.astro';
+import LiftInfo from '../../../components/LiftInfo.astro';
+import GondolaInfo from '../../../components/GondolaInfo.astro';
+
+青森県鰺ヶ沢町にある、岩木山北斜面のスノーリゾート。ロックウッド・ホテル＆スパがゲレンデに隣接し、滞在しながら滑りやすい構成。
+
+- **ロングクルーズ**: 最長3,400m、標高差545mで長く滑れる
+- **コース数**: 初級から上級まで全22コース
+- **景観**: 岩木山や日本海を望むコースレイアウト
+- **滞在拠点**: ロックウッド・ホテル＆スパがリゾート内にある
+
+## 25-26シーズン営業期間
+
+<SeasonTimeline
+  seasons={[
+    { name: '営業期間', start: '2025-12-13', end: '2026-03-08', color: '#34A853' },
+    { name: '営業期間（春）', start: '2026-03-09', end: '2026-04-05', color: '#FBBC05' },
+  ]}
+/>
+
+## リフト・ゴンドラ
+
+<GondolaInfo gondolas={[
+  { name: 'ゴンドラ', capacity: 6, length: 3512, cabinSize: 'standard', externalRack: 'ski' },
+]} />
+
+<LiftInfo lifts={[
+  { name: 'クアッドリフト1', capacity: 4, length: 2066, hood: true,  footrest: true,  safetyBar: true },
+  { name: 'クアッドリフト2', capacity: 4, length: 1500, hood: true,  footrest: false, safetyBar: true },
+  { name: 'ダイアモンドペアリフト', capacity: 2, length: 1192, hood: false, footrest: false, safetyBar: true },
+]} />
+
+## [ロックウッド・ホテル＆スパ](https://aomorispring.com/ja/accommodation)
+
+青森スプリング内にあるホテル。公式サイトでは客室数188室と案内されており、スキー滞在の拠点として使いやすい。
+
+### ワーケーション環境
+
+- **WiFi**: ホテル無料WiFiあり
+- **客室デスク**: 1名分のデスクあり
+
+### 食事
+
+- **ロックウッド・ホール**
+  - ビュッフェスタイルのレストラン
+  - 青森の郷土料理だけでなく多彩なメニュー
+  - 連泊客が飽きないよう、半分近くの料理が前日と変わっていた
+- **レストラン海山**
+
+### 温泉
+
+<CardGrid>
+  <OnsenInfo
+    name="大浴場"
+    hours="利用時間は公式サイトをご確認ください"
+    facilities={['indoor', 'outdoor', 'washing']}
+    amenities={['dryer']}
+  />
+</CardGrid>
+
+## アクセス
+
+羽田発のJALツアーを使い、青森空港からは混乗タクシーでロックウッド・ホテル＆スパへ移動するパターンが手配・移動ともに利用しやすい。
+
+| 最短移動時間 | 羽田空港出発 | 最速ホテル到着 |
+|---|---|---|
+| 約3時間30分 | 07:15 | 10:45頃 |
+
+```d2
+direction: right
+
+Haneda: 羽田空港
+Aomori: 青森空港
+Rockwood: ロックウッド・ホテル＆スパ {shape: circle}
+
+Haneda -> Aomori: "JAL便\n約75分" {
+  style: {
+    stroke-dash: 2
+    italic: false
+  }
+}
+Aomori -> Rockwood: "混乗タクシー\n約90分" {
+  style: {
+    stroke-dash: 2
+    italic: false
+  }
+}
+Rockwood -> Aomori: "混乗タクシー\n約90分" {
+  style: {
+    stroke-dash: 2
+    italic: false
+  }
+}
+Aomori -> Haneda: "JAL便\n約90分" {
+  style: {
+    stroke-dash: 2
+    italic: false
+  }
+}
+```
+
+<Aside>
+混乗タクシーは全員そろい次第出発となるため、予定より早く出発する場合がある。  
+過去利用時は往路が 9:15 発予定に対して 8:45 頃出発・10:15 頃ホテル到着、復路が 15:30 発予定に対して約15分早発・16:45 頃空港到着だった。
+</Aside>
+
+<details>
+<summary>往路ルート例</summary>
+
+| 区間 | 時刻 | 乗換余裕 | 備考 |
+|---|---|---|---|
+| ✈️ JAL141 | 羽田 07:15 → 青森 08:30 | 45分 | 普通席 |
+| 🚕 混乗タクシー | 青森空港 09:15 → ホテル 10:45頃 | - | 三八五観光タクシー（JAL141接続） |
+
+</details>
+
+<details>
+<summary>復路ルート例</summary>
+
+| 区間 | 時刻 | 乗換余裕 | 備考 |
+|---|---|---|---|
+| 🚕 混乗タクシー | ホテル 15:30 → 青森空港 17:00頃 | 60分 | 三八五観光タクシー（JAL148接続） |
+| ✈️ JAL148 | 青森 18:00 → 羽田 19:30 | - | 普通席 |
+
+</details>
+
+<details>
+<summary>過去の利用例（2泊3日）</summary>
+
+#### 1日目
+
+<Steps>
+
+1. 07:15～08:30 ✈️ JAL141（羽田 → 青森）
+
+2. 09:15～10:45頃 🚕 混乗タクシー（青森空港 → ロックウッド・ホテル＆スパ）
+
+</Steps>
+
+#### 2日目
+
+- ロックウッド・ホテル＆スパに滞在（ゲレンデ満喫プラン）
+
+#### 3日目
+
+<Steps>
+
+1. 15:30～17:00頃 🚕 混乗タクシー（ロックウッド・ホテル＆スパ → 青森空港）
+
+2. 18:00～19:30 ✈️ JAL148（青森 → 羽田）
+
+</Steps>
+
+</details>
+
+### JALツアー（鯵ヶ沢3日間コース）
+
+- 往路は「青森空港に14:30までに到着する便」、復路は「青森空港を11:55以降に出発する便」が対象
+- 原則として出発日の7日前までに予約
+- 対象期間: 2025年12月13日〜2026年3月29日 出発
+
+### 関連リンク
+
+- スキー公式: https://aomorispring.com/ja/ski
+- 宿泊公式: https://aomorispring.com/ja/accommodation
+- コース・リフトマップ: https://aomorispring.com/ja/course
+- 青森空港アクセス（JAL）: https://www.jal.co.jp/jp/ja/dom/airport/aoj/
