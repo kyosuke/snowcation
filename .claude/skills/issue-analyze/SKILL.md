@@ -22,7 +22,7 @@ Issue: $ARGUMENTS" \
   --model claude-opus-4.6 \
   --no-ask-user \
   --enable-all-github-mcp-tools \
-  --available-tools 'github-mcp-server' 'read' 'glob' 'grep' \
+  --deny-tool 'write' --deny-tool 'edit' --deny-tool 'shell' \
   -s 2>&1
 ```
 
@@ -32,5 +32,5 @@ Issue: $ARGUMENTS" \
 
 - **タイムアウト**: 分析には時間がかかることがある。Bash の timeout を 300000 に設定すること
 - **Issue の指定**: `#123`、`123`、または Issue URL のいずれでも受け付ける
-- **読み取り専用**: `available-tools` で書き込み系ツールを除外し、コードベースを変更しない
+- **読み取り専用**: `--deny-tool` で書き込み系ツール (write, edit, shell) を除外し、コードベースを変更しない
 - **出力の扱い**: 提案はあくまで参考。採用するかはユーザーの判断に委ねる
