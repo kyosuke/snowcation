@@ -15,7 +15,7 @@ Gemini CLI を使って Web 調査を行い、その結果を活用してくだ�
 ```bash
 gemini -p "以下について簡潔に調査してまとめてください。箇条書きや表で要点を整理し、冗長な説明は省いてください。出典URLがあれば末尾にまとめてください。
 
-$ARGUMENTS" --sandbox 2>&1
+$ARGUMENTS" --approval-mode plan --sandbox 2>&1
 ```
 
 2. Gemini からの応答を確認し、ユーザーの質問やタスクに役立つ形で活用する。
