@@ -12,15 +12,11 @@ Codex CLI の `review` コマンドを使ってコードレビューを実行す
 
 1. 以下のコマンドを実行してレビューを依頼する:
 
-引数なしの場合（main ブランチとの差分をレビュー）:
 ```bash
-codex review --base main "日本語でレビューしてください。バグ、セキュリティ、パフォーマンス、可読性の観点でコメントしてください。"
+codex review --base main
 ```
 
-引数ありの場合（カスタム指示）:
-```bash
-codex review --base main "$ARGUMENTS"
-```
+`$ARGUMENTS` にベースブランチの指定がある場合（例: `--base develop`）はそれに従う。
 
 2. Codex CLI からのレビュー結果を確認し、ユーザーに要約して提示する。
 
