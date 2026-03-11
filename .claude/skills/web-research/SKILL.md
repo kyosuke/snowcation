@@ -1,7 +1,6 @@
 ---
 name: web-research
 description: Gemini CLI を使ってWebを調査し、結果のサマリーを返す。Web検索やURLの内容確認が必要なときに使う。
-disable-model-invocation: true
 allowed-tools: Bash(gemini *)
 ---
 
