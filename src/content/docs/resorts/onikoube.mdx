@@ -16,11 +16,11 @@ access:
   time_from_tokyo: "約3時間 (新幹線+車)"
 ---
 
-import { Steps, Aside, CardGrid } from '@astrojs/starlight/components';
-import OnsenInfo from '../../../components/OnsenInfo.astro';
-import SeasonTimeline from '../../../components/SeasonTimeline.astro';
-import LiftInfo from '../../../components/LiftInfo.astro';
-import GondolaInfo from '../../../components/GondolaInfo.astro';
+import { Steps, Aside, CardGrid } from "@astrojs/starlight/components";
+import OnsenInfo from "../../../components/OnsenInfo.astro";
+import SeasonTimeline from "../../../components/SeasonTimeline.astro";
+import LiftInfo from "../../../components/LiftInfo.astro";
+import GondolaInfo from "../../../components/GondolaInfo.astro";
 
 コースのバリエーションが素晴らしく、広さもある下部のゲレンデと自然の地形を生かした上部のコースがおすすめのゲレンデ。
 
@@ -31,28 +31,70 @@ import GondolaInfo from '../../../components/GondolaInfo.astro';
 ## 25-26シーズン営業期間
 
 <SeasonTimeline
-  seasons={[
-    { name: 'スノーシーズン', start: '2025-12-12', end: '2026-03-22', color: '#34A853' },
-  ]}
-  closures={[
-    { start: '2025-12-12', end: '2025-12-20' },
-  ]}
+  seasons={[{ name: "スノーシーズン", start: "2025-12-12", end: "2026-03-22", color: "#34A853" }]}
+  closures={[{ start: "2025-12-12", end: "2025-12-20" }]}
 />
 
 ## リフト・ゴンドラ
 
-<GondolaInfo gondolas={[
-  { name: 'テレキャビン', capacity: 4, length: 1882, cabinSize: 'narrow', externalRack: 'ski' },
-]} />
+<GondolaInfo
+  gondolas={[
+    { name: "テレキャビン", capacity: 4, length: 1882, cabinSize: "narrow", externalRack: "ski" },
+  ]}
+/>
 
-<LiftInfo lifts={[
-  { name: '第1ペアリフト', capacity: 2, length: 551,  hood: false, footrest: false, safetyBar: false },
-  { name: '第2ペアリフト', capacity: 2, length: 817,  hood: false, footrest: false, safetyBar: false },
-  { name: '第3ペアリフト', capacity: 2, length: 500,  hood: false, footrest: false, safetyBar: false },
-  { name: '小柴ペアリフト', capacity: 2, length: 900,  hood: false, footrest: false, safetyBar: false },
-  { name: '第5ペアリフト', capacity: 2, length: 351,  hood: false, footrest: false, safetyBar: false },
-  { name: '第6ペアリフト', capacity: 2, length: 750,  hood: false, footrest: false, safetyBar: false },
-]} />
+<LiftInfo
+  lifts={[
+    {
+      name: "第1ペアリフト",
+      capacity: 2,
+      length: 551,
+      hood: false,
+      footrest: false,
+      safetyBar: false,
+    },
+    {
+      name: "第2ペアリフト",
+      capacity: 2,
+      length: 817,
+      hood: false,
+      footrest: false,
+      safetyBar: false,
+    },
+    {
+      name: "第3ペアリフト",
+      capacity: 2,
+      length: 500,
+      hood: false,
+      footrest: false,
+      safetyBar: false,
+    },
+    {
+      name: "小柴ペアリフト",
+      capacity: 2,
+      length: 900,
+      hood: false,
+      footrest: false,
+      safetyBar: false,
+    },
+    {
+      name: "第5ペアリフト",
+      capacity: 2,
+      length: 351,
+      hood: false,
+      footrest: false,
+      safetyBar: false,
+    },
+    {
+      name: "第6ペアリフト",
+      capacity: 2,
+      length: 750,
+      hood: false,
+      footrest: false,
+      safetyBar: false,
+    },
+  ]}
+/>
 
 公式サイト: https://www.onikoube.com/snow/
 
@@ -67,15 +109,15 @@ import GondolaInfo from '../../../components/GondolaInfo.astro';
     name="3F 大浴場"
     hours="5:00〜24:00"
     quality="アルカリ性単純泉"
-    facilities={['indoor', 'cold', 'washing']}
-    amenities={['dryer']}
+    facilities={["indoor", "cold", "washing"]}
+    amenities={["dryer"]}
   />
   <OnsenInfo
     name="荒雄の湯"
     hours="14:00〜24:00"
     quality="アルカリ性単純泉"
-    facilities={['indoor', 'outdoor', 'cold', 'sauna', 'washing']}
-    amenities={['locker', 'dryer']}
+    facilities={["indoor", "outdoor", "cold", "sauna", "washing"]}
+    amenities={["locker", "dryer"]}
   />
 </CardGrid>
 
@@ -86,9 +128,9 @@ import GondolaInfo from '../../../components/GondolaInfo.astro';
 
 東京からは東北新幹線で古川駅へ。そこから送迎シャトルバスまたはJR陸羽東線で移動。
 
-| | 最短移動時間 | 東京駅出発 | 最速ホテル到着 |
-|---|---|---|---|
-| 行き | 3時間35分 | 8:45 | 12:20 |
+|      | 最短移動時間 | 東京駅出発 | 最速ホテル到着 |
+| ---- | ------------ | ---------- | -------------- |
+| 行き | 3時間35分    | 8:45       | 12:20          |
 
 ```d2
 direction: right
@@ -129,17 +171,17 @@ Naruko -> Onikoube: "大崎市営バス\n 約45分" {
 
 ### 7:56 東京発 → ホテル着 12:20（余裕パターン）
 
-| 区間 | 時刻 | 乗換余裕 | 備考 |
-|---|---|---|---|
-| 🚄 はやぶさ103号 | 東京 07:56 → 古川 09:47 | 1時間23分 | 駅中タリーズを利用 |
-| 🚌 シャトルバス1便 | 古川 11:10 → ホテル 12:20 | - | 過去の利用例 |
+| 区間               | 時刻                      | 乗換余裕  | 備考               |
+| ------------------ | ------------------------- | --------- | ------------------ |
+| 🚄 はやぶさ103号   | 東京 07:56 → 古川 09:47   | 1時間23分 | 駅中タリーズを利用 |
+| 🚌 シャトルバス1便 | 古川 11:10 → ホテル 12:20 | -         | 過去の利用例       |
 
 ### 8:45 東京発 → ホテル着 12:20（ギリギリパターン）
 
-| 区間 | 時刻 | 乗換余裕 | 備考 |
-|---|---|---|---|
-| 🚄 やまびこ53号 | 東京 08:45 → 古川 11:03 | 7分 | バス乗り場へ移動 |
-| 🚌 シャトルバス1便 | 古川 11:10 → ホテル 12:20 | - | 最短移動時間パターン |
+| 区間               | 時刻                      | 乗換余裕 | 備考                 |
+| ------------------ | ------------------------- | -------- | -------------------- |
+| 🚄 やまびこ53号    | 東京 08:45 → 古川 11:03   | 7分      | バス乗り場へ移動     |
+| 🚌 シャトルバス1便 | 古川 11:10 → ホテル 12:20 | -        | 最短移動時間パターン |
 
 </details>
 
@@ -150,17 +192,17 @@ Naruko -> Onikoube: "大崎市営バス\n 約45分" {
 
 **ホテル行き（迎え）**
 
-| 便 | 古川駅発 | 鳴子温泉駅発 | ホテル着 |
-|---|---|---|---|
-| 1便 | 11:10 | 12:00 | 12:20 |
-| 2便 | 17:10 | 18:00 | 18:20 |
+| 便  | 古川駅発 | 鳴子温泉駅発 | ホテル着 |
+| --- | -------- | ------------ | -------- |
+| 1便 | 11:10    | 12:00        | 12:20    |
+| 2便 | 17:10    | 18:00        | 18:20    |
 
 **ホテル発（送り）**
 
-| 便 | ホテル発 | 鳴子温泉駅着 | 古川駅着 |
-|---|---|---|---|
-| 1便 | 9:30 | 9:50 | 10:40 |
-| 2便 | 11:00 | 11:20 | 12:10 |
+| 便  | ホテル発 | 鳴子温泉駅着 | 古川駅着 |
+| --- | -------- | ------------ | -------- |
+| 1便 | 9:30     | 9:50         | 10:40    |
+| 2便 | 11:00    | 11:20        | 12:10    |
 
 </details>
 

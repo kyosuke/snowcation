@@ -16,11 +16,11 @@ access:
   time_from_tokyo: "約3時間30分〜4時間 (羽田→青森空港 + 二次交通)"
 ---
 
-import { Steps, Aside, CardGrid } from '@astrojs/starlight/components';
-import OnsenInfo from '../../../components/OnsenInfo.astro';
-import SeasonTimeline from '../../../components/SeasonTimeline.astro';
-import LiftInfo from '../../../components/LiftInfo.astro';
-import GondolaInfo from '../../../components/GondolaInfo.astro';
+import { Steps, Aside, CardGrid } from "@astrojs/starlight/components";
+import OnsenInfo from "../../../components/OnsenInfo.astro";
+import SeasonTimeline from "../../../components/SeasonTimeline.astro";
+import LiftInfo from "../../../components/LiftInfo.astro";
+import GondolaInfo from "../../../components/GondolaInfo.astro";
 
 青森県鰺ヶ沢町にある、岩木山北斜面のスノーリゾート。ロックウッド・ホテル＆スパがゲレンデに隣接し、滞在しながら滑りやすい構成。
 
@@ -33,22 +33,47 @@ import GondolaInfo from '../../../components/GondolaInfo.astro';
 
 <SeasonTimeline
   seasons={[
-    { name: '営業期間', start: '2025-12-13', end: '2026-03-08', color: '#34A853' },
-    { name: '営業期間（春）', start: '2026-03-09', end: '2026-04-05', color: '#FBBC05' },
+    { name: "営業期間", start: "2025-12-13", end: "2026-03-08", color: "#34A853" },
+    { name: "営業期間（春）", start: "2026-03-09", end: "2026-04-05", color: "#FBBC05" },
   ]}
 />
 
 ## リフト・ゴンドラ
 
-<GondolaInfo gondolas={[
-  { name: 'ゴンドラ', capacity: 6, length: 3512, cabinSize: 'standard', externalRack: 'ski' },
-]} />
+<GondolaInfo
+  gondolas={[
+    { name: "ゴンドラ", capacity: 6, length: 3512, cabinSize: "standard", externalRack: "ski" },
+  ]}
+/>
 
-<LiftInfo lifts={[
-  { name: 'クアッドリフト1', capacity: 4, length: 2066, hood: true,  footrest: true,  safetyBar: true },
-  { name: 'クアッドリフト2', capacity: 4, length: 1500, hood: true,  footrest: false, safetyBar: true },
-  { name: 'ダイアモンドペアリフト', capacity: 2, length: 1192, hood: false, footrest: false, safetyBar: true },
-]} />
+<LiftInfo
+  lifts={[
+    {
+      name: "クアッドリフト1",
+      capacity: 4,
+      length: 2066,
+      hood: true,
+      footrest: true,
+      safetyBar: true,
+    },
+    {
+      name: "クアッドリフト2",
+      capacity: 4,
+      length: 1500,
+      hood: true,
+      footrest: false,
+      safetyBar: true,
+    },
+    {
+      name: "ダイアモンドペアリフト",
+      capacity: 2,
+      length: 1192,
+      hood: false,
+      footrest: false,
+      safetyBar: true,
+    },
+  ]}
+/>
 
 ## [ロックウッド・ホテル＆スパ](https://aomorispring.com/ja/accommodation)
 
@@ -73,8 +98,8 @@ import GondolaInfo from '../../../components/GondolaInfo.astro';
   <OnsenInfo
     name="大浴場"
     hours="利用時間は公式サイトをご確認ください"
-    facilities={['indoor', 'outdoor', 'washing']}
-    amenities={['dryer']}
+    facilities={["indoor", "outdoor", "washing"]}
+    amenities={["dryer"]}
   />
 </CardGrid>
 
@@ -83,8 +108,8 @@ import GondolaInfo from '../../../components/GondolaInfo.astro';
 羽田発のJALツアーを使い、青森空港からは混乗タクシーでロックウッド・ホテル＆スパへ移動するパターンが手配・移動ともに利用しやすい。
 
 | 最短移動時間 | 羽田空港出発 | 最速ホテル到着 |
-|---|---|---|
-| 約3時間30分 | 07:15 | 10:45頃 |
+| ------------ | ------------ | -------------- |
+| 約3時間30分  | 07:15        | 10:45頃        |
 
 ```d2
 direction: right
@@ -120,27 +145,28 @@ Aomori -> Haneda: "JAL便\n約90分" {
 ```
 
 <Aside>
-混乗タクシーは全員そろい次第出発となるため、予定より早く出発する場合がある。  
-過去利用時は往路が 9:15 発予定に対して 8:45 頃出発・10:15 頃ホテル到着、復路が 15:30 発予定に対して約15分早発・16:45 頃空港到着だった。
+  混乗タクシーは全員そろい次第出発となるため、予定より早く出発する場合がある。 過去利用時は往路が
+  9:15 発予定に対して 8:45 頃出発・10:15 頃ホテル到着、復路が 15:30 発予定に対して約15分早発・16:45
+  頃空港到着だった。
 </Aside>
 
 <details>
 <summary>往路ルート例</summary>
 
-| 区間 | 時刻 | 乗換余裕 | 備考 |
-|---|---|---|---|
-| ✈️ JAL141 | 羽田 07:15 → 青森 08:30 | 45分 | 普通席 |
-| 🚕 混乗タクシー | 青森空港 09:15 → ホテル 10:45頃 | - | 三八五観光タクシー（JAL141接続） |
+| 区間            | 時刻                            | 乗換余裕 | 備考                             |
+| --------------- | ------------------------------- | -------- | -------------------------------- |
+| ✈️ JAL141       | 羽田 07:15 → 青森 08:30         | 45分     | 普通席                           |
+| 🚕 混乗タクシー | 青森空港 09:15 → ホテル 10:45頃 | -        | 三八五観光タクシー（JAL141接続） |
 
 </details>
 
 <details>
 <summary>復路ルート例</summary>
 
-| 区間 | 時刻 | 乗換余裕 | 備考 |
-|---|---|---|---|
-| 🚕 混乗タクシー | ホテル 15:30 → 青森空港 17:00頃 | 60分 | 三八五観光タクシー（JAL148接続） |
-| ✈️ JAL148 | 青森 18:00 → 羽田 19:30 | - | 普通席 |
+| 区間            | 時刻                            | 乗換余裕 | 備考                             |
+| --------------- | ------------------------------- | -------- | -------------------------------- |
+| 🚕 混乗タクシー | ホテル 15:30 → 青森空港 17:00頃 | 60分     | 三八五観光タクシー（JAL148接続） |
+| ✈️ JAL148       | 青森 18:00 → 羽田 19:30         | -        | 普通席                           |
 
 </details>
 

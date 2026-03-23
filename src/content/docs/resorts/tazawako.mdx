@@ -16,13 +16,13 @@ access:
   time_from_tokyo: "約3時間 (新幹線+バス)"
 ---
 
-import { Steps, Aside, CardGrid } from '@astrojs/starlight/components';
-import OnsenInfo from '../../../components/OnsenInfo.astro';
-import SeasonTimeline from '../../../components/SeasonTimeline.astro';
-import LiftInfo from '../../../components/LiftInfo.astro';
+import { Steps, Aside, CardGrid } from "@astrojs/starlight/components";
+import OnsenInfo from "../../../components/OnsenInfo.astro";
+import SeasonTimeline from "../../../components/SeasonTimeline.astro";
+import LiftInfo from "../../../components/LiftInfo.astro";
 
 <Aside type="caution">
-このスキー場にはスキーインスキーアウトのホテルはありません。ただし、ゲレンデへの送迎付きで温泉も充実した、このサイトのコンセプトに合った宿泊先があるため掲載しています。
+  このスキー場にはスキーインスキーアウトのホテルはありません。ただし、ゲレンデへの送迎付きで温泉も充実した、このサイトのコンセプトに合った宿泊先があるため掲載しています。
 </Aside>
 
 秋田駒ヶ岳の中腹に広がる、東北を代表するスノーリゾート。深さ日本一を誇るコバルトブルーの田沢湖を眼下に望みながら滑ることができる、景観も抜群のゲレンデ。
@@ -35,24 +35,64 @@ import LiftInfo from '../../../components/LiftInfo.astro';
 ## 25-26シーズン営業期間
 
 <SeasonTimeline
-  seasons={[
-    { name: 'スノーシーズン', start: '2025-12-20', end: '2026-03-29', color: '#34A853' },
-  ]}
-  closures={[
-    { start: '2025-12-21', end: '2025-12-27' },
-  ]}
+  seasons={[{ name: "スノーシーズン", start: "2025-12-20", end: "2026-03-29", color: "#34A853" }]}
+  closures={[{ start: "2025-12-21", end: "2025-12-27" }]}
 />
 
 ## リフト
 
-<LiftInfo lifts={[
-  { name: 'ぎんれいクワッドリフト', capacity: 4, length: 1566, hood: true,  footrest: true,  safetyBar: true  },
-  { name: 'かもしかクワッドリフト', capacity: 4, length: 1083, hood: true,  footrest: false, safetyBar: true  },
-  { name: '水沢リフト',             capacity: 2, length: 933,  hood: false, footrest: false, safetyBar: false },
-  { name: 'ぎんれい第3リフト',      capacity: 2, length: 830,  hood: false, footrest: false, safetyBar: false },
-  { name: 'ぎんれい第1リフト',      capacity: 2, length: 820,  hood: false, footrest: false, safetyBar: false },
-  { name: '黒森山リフト',           capacity: 2, length: 528,  hood: false, footrest: false, safetyBar: false },
-]} />
+<LiftInfo
+  lifts={[
+    {
+      name: "ぎんれいクワッドリフト",
+      capacity: 4,
+      length: 1566,
+      hood: true,
+      footrest: true,
+      safetyBar: true,
+    },
+    {
+      name: "かもしかクワッドリフト",
+      capacity: 4,
+      length: 1083,
+      hood: true,
+      footrest: false,
+      safetyBar: true,
+    },
+    {
+      name: "水沢リフト",
+      capacity: 2,
+      length: 933,
+      hood: false,
+      footrest: false,
+      safetyBar: false,
+    },
+    {
+      name: "ぎんれい第3リフト",
+      capacity: 2,
+      length: 830,
+      hood: false,
+      footrest: false,
+      safetyBar: false,
+    },
+    {
+      name: "ぎんれい第1リフト",
+      capacity: 2,
+      length: 820,
+      hood: false,
+      footrest: false,
+      safetyBar: false,
+    },
+    {
+      name: "黒森山リフト",
+      capacity: 2,
+      length: 528,
+      hood: false,
+      footrest: false,
+      safetyBar: false,
+    },
+  ]}
+/>
 
 ## [亀の井ホテル 田沢湖](https://kamenoi-hotels.com/tazawako/)
 
@@ -74,14 +114,14 @@ import LiftInfo from '../../../components/LiftInfo.astro';
     name="仙人の湯（大浴場）"
     hours="15:00〜24:00 / 翌5:00〜10:00"
     quality="硫酸塩泉・硫黄泉"
-    facilities={['indoor', 'washing']}
-    amenities={['dryer']}
+    facilities={["indoor", "washing"]}
+    amenities={["dryer"]}
   />
   <OnsenInfo
     name="涌寿の湯（露天風呂）"
     hours="16:00〜24:00 / 翌5:00〜10:00"
     quality="硫酸塩泉・硫黄泉"
-    facilities={['outdoor']}
+    facilities={["outdoor"]}
     amenities={[]}
   />
 </CardGrid>
@@ -94,10 +134,10 @@ import LiftInfo from '../../../components/LiftInfo.astro';
 
 東京からは秋田新幹線こまちで田沢湖駅へ。ホテルの無料シャトルバスを利用する場合、移動日はゲレンデには寄れないため、チェックイン日は滑らない日として割り切るのがよい。
 
-| | 移動時間 | 東京駅出発 | ホテル到着 |
-|---|---|---|---|
-| 行き | 約3時間40分 | 12:20 | 約16:00 |
-| 帰り | 約4時間 | 10:00 (ホテル発) | 14:08 |
+|      | 移動時間    | 東京駅出発       | ホテル到着 |
+| ---- | ----------- | ---------------- | ---------- |
+| 行き | 約3時間40分 | 12:20            | 約16:00    |
+| 帰り | 約4時間     | 10:00 (ホテル発) | 14:08      |
 
 ```d2
 direction: right
@@ -167,17 +207,17 @@ Hotel <- SkiArea: "羽後交通バス\n約8分" {
 
 ### 12:20 東京発 → ホテル着 約16:00
 
-| 区間 | 時刻 | 乗換余裕 | 備考 |
-|---|---|---|---|
-| 🚄 こまち | 東京 12:20 → 田沢湖 15:09 | 21分 | |
-| 🚌 ホテル送迎バス | 田沢湖 15:30 → ホテル着 | - | 前日17:00までに要予約 |
+| 区間              | 時刻                      | 乗換余裕 | 備考                  |
+| ----------------- | ------------------------- | -------- | --------------------- |
+| 🚄 こまち         | 東京 12:20 → 田沢湖 15:09 | 21分     |                       |
+| 🚌 ホテル送迎バス | 田沢湖 15:30 → ホテル着   | -        | 前日17:00までに要予約 |
 
 ### 帰り：10:00 ホテル発 → 東京着 14:08
 
-| 区間 | 時刻 | 乗換余裕 | 備考 |
-|---|---|---|---|
-| 🚌 ホテル送迎バス | ホテル 10:00 → 田沢湖 | - | |
-| 🚄 こまち | 田沢湖 11:09 → 東京 14:08 | - | |
+| 区間              | 時刻                      | 乗換余裕 | 備考 |
+| ----------------- | ------------------------- | -------- | ---- |
+| 🚌 ホテル送迎バス | ホテル 10:00 → 田沢湖     | -        |      |
+| 🚄 こまち         | 田沢湖 11:09 → 東京 14:08 | -        |      |
 
 </details>
 
@@ -189,21 +229,21 @@ Hotel <- SkiArea: "羽後交通バス\n約8分" {
 杉谷地は亀の井ホテル田沢湖から徒歩2分の最寄りバス停。
 
 | 田沢湖駅発 | スキー場前着 | 杉谷地着 |
-|---|---|---|
-| 06:55 | 07:22 | 07:30 |
-| 07:45 | 08:12 | 08:20 |
-| 08:45 | 09:12 | 09:20 |
-| 09:40 | 10:07 | 10:15 |
-| 10:40 | 11:07 | 11:15 |
-| 12:25 | 12:52 | 13:00 |
-| 13:35 | 14:02 | 14:10 |
-| 14:25 | 14:52 | 15:00 |
-| 15:35 | 16:02 | 16:10 |
-| 16:35 | 17:02 | 17:10 |
-| 17:20 | 17:47 | 17:55 |
+| ---------- | ------------ | -------- |
+| 06:55      | 07:22        | 07:30    |
+| 07:45      | 08:12        | 08:20    |
+| 08:45      | 09:12        | 09:20    |
+| 09:40      | 10:07        | 10:15    |
+| 10:40      | 11:07        | 11:15    |
+| 12:25      | 12:52        | 13:00    |
+| 13:35      | 14:02        | 14:10    |
+| 14:25      | 14:52        | 15:00    |
+| 15:35      | 16:02        | 16:10    |
+| 16:35      | 17:02        | 17:10    |
+| 17:20      | 17:47        | 17:55    |
 
 <Aside type="caution">
-時刻表は変更される場合があります。最新情報は羽後交通公式サイトまたはスキー場公式サイトでご確認ください。
+  時刻表は変更される場合があります。最新情報は羽後交通公式サイトまたはスキー場公式サイトでご確認ください。
 </Aside>
 
 </details>
@@ -216,29 +256,29 @@ Hotel <- SkiArea: "羽後交通バス\n約8分" {
 **ホテル行き（迎え）**
 
 | 田沢湖駅発 |
-|---|
-| 15:30 |
-| 16:30 |
-| 17:30 |
+| ---------- |
+| 15:30      |
+| 16:30      |
+| 17:30      |
 
 **ホテル発（送り）**
 
-| ホテル発 | 備考 |
-|---|---|
-| 8:00 | 冬期はスキー場にも立ち寄り |
-| 9:00 | 冬期はスキー場にも立ち寄り |
-| 10:00 | |
+| ホテル発 | 備考                       |
+| -------- | -------------------------- |
+| 8:00     | 冬期はスキー場にも立ち寄り |
+| 9:00     | 冬期はスキー場にも立ち寄り |
+| 10:00    |                            |
 
 **スキー場 ⇔ ホテル**（冬期のみ）
 
-| 区間 | 時刻 |
-|---|---|
+| 区間              | 時刻           |
+| ----------------- | -------------- |
 | ホテル → スキー場 | 8:00 / 9:00 発 |
-| スキー場 → ホテル | 16:10 発 |
+| スキー場 → ホテル | 16:10 発       |
 
 <Aside type="caution">
-前日17:00までの完全予約制。定員に達した場合はご乗車できません。
-予約・問合せ：亀の井ホテル 田沢湖 TEL 0187-46-2131
+  前日17:00までの完全予約制。定員に達した場合はご乗車できません。 予約・問合せ：亀の井ホテル 田沢湖
+  TEL 0187-46-2131
 </Aside>
 
 </details>
@@ -250,6 +290,4 @@ Hotel <- SkiArea: "羽後交通バス\n約8分" {
 - 宛先: 亀の井ホテル 田沢湖
 - 電話番号: 0187-46-2131
 
-<Aside type="tip">
-送状の備考欄に「チェックイン日」と「宿泊者名」を必ず記載すること。
-</Aside>
+<Aside type="tip">送状の備考欄に「チェックイン日」と「宿泊者名」を必ず記載すること。</Aside>
