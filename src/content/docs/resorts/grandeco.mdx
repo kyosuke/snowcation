@@ -17,11 +17,11 @@ access:
   time_from_tokyo: "約3時間10分 (新幹線+バス)"
 ---
 
-import { Steps, Aside, CardGrid } from '@astrojs/starlight/components';
-import OnsenInfo from '../../../components/OnsenInfo.astro';
-import SeasonTimeline from '../../../components/SeasonTimeline.astro';
-import LiftInfo from '../../../components/LiftInfo.astro';
-import GondolaInfo from '../../../components/GondolaInfo.astro';
+import { Steps, Aside, CardGrid } from "@astrojs/starlight/components";
+import OnsenInfo from "../../../components/OnsenInfo.astro";
+import SeasonTimeline from "../../../components/SeasonTimeline.astro";
+import LiftInfo from "../../../components/LiftInfo.astro";
+import GondolaInfo from "../../../components/GondolaInfo.astro";
 
 初心者向けコースが多く、家族連れや初級者にも優しいゲレンデ。標高が高いため積雪量が多く、オープン期間も11月下旬から4月中旬までと長い。雪質は非常に良く、パウダー好きも満足できる環境。
 
@@ -34,32 +34,36 @@ import GondolaInfo from '../../../components/GondolaInfo.astro';
 
 <SeasonTimeline
   seasons={[
-    { name: 'プレシーズン',       start: '2025-11-22', end: '2025-12-12', color: '#4285F4' },
-    { name: 'オンシーズン',       start: '2025-12-13', end: '2026-03-29', color: '#34A853' },
-    { name: 'スプリングシーズン', start: '2026-03-30', end: '2026-04-19', color: '#FBBC05' },
+    { name: "プレシーズン", start: "2025-11-22", end: "2025-12-12", color: "#4285F4" },
+    { name: "オンシーズン", start: "2025-12-13", end: "2026-03-29", color: "#34A853" },
+    { name: "スプリングシーズン", start: "2026-03-30", end: "2026-04-19", color: "#FBBC05" },
   ]}
-  closures={[
-    { start: '2025-11-22', end: '2025-12-06' },
-  ]}
+  closures={[{ start: "2025-11-22", end: "2025-12-06" }]}
 />
 
 ## リフト・ゴンドラ
 
-<GondolaInfo gondolas={[
-  { name: 'ゴンドラ', capacity: 6, length: 2392, cabinSize: 'narrow', externalRack: 'ski' },
-]} />
+<GondolaInfo
+  gondolas={[
+    { name: "ゴンドラ", capacity: 6, length: 2392, cabinSize: "narrow", externalRack: "ski" },
+  ]}
+/>
 
-<LiftInfo lifts={[
-  { name: '第1クワッド', capacity: 4, length: 1496, hood: true, footrest: true, safetyBar: true },
-  { name: '第2クワッド', capacity: 4, length: 1011, hood: true, footrest: true, safetyBar: true },
-  { name: '第3クワッド', capacity: 4, length: 1138, hood: true, footrest: true, safetyBar: true },
-]} />
+<LiftInfo
+  lifts={[
+    { name: "第1クワッド", capacity: 4, length: 1496, hood: true, footrest: true, safetyBar: true },
+    { name: "第2クワッド", capacity: 4, length: 1011, hood: true, footrest: true, safetyBar: true },
+    { name: "第3クワッド", capacity: 4, length: 1138, hood: true, footrest: true, safetyBar: true },
+  ]}
+/>
 
-### レストラン 
+### レストラン
+
 - **マウンテンセンター (ベース)**: ハンバーガーや山塩ラーメンが人気。
 - **ゴンドラ終点**: 焼きたてのピザが楽しめる。
 
 ### スクール
+
 - JSBA、SAJ、SIAと主要な3種が揃っており、スノーボードのレッスンも充実。
 
 ## [EN RESORT Grandeco Hotel](https://resort.en-hotel.com/grandeco/hotel/ja/)
@@ -67,21 +71,22 @@ import GondolaInfo from '../../../components/GondolaInfo.astro';
 ゲレンデに隣接した、非常に清潔感のあるホテル。部屋も広く、ワーケーションにも適した環境が整っている。
 
 ### ⭐️ 宿泊者特典
+
 - **ゴンドラ優先乗車**: 土日などの混雑時、ホテル宿泊者はゴンドラに優先的に乗車可能。
-- **リフト券割引**: 
+- **リフト券割引**:
   - 公式サイトからの予約者：1日券 3,000円
   - ツアー予約者：3,800円
   - ※公式サイト経由の予約が最もお得。
 
 ### チェックイン・チェックアウト
+
 - **チェックイン**: 15:00
 - **チェックアウト**: 11:00（公式サイト予約: 12:00）
 
-<Aside>
-部屋の空き状況により有料でレイトチェックアウトが可能（3時間単位）。
-</Aside>
+<Aside>部屋の空き状況により有料でレイトチェックアウトが可能（3時間単位）。</Aside>
 
 ### ワーケーション環境
+
 - **WiFi**: 非常に快適（216号室での計測例：DL 11.7Mbps / UP 25.9Mbps）。
 - **作業スペース**: ラウンジに仕事ができるスペースあり。
 - **サービス**: 宿泊者はセルフのコーヒーが無料。ラウンジでの焼きマシュマロサービスもある。
@@ -93,8 +98,8 @@ import GondolaInfo from '../../../components/GondolaInfo.astro';
     name="ぶなの湯"
     hours="6:00 - 24:00"
     quality="単純泉"
-    facilities={['indoor', 'outdoor', 'sauna', 'cold', 'washing']}
-    amenities={['dryer']}
+    facilities={["indoor", "outdoor", "sauna", "cold", "washing"]}
+    amenities={["dryer"]}
   />
 </CardGrid>
 
@@ -105,9 +110,9 @@ import GondolaInfo from '../../../components/GondolaInfo.astro';
 
 東京からは東北新幹線で郡山駅へ。磐越西線に乗換、猪苗代駅へ。そこから予約制のシャトルバスで移動が基本。土日なら郡山駅からの直通バスも運行。
 
-| | 最短移動時間 | 東京駅出発 | 最速ホテル到着 |
-|---|---|---|---|
-| 行き | 3時間30分 | 6:40 | 10:10 |
+|      | 最短移動時間 | 東京駅出発 | 最速ホテル到着 |
+| ---- | ------------ | ---------- | -------------- |
+| 行き | 3時間30分    | 6:40       | 10:10          |
 
 ```d2
 direction: right
@@ -148,19 +153,19 @@ Koriyama -> Grandeco: "[土日・特定日・年末年始]\n有料路線バス �
 
 ### 6:40 東京発 → ホテル着 10:10
 
-| 区間 | 時刻 | 乗換余裕 | 備考 |
-|---|---|---|---|
-| 🚄 やまびこ203号 | 東京 06:40 → 郡山 08:20 | 9分 | 新幹線から磐越西線へ急ぐ |
-| 🚃 磐越西線 | 郡山 08:29 → 猪苗代 09:10 | 10分 | 接続なので安心 |
-| 🚌 シャトルバス2便 | 猪苗代 09:20 → ホテル 10:10 | - | - |
+| 区間               | 時刻                        | 乗換余裕 | 備考                     |
+| ------------------ | --------------------------- | -------- | ------------------------ |
+| 🚄 やまびこ203号   | 東京 06:40 → 郡山 08:20     | 9分      | 新幹線から磐越西線へ急ぐ |
+| 🚃 磐越西線        | 郡山 08:29 → 猪苗代 09:10   | 10分     | 接続なので安心           |
+| 🚌 シャトルバス2便 | 猪苗代 09:20 → ホテル 10:10 | -        | -                        |
 
 ### 6:20 東京発 → ホテル着 10:10
 
-| 区間 | 時刻 | 乗換余裕 | 備考 |
-|---|---|---|---|
-| 🚄 やまびこ201号 | 東京 06:20発 → 郡山 07:55着 | 34分 | 時間が余るので待合室 |
-| 🚃 磐越西線 | 郡山 08:29 → 猪苗代 09:10 | 10分 | 接続なので安心 |
-| 🚌 シャトルバス2便 | 猪苗代 09:20 → ホテル 10:10 | - | - |
+| 区間               | 時刻                        | 乗換余裕 | 備考                 |
+| ------------------ | --------------------------- | -------- | -------------------- |
+| 🚄 やまびこ201号   | 東京 06:20発 → 郡山 07:55着 | 34分     | 時間が余るので待合室 |
+| 🚃 磐越西線        | 郡山 08:29 → 猪苗代 09:10   | 10分     | 接続なので安心       |
+| 🚌 シャトルバス2便 | 猪苗代 09:20 → ホテル 10:10 | -        | -                    |
 
 </details>
 
@@ -171,23 +176,23 @@ Koriyama -> Grandeco: "[土日・特定日・年末年始]\n有料路線バス �
 
 **猪苗代駅 → ホテル行き**
 
-| 便 | JR接続 (磐越西線) | 猪苗代駅発 | ホテル着 |
-|---|---|---|---|
-| 2便 | 郡山 8:29 → 猪苗代 9:10 | 9:20 | 10:10 |
-| 4便 | 郡山 11:15 → 猪苗代 11:58 | 12:10 | 13:00 |
-| 6便 | 郡山 16:15 → 猪苗代 16:53 | 17:00 | 17:50 |
+| 便  | JR接続 (磐越西線)         | 猪苗代駅発 | ホテル着 |
+| --- | ------------------------- | ---------- | -------- |
+| 2便 | 郡山 8:29 → 猪苗代 9:10   | 9:20       | 10:10    |
+| 4便 | 郡山 11:15 → 猪苗代 11:58 | 12:10      | 13:00    |
+| 6便 | 郡山 16:15 → 猪苗代 16:53 | 17:00      | 17:50    |
 
 **ホテル → 猪苗代駅行き**
 
-| 便 | ホテル発 | 猪苗代駅着 | JR接続 (磐越西線) |
-|---|---|---|---|
-| 1便 | 8:00 | 8:50 | 猪苗代 8:57 → 郡山 9:34 |
-| 3便 | 11:00 | 11:50 | 猪苗代 11:58 → 郡山 12:36 |
-| 5便 | 15:45 | 16:35 | 猪苗代 16:53 → 郡山 17:36 |
+| 便  | ホテル発 | 猪苗代駅着 | JR接続 (磐越西線)         |
+| --- | -------- | ---------- | ------------------------- |
+| 1便 | 8:00     | 8:50       | 猪苗代 8:57 → 郡山 9:34   |
+| 3便 | 11:00    | 11:50      | 猪苗代 11:58 → 郡山 12:36 |
+| 5便 | 15:45    | 16:35      | 猪苗代 16:53 → 郡山 17:36 |
 
 <Aside type="caution">
-事前予約制。前日の17:00までにお申し込みください。ご予約が定員に達した場合はご乗車できません。
-気象状況や道路状況により到着時刻が遅れる場合がございます。
+  事前予約制。前日の17:00までにお申し込みください。ご予約が定員に達した場合はご乗車できません。
+  気象状況や道路状況により到着時刻が遅れる場合がございます。
 </Aside>
 
 https://resort.en-hotel.com/grandeco/hotel/ja/access/
@@ -228,6 +233,4 @@ https://resort.en-hotel.com/grandeco/hotel/ja/access/
 - 宛先: EN RESORT Grandeco Hotel
 - 電話番号: 0241-32-3200
 
-<Aside type="tip">
-送状の備考欄に「チェックイン日」と「宿泊者名」を必ず記載すること。
-</Aside>
+<Aside type="tip">送状の備考欄に「チェックイン日」と「宿泊者名」を必ず記載すること。</Aside>

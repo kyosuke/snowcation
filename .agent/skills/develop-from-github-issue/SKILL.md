@@ -10,6 +10,7 @@ GitHub Issueを単一の真実の情報源（SSOT）として扱い、Issue URL�
 ## 実行手順
 
 1. Issue URLを確認する。
+
 - URLが未提供ならユーザーに確認する。
 - 最初にIssue URLが現在のプロジェクトのGitHubリポジトリ配下か確認する。
 - 別リポジトリのIssueなら、その旨をユーザーに明確に指摘して作業を終了する。
@@ -17,11 +18,13 @@ GitHub Issueを単一の真実の情報源（SSOT）として扱い、Issue URL�
 - 要件が曖昧なら、実装前に必ず質問して合意を取る。
 
 2. ブランチ案を提案して承認を得る。
+
 - ブランチ名は `<topic>/#<issue-number>_<branch-name>` を基本に提案する。
 - 例: `fix/#1201_resolve-css-bug`, `feat/#123_add-login-page`
 - ユーザー承認後に `git checkout -b <branch-name>` を実行する。
 
 3. Issueを更新しながら実装を進める。
+
 - 計画変更、技術制約、要件変更があれば `gh issue comment <issue-number> --body "..."` で記録する。
 - 重要な判断やマイルストーン到達時にもIssueコメントを残す。
 - 実装、テスト、修正を反復する。
@@ -29,6 +32,7 @@ GitHub Issueを単一の真実の情報源（SSOT）として扱い、Issue URL�
 - 必要に応じて定期的にpushする。
 
 4. PRを作成する。
+
 - 実装と検証完了後に `gh pr create` を実行する。
 - PR本文に `Fixes #<issue-number>` を必ず含める。
 

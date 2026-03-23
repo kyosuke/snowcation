@@ -16,11 +16,10 @@ access:
   time_from_tokyo: "約3時間 (新幹線+バス)"
 ---
 
-import { Steps, Aside, CardGrid } from '@astrojs/starlight/components';
-import OnsenInfo from '../../../components/OnsenInfo.astro';
-import SeasonTimeline from '../../../components/SeasonTimeline.astro';
-import LiftInfo from '../../../components/LiftInfo.astro';
-
+import { Steps, Aside, CardGrid } from "@astrojs/starlight/components";
+import OnsenInfo from "../../../components/OnsenInfo.astro";
+import SeasonTimeline from "../../../components/SeasonTimeline.astro";
+import LiftInfo from "../../../components/LiftInfo.astro";
 
 2023-2024シーズンより旧アルツ磐梯と旧猫魔スキー場が連結した福島の広いスキー場。
 非圧雪や斜度のある上級者向けのコースが多い。パークにも力を入れている。
@@ -36,23 +35,17 @@ import LiftInfo from '../../../components/LiftInfo.astro';
 
 <SeasonTimeline
   seasons={[
-    { name: '営業期間', start: '2025-11-29', end: '2026-03-27', color: '#34A853' },
-    { name: '営業期間（春）', start: '2026-03-28', end: '2026-05-06', color: '#FBBC05' },
+    { name: "営業期間", start: "2025-11-29", end: "2026-03-27", color: "#34A853" },
+    { name: "営業期間（春）", start: "2026-03-28", end: "2026-05-06", color: "#FBBC05" },
   ]}
-  closures={[
-    { start: '2025-11-29', end: '2025-12-06' },
-  ]}
+  closures={[{ start: "2025-11-29", end: "2025-12-06" }]}
 />
 
 ### 南エリア
 
 <SeasonTimeline
-  seasons={[
-    { name: '営業期間', start: '2025-12-13', end: '2026-04-05', color: '#34A853' },
-  ]}
-  closures={[
-    { start: '2025-12-13', end: '2025-12-19' },
-  ]}
+  seasons={[{ name: "営業期間", start: "2025-12-13", end: "2026-04-05", color: "#34A853" }]}
+  closures={[{ start: "2025-12-13", end: "2025-12-19" }]}
 />
 
 <details>
@@ -61,10 +54,12 @@ import LiftInfo from '../../../components/LiftInfo.astro';
 ### オープン時のリフト・コース
 
 **北エリア (12/6オープン)**
+
 - リフト: デビルキャットチェア
 - コース: デビル1、デビル2、デビル3
 
 **南エリア (12/19オープン)**
+
 - リフト: 霧氷チェア、バトウチェアを除く5本 + 連結リフト（ニャルツチェア）
 - 北エリアと合わせて11リフト、19コースで営業
 
@@ -83,31 +78,128 @@ import LiftInfo from '../../../components/LiftInfo.astro';
 
 ### 北エリア
 
-<LiftInfo lifts={[
-  { name: 'デビルキャットチェア',         capacity: 2, length: 676,  hood: false, footrest: false, safetyBar: false },
-  { name: 'フォレストキャットチェア',     capacity: 2, length: 676,  hood: false, footrest: false, safetyBar: false },
-  { name: 'フレンドリーキャットエクスプレス', capacity: 4, length: 802, hood: false, footrest: false, safetyBar: true },
-  { name: 'エキサイトキャットチェア',     capacity: 2, length: 692,  hood: false, footrest: false, safetyBar: false },
-  { name: 'ディープキャットチェア',       capacity: 2, length: 861,  hood: false, footrest: false, safetyBar: false },
-]} />
+<LiftInfo
+  lifts={[
+    {
+      name: "デビルキャットチェア",
+      capacity: 2,
+      length: 676,
+      hood: false,
+      footrest: false,
+      safetyBar: false,
+    },
+    {
+      name: "フォレストキャットチェア",
+      capacity: 2,
+      length: 676,
+      hood: false,
+      footrest: false,
+      safetyBar: false,
+    },
+    {
+      name: "フレンドリーキャットエクスプレス",
+      capacity: 4,
+      length: 802,
+      hood: false,
+      footrest: false,
+      safetyBar: true,
+    },
+    {
+      name: "エキサイトキャットチェア",
+      capacity: 2,
+      length: 692,
+      hood: false,
+      footrest: false,
+      safetyBar: false,
+    },
+    {
+      name: "ディープキャットチェア",
+      capacity: 2,
+      length: 861,
+      hood: false,
+      footrest: false,
+      safetyBar: false,
+    },
+  ]}
+/>
 
 ### 南エリア
 
-<LiftInfo lifts={[
-  { name: 'バトウチェア',               capacity: 2, length: 740,  hood: false, footrest: false, safetyBar: false },
-  { name: 'アルツエクスプレス',         capacity: 4, length: 1910, hood: true,  footrest: true,  safetyBar: true  },
-  { name: 'ファーストチェア',           capacity: 2, length: 700,  hood: false, footrest: false, safetyBar: false },
-  { name: 'ホワイトバレーチェア',       capacity: 2, length: 760,  hood: false, footrest: false, safetyBar: false },
-  { name: 'ブラックバレーエクスプレス', capacity: 4, length: 780,  hood: false, footrest: false, safetyBar: true  },
-  { name: 'ロックチェア',               capacity: 2, length: 510,  hood: false, footrest: false, safetyBar: false },
-  { name: '霧氷チェア',                 capacity: 2, length: 710,  hood: false, footrest: false, safetyBar: false },
-]} />
+<LiftInfo
+  lifts={[
+    {
+      name: "バトウチェア",
+      capacity: 2,
+      length: 740,
+      hood: false,
+      footrest: false,
+      safetyBar: false,
+    },
+    {
+      name: "アルツエクスプレス",
+      capacity: 4,
+      length: 1910,
+      hood: true,
+      footrest: true,
+      safetyBar: true,
+    },
+    {
+      name: "ファーストチェア",
+      capacity: 2,
+      length: 700,
+      hood: false,
+      footrest: false,
+      safetyBar: false,
+    },
+    {
+      name: "ホワイトバレーチェア",
+      capacity: 2,
+      length: 760,
+      hood: false,
+      footrest: false,
+      safetyBar: false,
+    },
+    {
+      name: "ブラックバレーエクスプレス",
+      capacity: 4,
+      length: 780,
+      hood: false,
+      footrest: false,
+      safetyBar: true,
+    },
+    {
+      name: "ロックチェア",
+      capacity: 2,
+      length: 510,
+      hood: false,
+      footrest: false,
+      safetyBar: false,
+    },
+    {
+      name: "霧氷チェア",
+      capacity: 2,
+      length: 710,
+      hood: false,
+      footrest: false,
+      safetyBar: false,
+    },
+  ]}
+/>
 
 ### 連結リフト
 
-<LiftInfo lifts={[
-  { name: 'ニャルツチェア', capacity: 2, length: 750, hood: false, footrest: false, safetyBar: true  },
-]} />
+<LiftInfo
+  lifts={[
+    {
+      name: "ニャルツチェア",
+      capacity: 2,
+      length: 750,
+      hood: false,
+      footrest: false,
+      safetyBar: true,
+    },
+  ]}
+/>
 
 ## [星野リゾート 磐梯山温泉ホテル](https://hoshinoresorts.com/ja/hotels/bandai/)
 
@@ -118,9 +210,7 @@ import LiftInfo from '../../../components/LiftInfo.astro';
 
 - 1日券 大人 6,300円 → 5,300円
 
-<Aside>
-ただし、オープン前の早割の方が安いので、事前に手配できるなら早割で。
-</Aside>
+<Aside>ただし、オープン前の早割の方が安いので、事前に手配できるなら早割で。</Aside>
 
 ### ⭐️ チェックイン・チェックアウト
 
@@ -128,7 +218,7 @@ import LiftInfo from '../../../components/LiftInfo.astro';
 - **チェックアウト**: 14:00
 
 <Aside>
-チェックアウトが14:00と遅いため、最終日も午前中しっかり滑ってから部屋で着替え・荷物整理できる。
+  チェックアウトが14:00と遅いため、最終日も午前中しっかり滑ってから部屋で着替え・荷物整理できる。
 </Aside>
 
 ### ワーケーション環境
@@ -140,10 +230,12 @@ import LiftInfo from '../../../components/LiftInfo.astro';
 ### 食事
 
 #### ⭐️ kisse・kisse
+
 - 朝食：メインをアメリカンブレックファーストかわっぱ飯から選ぶ。わっぱ飯に乗せるものやパンにぬるジャムなどはビュッフェ形式
 - 夕食：会津の郷土料理が楽しめるビュッフェ。メインは2日ローテーションのようなので3泊だと被る
 
 #### 会津SAKE Bar
+
 - **営業時間**: 15:00〜22:30（L.O.22:00）
 - 会津の珍しい日本酒などがグラス200円〜300円で楽しめる
 
@@ -154,8 +246,8 @@ import LiftInfo from '../../../components/LiftInfo.astro';
     name="朱嶺の湯"
     hours="6:30〜14:00 / 15:00〜24:00"
     quality="単純泉"
-    facilities={['indoor', 'sauna', 'washing']}
-    amenities={['dryer']}
+    facilities={["indoor", "sauna", "washing"]}
+    amenities={["dryer"]}
   />
 </CardGrid>
 
@@ -165,9 +257,9 @@ import LiftInfo from '../../../components/LiftInfo.astro';
 
 東京からは東北新幹線で郡山駅へ。そこから直通バスで約90分。
 
-| | 最短移動時間 | 東京駅出発 | 最速ホテル到着 |
-|---|---|---|---|
-| 行き | 2時間48分 | 7:12 | 10:00 |
+|      | 最短移動時間 | 東京駅出発 | 最速ホテル到着 |
+| ---- | ------------ | ---------- | -------------- |
+| 行き | 2時間48分    | 7:12       | 10:00          |
 
 ```d2
 direction: right
@@ -195,10 +287,10 @@ Koriyama -> Bandaisan: "路線バス\n約90分" {
 
 ### 7:12 東京発 → ホテル着 10:00
 
-| 区間 | 時刻 | 乗換余裕 | 備考 |
-|---|---|---|---|
-| 🚄 やまびこ/つばさ123号 | 東京 07:12 → 郡山 08:31 | 14分 | バス乗り場は駅前 |
-| 🚌 路線バス1便 | 郡山 08:45 → ホテル 10:00 | - | 最短移動時間パターン |
+| 区間                    | 時刻                      | 乗換余裕 | 備考                 |
+| ----------------------- | ------------------------- | -------- | -------------------- |
+| 🚄 やまびこ/つばさ123号 | 東京 07:12 → 郡山 08:31   | 14分     | バス乗り場は駅前     |
+| 🚌 路線バス1便          | 郡山 08:45 → ホテル 10:00 | -        | 最短移動時間パターン |
 
 </details>
 
@@ -209,7 +301,7 @@ Koriyama -> Bandaisan: "路線バス\n約90分" {
 
 <Steps>
 
-1. 06:40～08:20 🚄 やまびこ203号 
+1. 06:40～08:20 🚄 やまびこ203号
 
 2. 08:45〜10:00 🚌 路線バス
 
@@ -221,7 +313,7 @@ Koriyama -> Bandaisan: "路線バス\n約90分" {
 
 1. 15:25～16:40 🚌 路線バス
 
-2. 17:16～18:36 🚄 やまびこ148号 
+2. 17:16～18:36 🚄 やまびこ148号
 
 </Steps>
 
@@ -233,24 +325,23 @@ Koriyama -> Bandaisan: "路線バス\n約90分" {
 **運行期間**: 2025年12月13日～2026年4月5日 (毎日運行)
 **料金**: 大人片道 1,500円
 
-| 便 | 郡山駅発 | ホテル着 |
-|---|---|---|
-| 1便 | 08:45 | 10:00 |
-| 2便 | 10:55 | 12:10 |
-| 3便 | 15:25 | 16:40 |
-| 4便 | 17:45 | 19:00 |
+| 便  | 郡山駅発 | ホテル着 |
+| --- | -------- | -------- |
+| 1便 | 08:45    | 10:00    |
+| 2便 | 10:55    | 12:10    |
+| 3便 | 15:25    | 16:40    |
+| 4便 | 17:45    | 19:00    |
 
-| 便 | ホテル発 | 郡山駅着 |
-|---|---|---|
-| 1便 | 10:45 | 12:00 |
-| 2便 | 13:30 | 14:45 |
-| 3便 | 15:25 | 16:40 |
-| 4便 | 17:20 | 18:35 |
+| 便  | ホテル発 | 郡山駅着 |
+| --- | -------- | -------- |
+| 1便 | 10:45    | 12:00    |
+| 2便 | 13:30    | 14:45    |
+| 3便 | 15:25    | 16:40    |
+| 4便 | 17:20    | 18:35    |
 
 https://hoshinoresorts.com/ja/hotels/bandai/access/
 
 </details>
-
 
 ## 荷物の送り先
 
@@ -265,6 +356,5 @@ https://hoshinoresorts.com/ja/hotels/bandai/access/
 - 会社名: 磐梯山温泉ホテル
 
 <Aside type="tip">
-チェックイン日、宿泊代表者名の明記が必要。
-プレー日、荷物の内容欄を利用して記載する
+  チェックイン日、宿泊代表者名の明記が必要。 プレー日、荷物の内容欄を利用して記載する
 </Aside>
