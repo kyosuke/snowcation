@@ -32,3 +32,4 @@ Snowcation — スキーリゾート情報サイト。Astro + Starlight で構�
 - コミットメッセージは Conventional Commits 形式 (`feat:`, `fix:`, `docs:`, `chore:` など)
 - 新規作業は新しいブランチを作って行う
 - PR の説明には概要・変更内容・テスト方法・関連 Issue を含める
+- サイドバーの県グループは北→南の順に並べる（青森県 → 秋田県 → 宮城県 → …）

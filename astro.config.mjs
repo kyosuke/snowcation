@@ -25,10 +25,32 @@ export default defineConfig({
             title: 'Snowcation',
             defaultLocale: 'ja',
             social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/kyosuke/snowcation' }],
+            // 県グループは北→南の順に並べる
             sidebar: [
                 {
-                    label: 'スキー場',
-                    autogenerate: { directory: 'resorts' },
+                    label: '青森県',
+                    items: [
+                        { slug: 'resorts/aomori-spring' },
+                    ],
+                },
+                {
+                    label: '秋田県',
+                    items: [
+                        { slug: 'resorts/tazawako' },
+                    ],
+                },
+                {
+                    label: '宮城県',
+                    items: [
+                        { slug: 'resorts/onikoube' },
+                    ],
+                },
+                {
+                    label: '福島県',
+                    items: [
+                        { slug: 'resorts/grandeco' },
+                        { slug: 'resorts/nekoma-mountain' },
+                    ],
                 },
             ],
         }),
