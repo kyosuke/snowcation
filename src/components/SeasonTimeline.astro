@@ -121,9 +121,7 @@ const formatDate = (d: Date) => `${d.getMonth() + 1}/${d.getDate()}`;
         <span class="legend-dot closure-dot" />
         <span class="legend-text">
           <strong>クローズ</strong>
-          {closureSegments.map(c => (
-            <span class="legend-dates">{formatDate(c.startDate)} 〜 {formatDate(c.endDate)}</span>
-          ))}
+          <span class="legend-dates">{closureSegments.map(c => `${formatDate(c.startDate)} 〜 ${formatDate(c.endDate)}`).join('、')}</span>
         </span>
       </li>
     )}
