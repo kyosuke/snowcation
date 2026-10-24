@@ -1,0 +1,168 @@
+---
+title: "青森スプリング・スキーリゾート"
+name: "青森スプリング"
+description: "岩木山の北斜面に広がる、最長3.4kmと標高差545mが魅力の青森のスノーリゾート。"
+summary: "岩木山北斜面。ロックウッド・ホテル＆スパがゲレンデに隣接し、最長3,400mを滑れる。"
+pref: "青森県"
+area: "鰺ヶ沢"
+order: 1
+image: "../../assets/aomori-spring.webp"
+imageAlt: "青森スプリングのペーパーカットイラスト。岩木山を望む雪原にホテルとリフトが建つ"
+links:
+  site: "https://aomorispring.com/ja/ski"
+  map: { label: "コース・リフトマップ", url: "https://aomorispring.com/ja/course" }
+facts:
+  top: 921
+  base: 376
+  longest: 3400
+  aspect:
+    label: "北"
+    dirs: ["N"]
+    note: "岩木山の北斜面。岩木山や日本海を望むコースレイアウト"
+  slope:
+    tags: ["ロングコース", "全22コース"]
+    max: 30
+  access: { hours: 3.5, note: "羽田から青森空港、混乗タクシー" }
+seasons:
+  - label: "26-27"
+    note: "予定。積雪状況により変更される場合があります"
+    areas:
+      - periods:
+          - { name: "営業期間", kind: "on", start: "2026-12-12", end: "2027-03-07" }
+          - { name: "営業期間（春）", kind: "spring", start: "2027-03-08", end: "2027-04-04" }
+  - label: "25-26"
+    areas:
+      - periods:
+          - { name: "営業期間", kind: "on", start: "2025-12-13", end: "2026-03-08" }
+          - { name: "営業期間（春）", kind: "spring", start: "2026-03-09", end: "2026-04-05" }
+---
+
+import LiftList from "../../components/LiftList.astro";
+import HotelBand from "../../components/HotelBand.astro";
+import Card from "../../components/Card.astro";
+import Note from "../../components/Note.astro";
+import Dl from "../../components/Dl.astro";
+import OnsenInfo from "../../components/OnsenInfo.astro";
+import AccessCard from "../../components/AccessCard.astro";
+import AccessRoute from "../../components/AccessRoute.astro";
+import RouteExamples from "../../components/RouteExamples.astro";
+
+<LiftList
+  title="ゴンドラ・リフト"
+  statusUrl={frontmatter.links.site}
+  groups={[
+    {
+      lifts: [
+        {
+          name: "ゴンドラ",
+          capacity: 6,
+          length: 3512,
+          type: "gondola",
+          cabin: "standard",
+          rack: true,
+        },
+        {
+          name: "クアッドリフト1",
+          capacity: 4,
+          length: 2066,
+          type: "express",
+          hood: true,
+          footrest: true,
+          safetyBar: true,
+        },
+        {
+          name: "クアッドリフト2",
+          capacity: 4,
+          length: 1500,
+          type: "express",
+          hood: true,
+          safetyBar: true,
+        },
+        { name: "ダイアモンドペアリフト", capacity: 2, length: 1192, safetyBar: true },
+      ],
+    },
+  ]}
+/>
+
+<HotelBand
+  name="ロックウッド・ホテル＆スパ"
+  url="https://aomorispring.com/ja/accommodation"
+  description="青森スプリング内にあるホテル。公式サイトでは客室数188室と案内されており、スキー滞在の拠点として使いやすい。"
+>
+  <Card title="ワーケーション環境">
+    <Dl items={[["WiFi", "ホテル無料WiFiあり"], ["客室", "1名分のデスクあり"]]} />
+  </Card>
+  <Card title="食事">
+    <Dl
+      items={[
+        ["ロックウッド・ホール", "ビュッフェ。青森の郷土料理だけでなく多彩なメニュー。連泊客が飽きないよう、半分近くの料理が前日と変わっていた"],
+        ["レストラン海山", "もう1つのレストラン"],
+      ]}
+    />
+  </Card>
+  <OnsenInfo name="大浴場" hours="利用時間は公式サイトを確認" facilities={["indoor", "outdoor", "washing"]} amenities={["dryer"]} />
+  <Card title="JALツアー（鯵ヶ沢3日間コース）">
+    <Dl
+      items={[
+        ["対象便", "往路は青森空港に14:30までに到着する便、復路は青森空港を11:55以降に出発する便"],
+        ["予約", "原則として出発日の7日前まで"],
+        ["対象期間", "2025年12月13日〜2026年3月29日 出発"],
+      ]}
+    />
+  </Card>
+
+  <AccessCard slot="access" title="羽田からのアクセス" summary="最短 3時間30分 · 羽田 7:15 発 → ホテル 10:45 頃着">
+    <AccessRoute
+      summary="羽田空港からJAL便で青森空港へ約75分、混乗タクシーでホテルへ約90分"
+      stops={[{ label: "羽田空港", kind: "origin" }, { label: "青森空港" }, { label: "ロックウッド・ホテル＆スパ", kind: "hotel" }]}
+      legs={[
+        { label: "JAL便", duration: "約75分" },
+        { label: "混乗タクシー\n三八五観光タクシー", duration: "約90分" },
+      ]}
+    />
+    <Note>
+      羽田発のJALツアーを使い、青森空港からは混乗タクシーで移動するパターンが手配・移動ともに使いやすい。混乗タクシーは全員そろい次第出発するので、予定より早く出ることがある。過去は往路が9:15発予定に対して8:45頃出発・10:15頃ホテル着、復路が15:30発予定に対して約15分早発・16:45頃空港着だった。
+    </Note>
+    <div>
+      <RouteExamples
+        title="ルート例 · 往路 7:15 羽田発、復路 15:30 ホテル発"
+        open
+        columns={[
+          {
+            label: "往路",
+            legs: [
+              { mode: "飛行機", time: "羽田 7:15 → 青森 8:30", note: "JAL141 普通席 · 乗換余裕 45分" },
+              { mode: "タクシー", time: "青森空港 9:15 → ホテル 10:45頃", note: "混乗タクシー（JAL141接続）" },
+            ],
+          },
+          {
+            label: "復路",
+            legs: [
+              { mode: "タクシー", time: "ホテル 15:30 → 青森空港 17:00頃", note: "混乗タクシー（JAL148接続）· 乗換余裕 60分" },
+              { mode: "飛行機", time: "青森 18:00 → 羽田 19:30", note: "JAL148 普通席" },
+            ],
+          },
+        ]}
+      />
+      <RouteExamples
+        title="過去の利用例（2泊3日）"
+        columns={[
+          {
+            label: "1日目",
+            legs: [
+              { mode: "飛行機", time: "7:15 → 8:30", note: "JAL141" },
+              { mode: "タクシー", time: "9:15 → 10:45頃", note: "混乗タクシー" },
+            ],
+          },
+          {
+            label: "3日目",
+            legs: [
+              { mode: "タクシー", time: "15:30 → 17:00頃", note: "混乗タクシー" },
+              { mode: "飛行機", time: "18:00 → 19:30", note: "JAL148" },
+            ],
+          },
+        ]}
+      />
+    </div>
+  </AccessCard>
+</HotelBand>

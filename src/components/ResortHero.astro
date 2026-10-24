@@ -1,0 +1,143 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import IconInfo from "~icons/material-symbols-light/info-outline-rounded";
+import Nav from "./Nav.astro";
+import Button from "./Button.astro";
+import { status } from "../lib/season";
+
+interface Props {
+  resort: CollectionEntry<"resorts">;
+}
+
+const { data } = Astro.props.resort;
+const s = status(data.seasons);
+---
+
+<div class="hero">
+  <Image src={data.image} alt={data.imageAlt} widths={[768, 1280, 1536]} sizes="100vw" loading="eager" />
+  <div class="fade" aria-hidden="true"></div>
+  <Nav variant="inner" />
+  <div class="card-wrap">
+    <div class="card glass">
+      <div class="row">
+        <div class="label pref">{data.pref} · {data.area}</div>
+        <span class="status" data-tone={s.tone}>{s.label}</span>
+      </div>
+      <h1>{data.title}</h1>
+      <p class="muted">{data.description}</p>
+      {
+        data.note && (
+          <div class="hero-note">
+            <IconInfo aria-hidden="true" />
+            <span>{data.note}</span>
+          </div>
+        )
+      }
+      <div class="actions">
+        <Button href={data.links.site}>公式サイト</Button>
+        <Button href={data.links.map.url} variant="glass">{data.links.map.label}</Button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .hero {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    max-height: 820px;
+    overflow: hidden;
+    background: var(--ice-100);
+  }
+  .hero > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 40%;
+  }
+  .fade {
+    position: absolute;
+    inset: auto 0 0;
+    height: 40%;
+    background: linear-gradient(180deg, rgba(246, 249, 252, 0) 0%, var(--snow) 100%);
+  }
+  .card-wrap {
+    position: absolute;
+    left: var(--gutter);
+    right: var(--gutter);
+    bottom: clamp(16px, 4vw, 48px);
+    display: flex;
+  }
+  .card {
+    width: 100%;
+    max-width: 520px;
+    padding: clamp(20px, 2.5vw, 32px);
+    border-radius: var(--radius-panel);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .pref {
+    letter-spacing: 0.06em;
+  }
+  h1 {
+    font-size: clamp(2rem, 4vw, 2.667rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
+  p {
+    line-height: 1.7;
+  }
+  .hero-note {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 12px 14px;
+    border-radius: var(--radius-button);
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    font-size: var(--text-caption);
+    line-height: 1.6;
+  }
+  .hero-note svg {
+    font-size: 18px;
+    color: var(--limited);
+    margin-top: 1px;
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  /* 縦長の画面では画像を上に、カードを下に分ける */
+  @media (max-width: 640px) {
+    .hero {
+      aspect-ratio: auto;
+      max-height: none;
+      padding-top: calc(100vw * 2 / 3 - 48px);
+    }
+    .hero > img {
+      height: calc(100vw * 2 / 3);
+    }
+    .fade {
+      top: calc(100vw * 2 / 3 * 0.6);
+      height: auto;
+    }
+    .card-wrap {
+      position: static;
+      padding: 0 var(--gutter) 24px;
+    }
+  }
+</style>

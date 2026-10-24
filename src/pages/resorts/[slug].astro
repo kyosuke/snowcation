@@ -1,0 +1,35 @@
+---
+import { getCollection, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import ResortHero from "../../components/ResortHero.astro";
+import FactCards from "../../components/FactCards.astro";
+import SeasonSection from "../../components/SeasonSection.astro";
+import OtherResorts from "../../components/OtherResorts.astro";
+
+export async function getStaticPaths() {
+  const resorts = await getCollection("resorts");
+  return resorts.map((resort) => ({ params: { slug: resort.id }, props: { resort } }));
+}
+
+const { resort } = Astro.props;
+const { Content } = await render(resort);
+---
+
+<Base title={`${resort.data.title} — Snowcation`} description={resort.data.description}>
+  <ResortHero resort={resort} />
+  <main class="container">
+    <FactCards facts={resort.data.facts} />
+    <SeasonSection seasons={resort.data.seasons} />
+    <Content />
+  </main>
+  <OtherResorts current={resort.id} />
+</Base>
+
+<style>
+  main {
+    padding-top: 64px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--section-gap);
+  }
+</style>

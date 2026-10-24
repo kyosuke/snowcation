@@ -1,0 +1,31 @@
+---
+interface Props {
+  title: string;
+  badge?: string;
+}
+
+const { title, badge } = Astro.props;
+---
+
+<div class="card">
+  {
+    badge ? (
+      <div class="head">
+        <h3 class="h3">{title}</h3>
+        <span class="chip">{badge}</span>
+      </div>
+    ) : (
+      <h3 class="h3">{title}</h3>
+    )
+  }
+  <slot />
+</div>
+
+<style>
+  .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+</style>
