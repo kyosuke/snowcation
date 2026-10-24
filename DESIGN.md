@@ -8,20 +8,25 @@
 - 文字は Ink（本文）/ Ink 2（補足）/ Ink 3（ラベル）。いずれも Snow 上で 5:1 以上
 - 操作色とリンクは Glacier、hover は Glacier Deep
 - Dawn（朝焼け）は太陽の位置にだけ置く装飾色。文字には使わない
-- 営業状況は Open / Limited / Closed を色相と明度の両方で分ける。シーズン前は Ink 2 on Snow 2
+- 営業状況チップは文字を常に Ink にし、6px の点の色だけ変える。予定は Glacier、営業中は Open、終了は Closed、シーズン前は Ice 300。背景は白 72% + blur 16 のガラスで、イラストの上にだけ置く。「一部営業」の状態は持たない。Limited はヒーローの注意書きアイコンだけに使う
+- トップの空は Sky #CFE0F3 → #E6EFF8 の縦グラデーションに、Sky Light #9EC4F2（左上）・Dawn Light #FAD6AE（右上）・Glacier Light #6FAEFF（右下）・白（左下）の放射グラデーションと fractalNoise の粒子（soft-light 50%）を重ねる。グラデーション専用で、文字や面には使わない。Night は未使用
 
 ## 書体
 
 - Inter + Noto Sans JP、ウェイトは 400 / 500 / 600 / 700
 - 文字サイズは 16px × 8 / n の調和数列。採用は n=2, 3, 4, 5, 6, 8, 9, 10（n=7 の 18.286px は空き。足すときはここから）。rem で書き、端数は丸めない
 - 本文は 16px / 1.75。数字は tabular-nums
+- 大見出しは clamp で縮める。トップのワードマークは 2.667〜4rem（5vw）、中ページの h1 は 2〜2.667rem（4vw）で行高 1.1。セクション見出しは heading-weak / 600、泊まる帯の見出しだけ heading-regular / 600
 - ワードマークだけ Outfit 450・小文字 `snowcation`・字間 -0.025em（ナビの 17px では -0.005em）。本文や見出しには使わない。Google Fonts は `Outfit:wght@400..500` の範囲指定で可変フォントを読む。マークと横に並べると下がって見えるので 1px 上げる
 
 ## 余白・角丸・ガラス
 
 - 8 の倍数。セクション間 96px、カードの padding 24px、カード同士 16〜32px
-- 角丸はチップ 8 / ボタン 12 / カード 20 / パネル 28 / 状態は pill
-- ガラス面はイラストか色面の上でだけ使う。Bar は白 72% + blur 32、Card は白 58% + blur 24、Float は白 50%。白地の上では白背景 + Ice 100 の罫線のフラットカード。backdrop-filter 非対応では白 92%
+- 本文幅 1120px、左右余白は `clamp(16px, 5vw, 64px)`。カードのグリッドは minmax(300px, 1fr) / gap 24、基本情報は minmax(220px, 1fr) / gap 16
+- 640px 以下ではヒーローのガラスカードをイラストの下に出す。イラストは 3:2 のまま上に置く
+- 角丸はチップ 8 / 小ボタン（40px）と注記 10 / ボタン 12 / 小カード 16 / カード 20 / パネル 28 / 状態は pill
+- ガラス面はイラストか色面の上でだけ使う。Bar は白 72% + blur 32、Card は白 58% + blur 24、Float は白 50%。白地の上では白背景 + Ice 100 の罫線のフラットカード。Float は未使用。チップは白 72% + blur 16、ガラスのボタンは白 70%、カード内の注記は白 55% + 白 80% の罫線。backdrop-filter 非対応では白 92%
+- `backdrop-filter` は無接頭辞だけ書く。`-webkit-` を併記すると lightningcss が無接頭辞の宣言を落とし、本番でブラーが消える
 
 ## イラストとロゴ
 
@@ -33,7 +38,8 @@
 ## アイコン
 
 - Material Symbols Light（Iconify / unplugin-icons）。既定は `*-outline-rounded`、塗り版は check / close と選択済み状態だけ
-- 文中・ボタン内 20px、単体 24px。色は currentColor
+- ボタン内と注記 18px、折りたたみの矢印 20px、カード見出しの横 22px、アイコンだけのボタン 24px。色は currentColor
+- outline 版がないアイコン（hot-tub）は `*-rounded` をそのまま使う
 - ブランドロゴ（GitHub）は Simple Icons。アイコンだけのボタンは 44px で aria-label 必須
 
 ## 中ページの部品
