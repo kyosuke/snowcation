@@ -1,0 +1,31 @@
+---
+import { getCollection } from "astro:content";
+import ResortCard from "./ResortCard.astro";
+
+interface Props {
+  current: string;
+}
+
+const others = (await getCollection("resorts"))
+  .filter((r) => r.id !== Astro.props.current)
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<section aria-labelledby="h-others" class="container others">
+  <h2 id="h-others" class="h2">その他のリゾート</h2>
+  <div class="grid">{others.map((r) => <ResortCard resort={r} compact />)}</div>
+</section>
+
+<style>
+  .others {
+    padding-block: 64px var(--section-gap);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+  }
+</style>

@@ -1,0 +1,246 @@
+---
+title: "グランデコ スノーリゾート"
+name: "グランデコ"
+description: "初心者から上級者まで楽しめる、雪質抜群のロングコースが魅力のゲレンデ。"
+summary: "標高1,000m超のベースで雪質が良く、初心者向けコースが多い。最長4,500m。"
+pref: "福島県"
+area: "裏磐梯"
+order: 4
+image: "../../assets/grandeco.webp"
+imageAlt: "グランデコのペーパーカットイラスト。針葉樹の森を白いゴンドラが登る"
+links:
+  site: "https://grandecoresort.co.jp/snow/"
+  map:
+    {
+      label: "コースマップ（PDF）",
+      url: "https://grandecoresort.co.jp/wp-content/themes/snow/assets/images/course/GRANDECO_map.pdf",
+    }
+facts:
+  top: 1590
+  base: 1010
+  longest: 4500
+  aspect:
+    label: "南"
+    dirs: ["S"]
+    note: "西大巓の南斜面。ベースでも標高1,000mを超え、裏磐梯でも屈指の雪質"
+  slope:
+    tags: ["緩斜面多め", "ロングコース"]
+    ratio: [40, 45, 15]
+    max: 33
+  access: { hours: 3.5, note: "東北新幹線 郡山駅から磐越西線とシャトルバス" }
+seasons:
+  - label: "26-27"
+    note: "予定。積雪状況により変更される場合があります"
+    areas:
+      - periods:
+          - { name: "プレシーズン", kind: "pre", start: "2026-11-21", end: "2026-12-11" }
+          - { name: "全面営業", kind: "on", start: "2026-12-12", end: "2027-03-22" }
+          - { name: "春シーズン", kind: "spring", start: "2027-03-23", end: "2027-04-11" }
+  - label: "25-26"
+    areas:
+      - periods:
+          - { name: "プレシーズン", kind: "pre", start: "2025-11-22", end: "2025-12-12" }
+          - { name: "全面営業", kind: "on", start: "2025-12-13", end: "2026-03-29" }
+          - { name: "春シーズン", kind: "spring", start: "2026-03-30", end: "2026-04-19" }
+        closures:
+          - { start: "2025-11-22", end: "2025-12-06", reason: "オープン延期" }
+          - { start: "2026-04-13", end: "2026-04-19", reason: "早期終了" }
+---
+
+import LiftList from "../../components/LiftList.astro";
+import HotelBand from "../../components/HotelBand.astro";
+import Card from "../../components/Card.astro";
+import Stats from "../../components/Stats.astro";
+import Note from "../../components/Note.astro";
+import Dl from "../../components/Dl.astro";
+import OnsenInfo from "../../components/OnsenInfo.astro";
+import AccessCard from "../../components/AccessCard.astro";
+import AccessRoute from "../../components/AccessRoute.astro";
+import RouteExamples from "../../components/RouteExamples.astro";
+
+<LiftList
+  title="ゴンドラ・リフト"
+  statusUrl={frontmatter.links.site}
+  groups={[
+    {
+      lifts: [
+        {
+          name: "ゴンドラ",
+          capacity: 6,
+          length: 2392,
+          type: "gondola",
+          cabin: "narrow",
+          rack: true,
+          hours: "9:00〜15:00",
+        },
+        {
+          name: "第1クワッド",
+          capacity: 4,
+          length: 1496,
+          type: "express",
+          hood: true,
+          footrest: true,
+          safetyBar: true,
+          hours: "8:30〜16:00",
+        },
+        {
+          name: "第2クワッド",
+          capacity: 4,
+          length: 1011,
+          type: "express",
+          hood: true,
+          footrest: true,
+          safetyBar: true,
+          hours: "9:00〜15:00",
+        },
+        {
+          name: "第3クワッド",
+          capacity: 4,
+          length: 1138,
+          type: "express",
+          hood: true,
+          footrest: true,
+          safetyBar: true,
+          hours: "9:30〜14:30",
+        },
+      ],
+    },
+  ]}
+  note="運行時間はオンシーズンのもの。ゴンドラは15:00で上りが終わるので、午後は第1クワッドで回す。"
+>
+  <Card title="ゲレンデの食事">
+    <Dl
+      items={[
+        ["ベース", "マウンテンセンター。ハンバーガーと山塩ラーメンが人気"],
+        ["ゴンドラ山頂", "焼きたてのピザ"],
+      ]}
+    />
+  </Card>
+  <Card title="スクール">
+    <p style="font-size: var(--text-body-weak); line-height: 1.6">
+      JSBA・SAJ・SIAの3団体が揃い、スノーボードのレッスンも充実している。
+    </p>
+  </Card>
+</LiftList>
+
+<HotelBand
+  name="EN RESORT Grandeco Hotel"
+  url="https://grandecoresort.co.jp/hotel/"
+  description="ゲレンデに隣接する清潔感のあるホテル。部屋が広く、ワーケーションにも向く。平日にホテル滞在でゆったり滑るのがおすすめ。"
+>
+  <Card title="チェックイン・チェックアウト">
+    <Stats items={[{ label: "イン", value: "15:00" }, { label: "アウト", value: "11:00" }]} />
+    <Note>公式サイト予約ならチェックアウトは12:00。空きがあれば有料でレイトチェックアウトもできる（3時間単位）。</Note>
+  </Card>
+  <Card title="宿泊者特典">
+    <Stats items={[{ label: "1日券 大人 · 公式サイト予約", value: "3,000", unit: "円", strike: "5,500円" }]} />
+    <Note>旅行代理店・ツアー予約だと3,500円。土日など混雑時はゴンドラに優先乗車できる。</Note>
+  </Card>
+  <Card title="ワーケーション環境">
+    <Dl
+      items={[
+        ["WiFi", "快適。216号室で DL 11.7 / UP 25.9Mbps"],
+        ["作業", "ラウンジに作業スペース。セルフのコーヒー無料"],
+        ["おやつ", "ラウンジで焼きマシュマロ、無料のアイスキャンディ"],
+      ]}
+    />
+  </Card>
+  <Card title="食事">
+    <Dl
+      items={[
+        ["朝食", "The Mountain Dining。約40品のビュッフェ、福島の朝ラーも"],
+        ["夕食", "同じく約50品のビュッフェ。17:00〜 L.O. 21:00、90分制"],
+      ]}
+    />
+  </Card>
+  <OnsenInfo
+    name="ぶなの湯"
+    badge="宿泊者向け"
+    hours="6:00〜24:00"
+    quality="単純泉"
+    facilities={["indoor", "outdoor", "sauna", "cold", "washing"]}
+    amenities={["dryer"]}
+  >
+    部屋の浴衣とスリッパのまま温泉・レストランへ行ける
+  </OnsenInfo>
+  <Card title="荷物の送り先">
+    <Dl
+      items={[
+        ["宛名", "EN RESORT Grandeco Hotel"],
+        ["住所", "〒969-2701 福島県耶麻郡北塩原村桧原荒砂沢山"],
+        ["電話", "0241-32-3200"],
+      ]}
+    />
+    <Note>送状の備考欄に「チェックイン日」と「宿泊者名」を必ず書く。</Note>
+  </Card>
+
+  <AccessCard slot="access" summary="最短 3時間30分 · 東京 6:40 発 → ホテル 10:10 着">
+    <AccessRoute
+      summary="東京駅から東北新幹線で郡山駅へ約80〜100分、磐越西線で猪苗代駅へ約40分、無料シャトルバスでホテルへ約40分。土日・特定日は郡山駅から有料路線バスでホテルへ約120分"
+      stops={[
+        { label: "東京駅", kind: "origin" },
+        { label: "郡山駅" },
+        { label: "猪苗代駅" },
+        { label: "EN RESORT Grandeco Hotel", kind: "hotel" },
+      ]}
+      legs={[
+        { label: "東北新幹線\nやまびこ / つばさ", duration: "約80〜100分" },
+        { label: "JR 磐越西線", duration: "約40分" },
+        { label: "無料シャトルバス\n予約制", duration: "約40分" },
+      ]}
+      branches={[{ from: 1, to: 3, label: "有料路線バス\n土日・特定日・年末年始", duration: "約120分" }]}
+    />
+    <Dl
+      items={[
+        ["シャトルバス", "猪苗代駅 ⇔ ホテル · 無料 · 前日17:00までの予約制 · 定員に達すると乗れない · 運行 11/28〜4/11"],
+        ["猪苗代駅発", "9:20 · 12:10 · 17:00（磐越西線 郡山 8:29 / 11:15 / 16:15 発に接続）"],
+        ["ホテル発", "8:00 · 11:00 · 15:45（猪苗代 8:57 / 11:58 / 16:53 発の郡山行きに接続）"],
+        ["路線バス", "郡山駅 ⇔ ホテル · 片道 2,250円 · 土日・特定日・年末年始のみ · 郡山 8:10 発 → ホテル 10:00 着、ホテル 16:30 発 → 郡山 18:20 着"],
+      ]}
+    />
+    <div>
+      <RouteExamples
+        title="往路ルート例 · 6:40 東京発 → 10:10 ホテル着"
+        open
+        columns={[
+          {
+            label: "最短 · 東京 6:40 発",
+            legs: [
+              { mode: "新幹線", time: "東京 6:40 → 郡山 8:20", note: "やまびこ 203号 · 乗換余裕 9分、磐越西線ホームへ急ぐ" },
+              { mode: "在来線", time: "郡山 8:29 → 猪苗代 9:10", note: "磐越西線 · 接続列車なので安心" },
+              { mode: "バス", time: "猪苗代 9:20 → ホテル 10:10", note: "シャトルバス 2便 · 要予約" },
+            ],
+          },
+          {
+            label: "余裕あり · 東京 6:20 発",
+            legs: [
+              { mode: "新幹線", time: "東京 6:20 → 郡山 7:55", note: "やまびこ 201号 · 乗換余裕 34分、待合室で待つ" },
+              { mode: "在来線", time: "郡山 8:29 → 猪苗代 9:10", note: "磐越西線" },
+              { mode: "バス", time: "猪苗代 9:20 → ホテル 10:10", note: "シャトルバス 2便 · 要予約" },
+            ],
+          },
+        ]}
+      />
+      <RouteExamples
+        title="過去の利用例"
+        columns={[
+          {
+            label: "往路",
+            legs: [
+              { mode: "新幹線", time: "6:20 → 7:55", note: "やまびこ 201号" },
+              { mode: "在来線", time: "8:29 → 9:10", note: "磐越西線" },
+              { mode: "バス", time: "9:20 → 10:10", note: "シャトルバス 2便" },
+            ],
+          },
+          {
+            label: "復路",
+            legs: [
+              { mode: "バス", time: "16:30 → 18:20", note: "路線バス 郡山行き" },
+              { mode: "新幹線", time: "19:31 → 20:48", note: "やまびこ 156号" },
+            ],
+          },
+        ]}
+      />
+    </div>
+  </AccessCard>
+</HotelBand>

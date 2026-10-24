@@ -1,0 +1,36 @@
+---
+interface Props {
+  items: { label: string; value: string | string[]; unit?: string; strike?: string }[];
+}
+---
+
+<div class="stats">
+  {
+    Astro.props.items.map((s) => (
+      <div>
+        <div class="label">{s.label}</div>
+        <div class="stat-value">
+          {(Array.isArray(s.value) ? s.value : [s.value]).map((v, i) => (
+            <>
+              {i > 0 && <span class="stat-unit">/</span>} {v}
+            </>
+          ))}
+          {s.unit && <span class="stat-unit"> {s.unit}</span>}
+          {s.strike && <span class="stat-unit strike"> {s.strike}</span>}
+        </div>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  .strike {
+    color: var(--ink-3);
+    text-decoration: line-through;
+  }
+</style>

@@ -1,0 +1,88 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/logo.webp";
+import IconGithub from "~icons/simple-icons/github";
+
+interface Props {
+  variant?: "top" | "inner";
+}
+
+const { variant = "inner" } = Astro.props;
+---
+
+<nav aria-label="メイン" class:list={["nav", variant]}>
+  {
+    variant === "inner" && (
+      <a href="/" class="brand">
+        <Image src={logo} alt="" width={56} height={56} class="mark" />
+        <span class="wordmark">snowcation</span>
+      </a>
+    )
+  }
+  <a href="https://github.com/kyosuke/snowcation" aria-label="GitHubリポジトリ" class="github"><IconGithub /></a>
+</nav>
+
+<style>
+  .nav {
+    padding: 0 var(--gutter);
+    min-height: 64px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 16px;
+  }
+  .top {
+    position: relative;
+    justify-content: flex-end;
+  }
+  .inner {
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: 1;
+    background: var(--glass-bar);
+    backdrop-filter: blur(32px) saturate(180%);
+    -webkit-backdrop-filter: blur(32px) saturate(180%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+  }
+  @supports not (backdrop-filter: blur(1px)) {
+    .inner {
+      background: rgba(255, 255, 255, 0.92);
+    }
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    height: 44px;
+    font-family: var(--font-wordmark);
+    font-size: 17px;
+    font-weight: 450;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .mark {
+    width: 28px;
+    height: 28px;
+  }
+  /* Outfit はマークの横でやや下がって見えるので 1px 上げる */
+  .wordmark {
+    position: relative;
+    top: -1px;
+  }
+  .github {
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-button);
+    color: var(--ink-2);
+    font-size: 24px;
+  }
+  .github:hover {
+    color: var(--ink);
+    background: rgba(255, 255, 255, 0.6);
+  }
+</style>

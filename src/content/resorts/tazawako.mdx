@@ -1,0 +1,184 @@
+---
+title: "たざわ湖スキー場"
+name: "たざわ湖"
+description: "田沢湖を望む秋田のスノーリゾート。上質なパウダースノーと13コースが魅力。"
+summary: "田沢湖を見下ろす景観と非圧雪40%のパウダー。宿は送迎付きの温泉宿から通う。"
+pref: "秋田県"
+area: "田沢湖高原"
+order: 2
+image: "../../assets/tazawako.webp"
+imageAlt: "たざわ湖スキー場のペーパーカットイラスト。雪山の斜面から田沢湖を見下ろす"
+note: "スキーイン・スキーアウトの宿はない。ゲレンデ送迎と2つの温泉がある亀の井ホテルから通う前提で載せている。"
+links:
+  site: "https://www.tazawako-ski.com/"
+  map: { label: "コース案内", url: "https://www.tazawako-ski.com/cou/" }
+  status: "https://www.tazawako-ski.com/lif/"
+facts:
+  top: 1186
+  base: 578
+  longest: 1600
+  aspect:
+    label: "西"
+    dirs: ["W"]
+    note: "秋田駒ヶ岳の西斜面。眼下に田沢湖を見ながら滑る"
+  slope:
+    tags: ["急斜面あり", "非圧雪多め"]
+    ratio: [30, 30, 40]
+    max: 38
+  access: { hours: 3.5, note: "秋田新幹線 田沢湖駅からバス約30分" }
+seasons:
+  - label: "26-27"
+    note: "予定。積雪状況により変更される場合があります"
+    areas:
+      - periods:
+          - { name: "営業期間", kind: "on", start: "2026-12-19", end: "2027-03-28" }
+  - label: "25-26"
+    areas:
+      - periods:
+          - { name: "営業期間", kind: "on", start: "2025-12-20", end: "2026-03-29" }
+        closures:
+          - { start: "2025-12-21", end: "2025-12-27", reason: "臨時クローズ" }
+---
+
+import LiftList from "../../components/LiftList.astro";
+import HotelBand from "../../components/HotelBand.astro";
+import Card from "../../components/Card.astro";
+import Stats from "../../components/Stats.astro";
+import Note from "../../components/Note.astro";
+import Dl from "../../components/Dl.astro";
+import OnsenInfo from "../../components/OnsenInfo.astro";
+import AccessCard from "../../components/AccessCard.astro";
+import AccessRoute from "../../components/AccessRoute.astro";
+import RouteExamples from "../../components/RouteExamples.astro";
+
+<LiftList
+  statusUrl={frontmatter.links.status}
+  groups={[
+    {
+      lifts: [
+        {
+          name: "ぎんれいクワッドリフト",
+          capacity: 4,
+          length: 1566,
+          type: "express",
+          hood: true,
+          footrest: true,
+          safetyBar: true,
+        },
+        {
+          name: "かもしかクワッドリフト",
+          capacity: 4,
+          length: 1083,
+          type: "express",
+          hood: true,
+          safetyBar: true,
+        },
+        { name: "水沢リフト", capacity: 2, length: 933 },
+        { name: "ぎんれい第3リフト", capacity: 2, length: 830 },
+        { name: "ぎんれい第1リフト", capacity: 2, length: 820 },
+        { name: "黒森山リフト", capacity: 2, length: 528 },
+      ],
+    },
+  ]}
+/>
+
+<HotelBand
+  name="亀の井ホテル 田沢湖"
+  url="https://kamenoi-hotels.com/tazawako/"
+  description="田沢湖高原温泉のホテル。ゲレンデには隣接しないが、スキー場への無料送迎と2種の天然温泉がある。田沢湖駅からも無料の送迎バスで行ける。"
+>
+  <Card title="チェックイン・チェックアウト">
+    <Stats items={[{ label: "イン", value: "15:00" }, { label: "アウト", value: "10:00" }]} />
+    <Note>田沢湖駅行きの送迎バスは10:00発が最終。最終日は滑らず、チェックアウトと同時に出る。</Note>
+  </Card>
+  <Card title="ゲレンデ送迎">
+    <Stats items={[{ label: "ホテル発", value: ["8:00", "9:00"] }, { label: "スキー場発", value: "16:10" }]} />
+    <Note>冬期のみ・無料・前日17:00までの予約制。乗り遅れたら羽後交通の路線バスで約8分（最寄りは徒歩2分の杉谷地）。</Note>
+  </Card>
+  <Card title="ワーケーション環境">
+    <Dl items={[["WiFi", "館内全体で無料WiFiが使える"]]} />
+  </Card>
+  <Card title="食事">
+    <Dl items={[["夕食", "郷土料理バイキング。きりたんぽ鍋・稲庭うどん・ハタハタ"]]} />
+  </Card>
+  <OnsenInfo
+    name="仙人の湯"
+    badge="大浴場"
+    hours="15:00〜24:00 / 翌5:00〜10:00"
+    quality="硫酸塩泉・硫黄泉"
+    facilities={["indoor", "washing"]}
+    amenities={["dryer"]}
+  >
+    ブナ林を望む大きな窓が特徴
+  </OnsenInfo>
+  <OnsenInfo
+    name="涌寿の湯"
+    badge="露天風呂"
+    hours="16:00〜24:00 / 翌5:00〜10:00"
+    quality="硫酸塩泉・硫黄泉"
+    facilities={["outdoor"]}
+  >
+    野鳥のさえずりに包まれた八角形の露天風呂。洗い場なし。金曜は翌朝9:00まで
+  </OnsenInfo>
+  <Card title="荷物の送り先">
+    <Dl
+      items={[
+        ["宛名", "亀の井ホテル 田沢湖"],
+        ["住所", "〒014-1201 秋田県仙北市田沢湖生保内字駒ケ岳2-32"],
+        ["電話", "0187-46-2131"],
+      ]}
+    />
+    <Note>送状の備考欄に「チェックイン日」と「宿泊者名」を必ず書く。</Note>
+  </Card>
+
+  <AccessCard slot="access" summary="約3時間40分 · 東京 12:20 発 → ホテル 約16:00 着">
+    <Note>
+      ホテルの送迎バスは移動日にゲレンデへ寄れないので、チェックイン日は滑らない日として割り切る。午前に着いて滑るなら、田沢湖駅からスキー場前まで路線バスで直行し、夕方の送迎バスでホテルへ。
+    </Note>
+    <AccessRoute
+      summary="東京駅から秋田新幹線こまちで田沢湖駅へ約2時間50分、ホテルの無料送迎バスで約30分。ホテルからスキー場へは送迎バスか路線バスで約8分。田沢湖駅からスキー場前へ直接行く路線バスは約27分"
+      stops={[
+        { label: "東京駅", kind: "origin" },
+        { label: "田沢湖駅" },
+        { label: "亀の井ホテル 田沢湖", kind: "hotel" },
+        { label: "たざわ湖スキー場" },
+      ]}
+      legs={[
+        { label: "秋田新幹線\nこまち", duration: "約2時間50分" },
+        { label: "ホテル送迎バス\n無料・要予約", duration: "約30分" },
+        { label: "ホテル送迎バス（冬期）\nまたは路線バス", duration: "約8分", dashed: true },
+      ]}
+      branches={[{ from: 1, to: 3, label: "路線バス 羽後交通 乳頭線\nスキー場前まで直行", duration: "約27分" }]}
+    />
+    <Dl
+      items={[
+        ["送迎バス", "田沢湖駅 ⇔ ホテル · 無料 · 前日17:00までの予約制（TEL 0187-46-2131）· 定員に達すると乗れない"],
+        ["田沢湖駅発", "15:30 · 16:30 · 17:30"],
+        ["ホテル発", "8:00 · 9:00 · 10:00（8:00と9:00は冬期スキー場に立ち寄り）"],
+        ["路線バス", "羽後交通 乳頭線 · 田沢湖駅 → スキー場前 約27分 → 杉谷地（ホテル徒歩2分）· 6:55〜17:20の1日11便"],
+      ]}
+    />
+    <div>
+      <RouteExamples
+        title="ルート例 · 往路 12:20 東京発、復路 10:00 ホテル発"
+        open
+        columns={[
+          {
+            label: "往路",
+            legs: [
+              { mode: "新幹線", time: "東京 12:20 → 田沢湖 15:09", note: "こまち · 乗換余裕 21分" },
+              { mode: "バス", time: "田沢湖 15:30 → ホテル 約16:00", note: "ホテル送迎バス · 前日17:00までに要予約" },
+            ],
+          },
+          {
+            label: "復路",
+            legs: [
+              { mode: "バス", time: "ホテル 10:00 → 田沢湖", note: "ホテル送迎バス" },
+              { mode: "新幹線", time: "田沢湖 11:09 → 東京 14:08", note: "こまち" },
+            ],
+          },
+        ]}
+      />
+    </div>
+  </AccessCard>
+</HotelBand>

@@ -9,23 +9,20 @@
     "preview": "astro build && wrangler dev",
     "astro": "astro",
     "deploy": "astro build && wrangler deploy",
-    "cf-typegen": "wrangler types",
     "knip": "knip",
     "format": "oxfmt --write .",
     "format:check": "oxfmt --check ."
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^12.6.10",
-    "@astrojs/starlight": "^0.36.2",
-    "astro": "^5.6.1",
-    "astro-d2": "^0.9.0"
+    "@astrojs/mdx": "^8.1.1",
+    "astro": "^7.4.2"
   },
   "devDependencies": {
-    "@iconify-json/material-symbols-light": "^1.2.53",
-    "@types/node": "^24.10.0",
+    "@iconify-json/material-symbols-light": "^1.2.97",
+    "@iconify-json/simple-icons": "^1.2.100",
     "knip": "^5.85.0",
     "oxfmt": "^0.41.0",
-    "unplugin-icons": "^23.0.1",
-    "wrangler": "^4.46.0"
+    "unplugin-icons": "^24.0.0",
+    "wrangler": "^4.152.0"
   }
 }

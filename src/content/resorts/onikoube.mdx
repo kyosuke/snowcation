@@ -1,0 +1,156 @@
+---
+title: "オニコウベスキー場"
+name: "オニコウベ"
+description: "コースのバリエーション豊富、広大な下部ゲレンデと自然地形を活かした上部コースが魅力。"
+summary: "広い下部ゲレンデと、自然地形を生かした上部コース。東北新幹線でアクセスしやすい。"
+pref: "宮城県"
+area: "鳴子温泉郷"
+order: 3
+image: "../../assets/onikoube.webp"
+imageAlt: "オニコウベスキー場のペーパーカットイラスト。夕焼けの空の下をチェアリフトが登る"
+links:
+  site: "https://www.onikoube.com/snow/"
+  map: { label: "ゲレンデ案内", url: "https://www.onikoube.com/snow/" }
+facts:
+  top: 1100
+  base: 580
+  longest: 2500
+  slope:
+    tags: ["コース多彩", "全10コース"]
+    max: 30
+  access: { hours: 3.5, note: "東北新幹線 古川駅からシャトルバス" }
+seasons:
+  - label: "25-26"
+    areas:
+      - periods:
+          - { name: "営業期間", kind: "on", start: "2025-12-12", end: "2026-03-22" }
+        closures:
+          - { start: "2025-12-12", end: "2025-12-19", reason: "オープン延期" }
+---
+
+import LiftList from "../../components/LiftList.astro";
+import HotelBand from "../../components/HotelBand.astro";
+import Dl from "../../components/Dl.astro";
+import OnsenInfo from "../../components/OnsenInfo.astro";
+import AccessCard from "../../components/AccessCard.astro";
+import AccessRoute from "../../components/AccessRoute.astro";
+import RouteExamples from "../../components/RouteExamples.astro";
+
+<LiftList
+  title="ゴンドラ・リフト"
+  statusUrl={frontmatter.links.site}
+  groups={[
+    {
+      lifts: [
+        {
+          name: "テレキャビン",
+          capacity: 4,
+          length: 1882,
+          type: "gondola",
+          cabin: "narrow",
+          rack: true,
+        },
+        { name: "第1ペアリフト", capacity: 2, length: 551 },
+        { name: "第2ペアリフト", capacity: 2, length: 817 },
+        { name: "第3ペアリフト", capacity: 2, length: 500 },
+        { name: "小柴ペアリフト", capacity: 2, length: 900 },
+        { name: "第5ペアリフト", capacity: 2, length: 351 },
+        { name: "第6ペアリフト", capacity: 2, length: 750 },
+      ],
+    },
+  ]}
+/>
+
+<HotelBand
+  name="リゾートパーク ホテルオニコウベ"
+  url="https://www.oni3800.com/"
+  description="オニコウベスキー場に隣接するリゾートホテル。2つの温泉浴場があり、スキー後にゆっくりできる。"
+>
+  <OnsenInfo
+    name="3F 大浴場"
+    hours="5:00〜24:00"
+    quality="アルカリ性単純泉"
+    facilities={["indoor", "cold", "washing"]}
+    amenities={["dryer"]}
+  >
+    朝5:00から深夜24:00まで。早朝から滑る前にも、夜遅くまでゆっくり入れる
+  </OnsenInfo>
+  <OnsenInfo
+    name="荒雄の湯"
+    hours="14:00〜24:00"
+    quality="アルカリ性単純泉"
+    facilities={["indoor", "outdoor", "cold", "sauna", "washing"]}
+    amenities={["locker", "dryer"]}
+  >
+    露天風呂とサウナを備えた温泉施設
+  </OnsenInfo>
+
+  <AccessCard slot="access" summary="最短 3時間35分 · 東京 8:45 発 → ホテル 12:20 着">
+    <AccessRoute
+      summary="東京駅から東北新幹線で古川駅へ約120分、送迎シャトルバスで鳴子温泉駅を経由してホテルへ約70分。JR陸羽東線で鳴子温泉駅へ約46分、大崎市営バスでホテルへ約45分でも行ける"
+      stops={[
+        { label: "東京駅", kind: "origin" },
+        { label: "古川駅" },
+        { label: "鳴子温泉駅" },
+        { label: "ホテルオニコウベ", kind: "hotel" },
+      ]}
+      legs={[
+        { label: "東北新幹線\nはやぶさ / やまびこ", duration: "約120分" },
+        { label: "送迎シャトルバス", duration: "約50分" },
+        { label: "送迎シャトルバス", duration: "約20分" },
+      ]}
+      branches={[
+        { from: 1, to: 2, label: "JR 陸羽東線", duration: "約46分" },
+        { from: 2, to: 3, label: "大崎市営バス", duration: "約45分" },
+      ]}
+    />
+    <Dl
+      items={[
+        ["シャトルバス", "古川駅 ⇔ ホテル · 鳴子温泉駅経由 · スノーシーズン 12/13〜3/22 運行"],
+        ["古川駅発", "11:10 · 17:10（鳴子温泉駅 12:00 · 18:00 発、ホテル 12:20 · 18:20 着）"],
+        ["ホテル発", "9:30 · 11:00（鳴子温泉駅 9:50 · 11:20 着、古川駅 10:40 · 12:10 着）"],
+      ]}
+    />
+    <div>
+      <RouteExamples
+        title="往路ルート例 · 7:56 東京発 → 12:20 ホテル着"
+        open
+        columns={[
+          {
+            label: "余裕あり · 東京 7:56 発",
+            legs: [
+              { mode: "新幹線", time: "東京 7:56 → 古川 9:47", note: "はやぶさ 103号 · 乗換余裕 1時間23分、駅中のタリーズで待つ" },
+              { mode: "バス", time: "古川 11:10 → ホテル 12:20", note: "シャトルバス 1便" },
+            ],
+          },
+          {
+            label: "最短 · 東京 8:45 発",
+            legs: [
+              { mode: "新幹線", time: "東京 8:45 → 古川 11:03", note: "やまびこ 53号 · 乗換余裕 7分、バス乗り場へ急ぐ" },
+              { mode: "バス", time: "古川 11:10 → ホテル 12:20", note: "シャトルバス 1便" },
+            ],
+          },
+        ]}
+      />
+      <RouteExamples
+        title="過去の利用例"
+        columns={[
+          {
+            label: "往路",
+            legs: [
+              { mode: "新幹線", time: "7:56 → 9:47", note: "はやぶさ 103号" },
+              { mode: "バス", time: "11:10 → 12:20", note: "シャトルバス 1便" },
+            ],
+          },
+          {
+            label: "復路",
+            legs: [
+              { mode: "バス", time: "11:00 → 12:10", note: "シャトルバス 2便" },
+              { mode: "新幹線", time: "13:10 → 15:24", note: "やまびこ 56号" },
+            ],
+          },
+        ]}
+      />
+    </div>
+  </AccessCard>
+</HotelBand>

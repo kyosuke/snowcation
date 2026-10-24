@@ -1,0 +1,222 @@
+---
+title: "ネコマ マウンテン"
+name: "ネコマ マウンテン"
+description: "星野リゾートが運営する、旧アルツ磐梯と旧猫魔スキー場が連結した福島の広いスキー場。"
+summary: "旧アルツ磐梯と旧猫魔が連結した広いスキー場。パークと上級者向けコースが多い。"
+pref: "福島県"
+area: "裏磐梯"
+order: 5
+image: "../../assets/nekoma-mountain.webp"
+imageAlt: "ネコマ マウンテンのペーパーカットイラスト。夕日の下、チェアリフトが雪山を登る"
+links:
+  site: "https://www.nekoma.co.jp/"
+  map: { label: "コースマップ・リフト運行", url: "https://www.nekoma.co.jp/liftguide/" }
+  status: "https://www.nekoma.co.jp/liftguide/"
+facts:
+  top: 1338
+  base: 700
+  longest: 2400
+  aspect:
+    label: "北・南"
+    dirs: ["N", "S"]
+    note: "北エリアは北向き、南エリアは南向き。山の両側にまたがる"
+  slope:
+    tags: ["斜度強め", "非圧雪多め"]
+    ratio: [30, 40, 30]
+    max: 37
+  access: { hours: 3, note: "東北新幹線 郡山駅からバス" }
+seasons:
+  - label: "26-27"
+    note: "予定。積雪状況により変更される場合があります"
+    areas:
+      - name: "北エリア"
+        periods:
+          - { name: "営業期間", kind: "on", start: "2026-11-28", end: "2027-03-26" }
+          - { name: "営業期間（春）", kind: "spring", start: "2027-03-27", end: "2027-05-09" }
+      - name: "南エリア"
+        periods:
+          - { name: "営業期間", kind: "on", start: "2026-12-12", end: "2027-04-04" }
+  - label: "25-26"
+    areas:
+      - name: "北エリア"
+        periods:
+          - { name: "営業期間", kind: "on", start: "2025-11-29", end: "2026-03-27" }
+          - { name: "営業期間（春）", kind: "spring", start: "2026-03-28", end: "2026-05-06" }
+        closures:
+          - { start: "2025-11-29", end: "2025-12-05", reason: "オープン延期" }
+          - { start: "2026-04-20", end: "2026-05-06", reason: "早期終了" }
+      - name: "南エリア"
+        periods:
+          - { name: "営業期間", kind: "on", start: "2025-12-13", end: "2026-04-05" }
+        closures:
+          - { start: "2025-12-13", end: "2025-12-18", reason: "オープン延期" }
+          - { start: "2026-03-26", end: "2026-04-05", reason: "早期終了" }
+---
+
+import LiftList from "../../components/LiftList.astro";
+import HotelBand from "../../components/HotelBand.astro";
+import Card from "../../components/Card.astro";
+import Stats from "../../components/Stats.astro";
+import Note from "../../components/Note.astro";
+import Dl from "../../components/Dl.astro";
+import OnsenInfo from "../../components/OnsenInfo.astro";
+import AccessCard from "../../components/AccessCard.astro";
+import AccessRoute from "../../components/AccessRoute.astro";
+import RouteExamples from "../../components/RouteExamples.astro";
+
+<LiftList
+  statusUrl={frontmatter.links.status}
+  groups={[
+    {
+      name: "北エリア",
+      lifts: [
+        { name: "デビルキャットチェア", capacity: 2, length: 676 },
+        { name: "フォレストキャットチェア", capacity: 2, length: 676 },
+        {
+          name: "フレンドリーキャットエクスプレス",
+          capacity: 4,
+          length: 802,
+          type: "express",
+          safetyBar: true,
+        },
+        { name: "エキサイトキャットチェア", capacity: 2, length: 692 },
+        { name: "ディープキャットチェア", capacity: 2, length: 861 },
+      ],
+    },
+    {
+      name: "南エリア",
+      lifts: [
+        { name: "バトウチェア", capacity: 2, length: 740 },
+        {
+          name: "アルツエクスプレス",
+          capacity: 4,
+          length: 1910,
+          type: "express",
+          hood: true,
+          footrest: true,
+          safetyBar: true,
+        },
+        { name: "ファーストチェア", capacity: 2, length: 700 },
+        { name: "ホワイトバレーチェア", capacity: 2, length: 760 },
+        {
+          name: "ブラックバレーエクスプレス",
+          capacity: 4,
+          length: 780,
+          type: "express",
+          safetyBar: true,
+        },
+        { name: "ロックチェア", capacity: 2, length: 510 },
+        { name: "霧氷チェア", capacity: 2, length: 710 },
+      ],
+    },
+    {
+      name: "連結リフト",
+      lifts: [{ name: "ニャルツチェア", capacity: 2, length: 750, safetyBar: true }],
+    },
+  ]}
+/>
+
+<HotelBand
+  name="星野リゾート 磐梯山温泉ホテル"
+  url="https://hoshinoresorts.com/ja/hotels/bandai/"
+  description="南エリアのゲレンデサイドに建つ、星野リゾート運営のホテル。「会津SAKE Bar」など、地元の文化を楽しめるアクティビティがある。"
+>
+  <Card title="チェックイン・チェックアウト">
+    <Stats items={[{ label: "イン", value: "16:00" }, { label: "アウト", value: "14:00" }]} />
+    <Note>チェックアウトが14:00と遅いので、最終日も午前中しっかり滑ってから部屋で着替え・荷物整理ができる。</Note>
+  </Card>
+  <Card title="宿泊者リフト割引">
+    <Stats items={[{ label: "1日券 大人", value: "5,300", unit: "円", strike: "6,300円" }]} />
+    <Note>オープン前の早割のほうが安いので、事前に手配できるなら早割で。</Note>
+  </Card>
+  <Card title="ワーケーション環境">
+    <Dl
+      items={[
+        ["WiFi", "全館で快適。混雑する時間帯あり"],
+        ["作業", "ラウンジにフリードリンク（コーヒー・ココア）"],
+        ["客室", "モダンツインはデスクあり（1名分）"],
+      ]}
+    />
+  </Card>
+  <Card title="食事">
+    <Dl
+      items={[
+        ["朝食", "kisse・kisse。アメリカンブレックファーストかわっぱ飯を選ぶ"],
+        ["夕食", "会津の郷土料理ビュッフェ。メインは2日ローテーション"],
+        ["バー", "会津SAKE Bar 15:00〜22:30。日本酒がグラス200〜300円"],
+      ]}
+    />
+  </Card>
+  <OnsenInfo
+    name="朱嶺の湯"
+    badge="宿泊者向け"
+    hours="6:30〜14:00 / 15:00〜24:00"
+    quality="単純泉"
+    facilities={["indoor", "sauna", "washing"]}
+    amenities={["dryer"]}
+  >
+    宿泊者向けの無料のお茶、アイスキャンディサービスあり
+  </OnsenInfo>
+  <Card title="荷物の送り先">
+    <p class="muted" style="font-size: var(--text-caption); line-height: 1.6">ヤマト運輸 クロネコメンバーズでの指定方法</p>
+    <Dl
+      items={[
+        ["宛名", "磐梯山温泉ホテル"],
+        ["住所", "〒969-3302 福島県耶麻郡磐梯町大字更科 字清水平6838-68"],
+        ["電話", "0242-74-5102"],
+      ]}
+    />
+    <Note>チェックイン日と宿泊代表者名の明記が必要。プレー日・荷物の内容欄を使って記載する。</Note>
+  </Card>
+
+  <AccessCard slot="access" summary="最短 2時間48分 · 東京 7:12 発 → ホテル 10:00 着">
+    <AccessRoute
+      summary="東京駅から東北新幹線で郡山駅へ約80〜100分、路線バスでホテルへ約90分"
+      stops={[{ label: "東京駅", kind: "origin" }, { label: "郡山駅" }, { label: "磐梯山温泉ホテル", kind: "hotel" }]}
+      legs={[
+        { label: "東北新幹線\nやまびこ / つばさ", duration: "約80〜100分" },
+        { label: "路線バス", duration: "約90分" },
+      ]}
+    />
+    <Dl
+      items={[
+        ["路線バス", "郡山駅 ⇔ ホテル 1日4便 · 大人片道 1,500円 · 営業期間中は毎日運行"],
+        ["郡山駅発", "8:45 · 10:55 · 15:25 · 17:45"],
+        ["ホテル発", "10:45 · 13:30 · 15:25 · 17:20"],
+      ]}
+    />
+    <div>
+      <RouteExamples
+        title="往路ルート例 · 7:12 東京発 → 10:00 ホテル着"
+        open
+        columns={[
+          {
+            legs: [
+              { mode: "新幹線", time: "東京 7:12 → 郡山 8:31", note: "やまびこ / つばさ 123号 · 乗換余裕 14分、バス乗り場は駅前" },
+              { mode: "バス", time: "郡山 8:45 → ホテル 10:00", note: "路線バス 1便 · 最短移動時間パターン" },
+            ],
+          },
+        ]}
+      />
+      <RouteExamples
+        title="過去の利用例"
+        columns={[
+          {
+            label: "往路",
+            legs: [
+              { mode: "新幹線", time: "6:40 → 8:20", note: "やまびこ 203号" },
+              { mode: "バス", time: "8:45 → 10:00", note: "路線バス" },
+            ],
+          },
+          {
+            label: "復路",
+            legs: [
+              { mode: "バス", time: "15:25 → 16:40", note: "路線バス" },
+              { mode: "新幹線", time: "17:16 → 18:36", note: "やまびこ 148号" },
+            ],
+          },
+        ]}
+      />
+    </div>
+  </AccessCard>
+</HotelBand>

@@ -1,0 +1,93 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import { status } from "../lib/season";
+
+interface Props {
+  resort: CollectionEntry<"resorts">;
+  compact?: boolean;
+}
+
+const { resort, compact = false } = Astro.props;
+const { data } = resort;
+const s = status(data.seasons);
+---
+
+<a href={`/resorts/${resort.id}/`} class:list={["rcard", { compact }]}>
+  <div class="pic">
+    <Image
+      src={data.image}
+      alt=""
+      aria-hidden="true"
+      widths={compact ? [320, 640] : [400, 800]}
+      sizes={compact ? "(min-width: 760px) 240px, 50vw" : "(min-width: 1120px) 360px, (min-width: 700px) 50vw, 100vw"}
+    />
+    {!compact && <span class="status" data-tone={s.tone}>{s.label}</span>}
+  </div>
+  <div class="body">
+    <div class="label">{data.pref}</div>
+    <div class="name">{data.name}</div>
+    {!compact && <div class="summary">{data.summary}</div>}
+  </div>
+</a>
+
+<style>
+  .rcard {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid var(--ice-100);
+    text-decoration: none;
+    color: var(--ink);
+    transition: box-shadow 0.2s;
+  }
+  .rcard:hover {
+    color: var(--ink);
+    box-shadow: 0 12px 40px rgba(16, 35, 58, 0.1);
+  }
+  .compact {
+    border-radius: 16px;
+  }
+  .pic {
+    position: relative;
+    aspect-ratio: 3 / 2;
+  }
+  .pic img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .status {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+  }
+  .body {
+    padding: 16px 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .compact .body {
+    padding: 12px 14px 14px;
+    gap: 2px;
+  }
+  .name {
+    font-size: var(--text-body-strong);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+  .compact .name {
+    font-size: var(--text-body-regular);
+  }
+  .summary {
+    font-size: var(--text-body-weak);
+    line-height: 1.6;
+    color: var(--ink-2);
+  }
+</style>

@@ -1,0 +1,199 @@
+---
+interface Stop {
+  label: string;
+  kind?: "origin" | "hotel";
+}
+interface Leg {
+  label: string; // 交通手段。<br> 相当は配列で
+  duration: string;
+  dashed?: boolean;
+}
+interface Branch extends Leg {
+  from: number; // 駅の添字
+  to: number;
+}
+
+interface Props {
+  summary: string; // aria-label
+  stops: Stop[];
+  legs: Leg[]; // stops.length - 1 本
+  branches?: Branch[]; // 2行目に描く分岐（重ならない範囲で複数可）
+}
+
+const { summary, stops, legs, branches = [] } = Astro.props;
+const cols = stops.length * 2 - 1;
+// 2行目の各列に、どの線を描くかを集める
+const row2 = Array.from({ length: cols }, (_, col) => {
+  const covering = branches.filter((b) => col >= b.from * 2 && col <= b.to * 2);
+  if (!covering.length) return null;
+  return {
+    up: branches.some((b) => col === b.from * 2 || col === b.to * 2),
+    left: covering.some((b) => col > b.from * 2),
+    right: covering.some((b) => col < b.to * 2),
+    label: covering.find((b) => col === b.from + b.to),
+  };
+});
+const hasRow2 = branches.length > 0;
+---
+
+<div class="scroll">
+  <div
+    role="img"
+    aria-label={summary}
+    class:list={["route", { two: hasRow2 }]}
+    style={`grid-template-columns: ${stops.map(() => "auto").join(" minmax(150px, 1fr) ")}`}
+  >
+    {
+      stops.map((s, i) => (
+        <>
+          <div class="stop" data-kind={s.kind}>
+            {s.label}
+          </div>
+          {i < legs.length && (
+            <div class="leg">
+              <div class:list={["line", { dashed: legs[i].dashed }]} aria-hidden="true" />
+              <div class="legname" set:html={legs[i].label.replace("\n", "<br>")} />
+              <div class="pill-wrap">
+                <span class="pill">{legs[i].duration}</span>
+              </div>
+            </div>
+          )}
+        </>
+      ))
+    }
+    {
+      hasRow2 &&
+        row2.map((c) =>
+          c ? (
+            <div class="leg">
+              {c.up && <div class="line up" aria-hidden="true" />}
+              {c.left && c.right ? (
+                <div class="line dashed" aria-hidden="true" />
+              ) : (
+                <div class:list={["line dashed", c.left ? "half-left" : "half-right"]} aria-hidden="true" />
+              )}
+              {c.label && (
+                <>
+                  <div class="legname" set:html={c.label.label.replace("\n", "<br>")} />
+                  <div class="pill-wrap">
+                    <span class="pill">{c.label.duration}</span>
+                  </div>
+                </>
+              )}
+            </div>
+          ) : (
+            <div />
+          ),
+        )
+    }
+  </div>
+</div>
+
+<style>
+  .scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -4px;
+    padding: 0 4px;
+  }
+  .route {
+    display: grid;
+    grid-template-rows: 56px;
+    align-items: center;
+    min-width: 640px;
+    padding: 40px 0 44px;
+  }
+  .route.two {
+    grid-template-rows: 56px 56px;
+    row-gap: 72px;
+    min-width: 760px;
+  }
+  .stop {
+    height: 56px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 24px;
+    border-radius: var(--radius-button);
+    font-weight: 600;
+    white-space: nowrap;
+    background: #fff;
+    color: var(--ink);
+    border: 1px solid var(--ice-300);
+  }
+  .stop[data-kind="origin"] {
+    background: var(--ink);
+    color: #fff;
+    border: none;
+  }
+  .stop[data-kind="hotel"] {
+    padding: 0 28px;
+    background: var(--glacier);
+    color: #fff;
+    border: none;
+  }
+  .leg {
+    position: relative;
+    height: 56px;
+  }
+  .line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 0;
+    margin-top: -1px;
+    border-top: 2px solid var(--ice-300);
+  }
+  .dashed {
+    border-top-style: dashed;
+  }
+  .half-left {
+    right: 50%;
+  }
+  .half-right {
+    left: 50%;
+  }
+  .up {
+    left: 50%;
+    right: auto;
+    top: -72px;
+    height: 100px;
+    width: 0;
+    margin-left: -1px;
+    border-top: none;
+    border-left: 2px dashed var(--ice-300);
+  }
+  .legname {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: calc(50% + 10px);
+    text-align: center;
+    font-size: var(--text-caption);
+    line-height: 1.4;
+    font-weight: 500;
+    color: var(--ink-2);
+  }
+  .pill-wrap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(50% + 10px);
+    display: flex;
+    justify-content: center;
+  }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    height: 28px;
+    padding: 0 12px;
+    border-radius: 999px;
+    background: var(--ice-100);
+    color: var(--ink);
+    font-size: var(--text-body-weak);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+</style>

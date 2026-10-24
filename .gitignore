@@ -1,8 +1,6 @@
 # build output
 dist/
 
-# astro-d2 generated SVGs
-public/d2/
 # generated types
 .astro/
 

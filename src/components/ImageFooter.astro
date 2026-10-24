@@ -1,0 +1,33 @@
+---
+import { Image } from "astro:assets";
+import footer from "../assets/footer.webp";
+---
+
+<footer>
+  <Image src={footer} alt="" aria-hidden="true" sizes="100vw" widths={[768, 1280, 2172]} />
+  <div class="fade" aria-hidden="true"></div>
+</footer>
+
+<style>
+  footer {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 1;
+    overflow: hidden;
+    background: var(--snow);
+  }
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 100%;
+  }
+  .fade {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 30%;
+    background: linear-gradient(180deg, var(--snow) 0%, rgba(246, 249, 252, 0) 100%);
+  }
+</style>

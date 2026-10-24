@@ -1,0 +1,77 @@
+---
+import IconChevron from "~icons/material-symbols-light/keyboard-arrow-down-rounded";
+import SeasonTimeline from "./SeasonTimeline.astro";
+import { isPreSeason, type Season } from "../lib/season";
+
+interface Props {
+  seasons: Season[];
+}
+
+const [current, ...past] = Astro.props.seasons;
+// シーズン前は前シーズンを開いて比較できるようにし、始まったら畳む
+const open = isPreSeason(Astro.props.seasons);
+---
+
+<section id="season" aria-labelledby="h-season" class="season">
+  <div class="card">
+    <div class="head">
+      <h2 id="h-season" class="h2">{current.label}シーズンの営業期間</h2>
+      {current.note && <span class="sub">{current.note}</span>}
+    </div>
+    {current.areas.map((a) => <SeasonTimeline name={a.name} periods={a.periods} closures={a.closures} />)}
+  </div>
+  {
+    past.map((s) => (
+      <details class="card" open={open}>
+        <summary>
+          <span class="head">
+            <span class="h2">{s.label}シーズンの営業期間</span>
+            <span class="sub">{s.note ?? "予定と実績"}</span>
+          </span>
+          <IconChevron class="chev" aria-hidden="true" />
+        </summary>
+        <div class="body">
+          {s.areas.map((a) => (
+            <SeasonTimeline name={a.name} periods={a.periods} closures={a.closures} />
+          ))}
+        </div>
+      </details>
+    ))
+  }
+</section>
+
+<style>
+  .season {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .card {
+    padding-bottom: 20px;
+    gap: 24px;
+  }
+  .head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px 16px;
+  }
+  .sub {
+    font-size: var(--text-body-weak);
+    color: var(--ink-3);
+  }
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin: -24px -24px -20px;
+    padding: 24px 24px 20px;
+    border-radius: var(--radius-card);
+  }
+  .body {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+</style>

@@ -1,0 +1,97 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  facts: CollectionEntry<"resorts">["data"]["facts"];
+}
+
+const { facts } = Astro.props;
+const n = (v: number) => v.toLocaleString("ja-JP");
+const arrows = {
+  N: "M16 5l4 11h-8z",
+  S: "M16 27l-4-11h8z",
+  W: "M5 16l11-4v8z",
+  E: "M27 16l-11-4v8z",
+};
+const ratio = facts.slope.ratio;
+const slopeNote = [
+  ...(ratio ? [`初級 ${ratio[0]}% · 中級 ${ratio[1]}% · 上級 ${ratio[2]}%`] : []),
+  ...(facts.slope.max ? [`最大 ${facts.slope.max}°`] : []),
+].join(" · ");
+---
+
+<section aria-label="基本情報" class="facts">
+  <div class="card">
+    <div class="label">標高</div>
+    <div class="stat-value">{n(facts.top)} <span class="stat-unit">m</span></div>
+    <div class="sub">ベース {n(facts.base)}m · 標高差 {n(facts.top - facts.base)}m<br />最長滑走 {n(facts.longest)}m</div>
+  </div>
+  {
+    facts.aspect && (
+      <div class="card">
+        <div class="label">ゲレンデの向き</div>
+        <div class="aspect">
+          <div class="stat-value">{facts.aspect.label}</div>
+          <svg aria-hidden="true" width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="14" stroke="var(--ice-200)" stroke-width="1.5" />
+            {facts.aspect.dirs.map((d) => (
+              <path d={arrows[d]} fill="var(--glacier)" />
+            ))}
+          </svg>
+        </div>
+        <div class="sub">{facts.aspect.note}</div>
+      </div>
+    )
+  }
+  <div class="card">
+    <div class="label">斜度</div>
+    <div class="chips">{facts.slope.tags.map((t) => <span class="chip">{t}</span>)}</div>
+    {
+      ratio && (
+        <div class="ratio" role="img" aria-label={`初級${ratio[0]}%、中級${ratio[1]}%、上級${ratio[2]}%`}>
+          <div style={`width: ${ratio[0]}%; background: var(--ice-200)`} />
+          <div style={`width: ${ratio[1]}%; background: var(--ice-300)`} />
+          <div style={`width: ${ratio[2]}%; background: var(--glacier)`} />
+        </div>
+      )
+    }
+    {slopeNote && <div class="sub">{slopeNote}</div>}
+  </div>
+  <div class="card">
+    <div class="label">東京からのアクセス</div>
+    <div class="stat-value"><span class="stat-unit">約</span>{facts.access.hours} <span class="stat-unit">時間</span></div>
+    <div class="sub">{facts.access.note}</div>
+  </div>
+</section>
+
+<style>
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    gap: 10px;
+  }
+  .label {
+    font-weight: 500;
+  }
+  .sub {
+    font-size: var(--text-caption);
+    line-height: 1.6;
+    color: var(--ink-2);
+    font-variant-numeric: tabular-nums;
+  }
+  .aspect {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .ratio {
+    display: flex;
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    gap: 2px;
+  }
+</style>

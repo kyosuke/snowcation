@@ -1,0 +1,91 @@
+---
+import IconChevron from "~icons/material-symbols-light/keyboard-arrow-down-rounded";
+
+interface Props {
+  title: string;
+  open?: boolean;
+  columns: { label?: string; legs: { mode: string; time: string; note?: string }[] }[];
+}
+
+const { title, open = false, columns } = Astro.props;
+---
+
+<details open={open}>
+  <summary><span>{title}</span><IconChevron class="chev" aria-hidden="true" /></summary>
+  <div class="cols">
+    {
+      columns.map((c) => (
+        <div class="col">
+          {c.label && <div class="label">{c.label}</div>}
+          {c.legs.map((l) => (
+            <div class="leg">
+              <span class="chip">{l.mode}</span>
+              <span class="time">{l.time}</span>
+              {l.note && <span class="lnote">{l.note}</span>}
+            </div>
+          ))}
+        </div>
+      ))
+    }
+  </div>
+</details>
+
+<style>
+  details {
+    border-top: 1px solid var(--snow-2);
+  }
+  details:last-of-type {
+    border-bottom: 1px solid var(--snow-2);
+  }
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 0;
+    font-size: var(--text-body-weak);
+    font-weight: 600;
+  }
+  .chev {
+    font-size: 18px;
+  }
+  .cols {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 8px 32px;
+    padding-bottom: 12px;
+  }
+  .col {
+    display: flex;
+    flex-direction: column;
+  }
+  .col .label {
+    padding-bottom: 2px;
+  }
+  .leg {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--snow-2);
+  }
+  .leg:last-child {
+    border-bottom: none;
+  }
+  .leg .chip {
+    height: 22px;
+    padding: 0 8px;
+  }
+  .time {
+    font-size: var(--text-body-weak);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .lnote {
+    font-size: var(--text-caption);
+    line-height: 1.5;
+    color: var(--ink-2);
+  }
+</style>

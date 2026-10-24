@@ -1,0 +1,35 @@
+---
+interface Props {
+  title?: string;
+  summary?: string;
+}
+
+const { title = "東京からのアクセス", summary } = Astro.props;
+---
+
+<div class="card access">
+  <div class="head">
+    <h3 class="h3">{title}</h3>
+    {summary && <span class="summary">{summary}</span>}
+  </div>
+  <slot />
+</div>
+
+<style>
+  .access {
+    gap: 20px;
+  }
+  .head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px 16px;
+  }
+  .summary {
+    font-size: var(--text-caption);
+    line-height: 1.6;
+    color: var(--ink-2);
+    font-variant-numeric: tabular-nums;
+  }
+</style>

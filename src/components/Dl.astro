@@ -1,0 +1,16 @@
+---
+interface Props {
+  items: [string, string][];
+}
+---
+
+<dl class="dl nums">
+  {
+    Astro.props.items.map(([dt, dd]) => (
+      <>
+        <dt>{dt}</dt>
+        <dd>{dd}</dd>
+      </>
+    ))
+  }
+</dl>

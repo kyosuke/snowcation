@@ -1,0 +1,21 @@
+---
+import IconOpen from "~icons/material-symbols-light/open-in-new-rounded";
+
+interface Props {
+  href: string;
+  variant?: "primary" | "glass" | "outline";
+}
+
+const { href, variant = "primary" } = Astro.props;
+const external = href.startsWith("http");
+---
+
+<a
+  href={href}
+  class:list={["btn", `btn-${variant}`]}
+  target={external ? "_blank" : undefined}
+  rel={external ? "noopener" : undefined}
+>
+  <slot />
+  {external && <IconOpen aria-hidden="true" />}
+</a>
