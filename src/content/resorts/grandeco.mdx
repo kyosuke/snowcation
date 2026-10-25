@@ -113,13 +113,19 @@ import RouteExamples from "../../components/RouteExamples.astro";
       {
         label: "宿泊者割引",
         condition: "ホテルを公式サイトで予約",
-        lead: "すれば全日この価格。早割はない",
+        lead: "すれば全日この価格。アソビューの早割より安い",
         tickets: [{ name: "1日券 · 公式サイト予約", price: 3000, sub: "プレ・オン・春とも" }],
       },
       {
         label: "宿泊者割引 · 旅行代理店予約",
         how: "オンシーズン",
         tickets: [{ name: "1日券", price: 3500 }],
+      },
+      {
+        label: "早割",
+        until: "2026-12-12",
+        how: "アソビュー · 完売",
+        tickets: [{ name: "1日券", price: 3600 }],
       },
     ]}
     list={[
