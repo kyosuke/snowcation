@@ -7,6 +7,7 @@ interface Ticket {
   name: string;
   price: number;
   days?: number; // 複数日券。1日あたりの単価を出す
+  until?: string; // 券種だけに期限があるとき（グループの他の券種は残る）
   sub?: string; // 単価の代わりに出す一言
 }
 
@@ -36,7 +37,9 @@ const when = (g: Group) =>
   g.from && g.until ? `${md(g.from)}〜${md(g.until)}` : g.until ? `${md(g.until)}まで` : g.from ? `${md(g.from)}〜` : undefined;
 const where = (g: Group) => [when(g), g.how].filter(Boolean).join(" · ");
 
-const alive = groups.filter((g) => !g.until || g.until >= t);
+const alive = groups
+  .map((g) => ({ ...g, tickets: g.tickets.filter((k) => !k.until || k.until >= t) }))
+  .filter((g) => (!g.until || g.until >= t) && g.tickets.length > 0);
 // 割引が何もない時期は通常料金をタイルにする
 const best: Group = alive[0] ?? {
   label: "通常料金",

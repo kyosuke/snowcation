@@ -37,6 +37,7 @@ seasons:
 ---
 
 import LiftList from "../../components/LiftList.astro";
+import LiftTicket from "../../components/LiftTicket.astro";
 import HotelBand from "../../components/HotelBand.astro";
 import Card from "../../components/Card.astro";
 import Note from "../../components/Note.astro";
@@ -81,7 +82,31 @@ import RouteExamples from "../../components/RouteExamples.astro";
       ],
     },
   ]}
-/>
+>
+  <LiftTicket
+    buy={{ label: "リフト券（公式）", url: frontmatter.links.site }}
+    groups={[
+      {
+        label: "初日のリフト券",
+        condition: "JALプランに2日分がつく",
+        how: "前売りはWEB限定",
+        lead: "ので、初日だけ別に買う。前売りは11/3までで、5枚を使い切れるなら最安。時間しだいで1日券か午後券",
+        tickets: [
+          { name: "前売り 全日券5枚セット", price: 30000, days: 5, until: "2026-11-03" },
+          { name: "1日券 レギュラーシーズン", price: 9400, sub: "12/12〜1/22、2/15〜3/7" },
+          { name: "午後券", price: 6800, sub: "レギュラー・ハイシーズン共通" },
+        ],
+      },
+    ]}
+    list={[
+      { name: "前売り 平日券5枚セット", price: 25000, how: "11/3まで · WEB限定" },
+      { name: "1日券 ハイシーズン", price: 10800, how: "1/23〜2/14" },
+      { name: "1日券 スプリングシーズン", price: 7000, how: "3/8〜4/4" },
+      { name: "午後券 スプリングシーズン", price: 5500, how: "3/8〜4/4" },
+    ]}
+    asOf="2026-10-25"
+  />
+</LiftList>
 
 <HotelBand
   name="ロックウッド・ホテル＆スパ"
