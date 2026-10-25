@@ -1,120 +1,174 @@
 ---
+import Button from "./Button.astro";
 import { today, md } from "../lib/season";
 
-interface Offer {
+interface Ticket {
   name: string;
   price: number;
-  until?: string; // YYYY-MM-DD。過ぎたらビルド時に落とす
-  how?: string; // どこで買うか（公式WEB・ホテル予約で など）
+  days?: number; // 複数日券。1日あたりの単価を出す
+  sub?: string; // 単価の代わりに出す一言
+}
+
+interface Group {
+  label: string; // 超早割 / 宿泊者割引 など
+  from?: string; // YYYY-MM-DD
+  until?: string; // YYYY-MM-DD。過ぎたらビルド時に落ちる
+  condition?: string; // 期限の代わりに太字で出す条件（ホテルを公式サイトで予約 など）
+  how?: string; // アソビュー / ホテル予約で など
+  lead?: string; // 太字の直後に続く文。読点や「すれば」から書く
+  tickets: Ticket[];
 }
 
 interface Props {
-  ticket?: string;
-  offers: Offer[]; // 安い順。先頭に残ったものが「いま買うなら」
-  list: number; // 定価
-  listHow?: string;
+  who?: string;
+  groups: Group[]; // 安い順。期限内で先頭に残ったものがタイルになる
+  list: { name?: string; price: number; how?: string }[]; // 定価
   asOf: string; // YYYY-MM-DD
+  buy?: { label: string; url: string };
 }
 
-const { ticket = "1日券 大人", offers, list, listHow = "窓口", asOf } = Astro.props;
+const { who = "大人", groups, list, asOf, buy } = Astro.props;
 
 const t = today();
-const alive = offers.filter((o) => !o.until || o.until >= t);
-const [best, ...rest] = alive.length ? alive : [{ name: "定価", price: list, how: listHow }];
-const others = alive.length ? [...rest, { name: "定価", price: list, how: listHow }] : [];
-const yen = (n: number) => n.toLocaleString("ja-JP");
-const where = (o: Offer) => [o.until && `${md(o.until)}まで`, o.how].filter(Boolean).join(" · ");
+const yen = (n: number) => Math.round(n).toLocaleString("ja-JP");
+const when = (g: Group) =>
+  g.from && g.until ? `${md(g.from)}〜${md(g.until)}` : g.until ? `${md(g.until)}まで` : g.from ? `${md(g.from)}〜` : undefined;
+const where = (g: Group) => [when(g), g.how].filter(Boolean).join(" · ");
+
+const alive = groups.filter((g) => !g.until || g.until >= t);
+const best: Group = alive[0] ?? { label: "定価", how: list[0]?.how, tickets: list.map((l) => ({ name: l.name ?? "1日券", price: l.price })) };
+const rest = alive.slice(1).map((g) => ({
+  name: g.tickets.length > 1 ? `${g.label} ${g.tickets[0].name}` : g.label,
+  price: g.tickets[0].price,
+  where: where(g),
+}));
+const rows = alive.length
+  ? [...rest, ...list.map((l) => ({ name: l.name ? `定価 ${l.name}` : "定価", price: l.price, where: l.how }))]
+  : [];
+const bold = best.until ? `${md(best.until)}まで` : best.condition;
 const asOfLabel = `${Number(asOf.slice(0, 4))}年${Number(asOf.slice(5, 7))}月${Number(asOf.slice(8, 10))}日`;
 ---
 
 <div class="card ticket">
   <div class="head">
-    <h3 class="h3">リフト券</h3>
-    <span class="kind">{ticket}</span>
-  </div>
-  <div class="body">
-    <div class="best">
-      <div class="label">いま買うなら · {best.name}</div>
-      <div class="stat-value">{yen(best.price)} <span class="stat-unit">円</span></div>
-      {
-        where(best) && (
-          <div class="where">
-            {best.until && <strong>{md(best.until)}まで</strong>}
-            {best.until && best.how && " · "}
-            {best.how}
-          </div>
-        )
-      }
+    <div class="title">
+      <h3 class="h3">リフト券</h3>
+      <span class="who">{who}</span>
     </div>
+    {buy && <Button href={buy.url} variant="outline">{buy.label}</Button>}
+  </div>
+  <p class="lead">
+    いま買うなら{best.label}。{bold && <strong>{bold}</strong>}{best.lead}
+  </p>
+  <div class="tiles">
     {
-      others.length > 0 && (
-        <dl class="others nums">
-          {others.map((o) => (
-            <>
-              <dt>{o.name}</dt>
-              <dd class="price">{yen(o.price)}円</dd>
-              <dd class="how">{where(o)}</dd>
-            </>
-          ))}
-        </dl>
-      )
+      best.tickets.map((k) => (
+        <div class="tile">
+          <div class="label">{k.name}</div>
+          <div class="stat-value">
+            {yen(k.price)}<span class="stat-unit">円</span>
+          </div>
+          <div class="sub">{k.sub ?? `1日あたり ${yen(k.price / (k.days ?? 1))}円`}</div>
+        </div>
+      ))
     }
   </div>
+  {
+    rows.length > 0 && (
+      <dl class="rows nums">
+        {rows.map((r) => (
+          <>
+            <dt>{r.name}</dt>
+            <dd class="price">{yen(r.price)}円</dd>
+            <dd class="where">{r.where}</dd>
+          </>
+        ))}
+      </dl>
+    )
+  }
   <p class="foot">{asOfLabel}時点の情報。</p>
 </div>
 
 <style>
+  /* 食事やスクールのカードと同じグリッドに置かれても、タイルの幅を保つため 1 行を占める */
+  .ticket {
+    grid-column: 1 / -1;
+  }
   .head {
     display: flex;
-    align-items: baseline;
+    flex-wrap: wrap;
+    align-items: center;
     justify-content: space-between;
-    gap: 12px;
+    gap: 8px 12px;
   }
-  .kind {
+  .title {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .who {
     font-size: var(--text-caption);
     color: var(--ink-3);
   }
-  .body {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    gap: 16px 40px;
-  }
-  .best {
-    flex: 0 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  .where {
+  .lead {
     font-size: var(--text-body-weak);
+    line-height: 1.6;
     color: var(--ink-2);
   }
-  .where strong {
+  .lead strong {
     color: var(--ink);
     font-weight: 600;
   }
-  .others {
-    flex: 1 1 260px;
+  /* タイルが 1 枚でも同じ幅にして、リゾート間で見え方を揃える */
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+  @media (max-width: 560px) {
+    .tiles {
+      grid-template-columns: 1fr;
+    }
+  }
+  .tile {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: var(--snow);
+    min-width: 0;
+  }
+  .tile .stat-value {
+    white-space: nowrap;
+  }
+  .tile .stat-unit {
+    margin-left: 4px;
+  }
+  .sub {
+    font-size: var(--text-caption);
+    color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+  }
+  .rows {
     margin: 0;
     display: grid;
     grid-template-columns: auto auto 1fr;
     gap: 6px 16px;
-    align-content: end;
     font-size: var(--text-body-weak);
     line-height: 1.5;
   }
-  .others dt {
+  .rows dt {
     color: var(--ink-3);
     font-weight: 500;
   }
-  .others dd {
+  .rows dd {
     margin: 0;
   }
   .price {
     font-weight: 600;
   }
-  .how {
+  .where {
     color: var(--ink-3);
   }
   .foot {

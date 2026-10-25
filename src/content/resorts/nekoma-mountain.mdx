@@ -116,12 +116,35 @@ import RouteExamples from "../../components/RouteExamples.astro";
   ]}
 >
   <LiftTicket
-    offers={[
-      { name: "超早割", price: 4200, until: "2026-11-03", how: "公式WEB" },
-      { name: "早割", price: 4400, until: "2026-12-13", how: "公式WEB" },
-      { name: "宿泊者割引", price: 5500, how: "ホテル予約で" },
+    buy={{ label: "アソビューで買う", url: "https://www.asoview.com/channel/tickets/COI2KJnOiD/" }}
+    groups={[
+      {
+        label: "超早割",
+        from: "2026-10-01",
+        until: "2026-11-03",
+        how: "アソビュー",
+        lead: "、何日滑るかで選ぶ。3日分・5日分は1日ずつ分けて使える",
+        tickets: [
+          { name: "1日券", price: 4200 },
+          { name: "3日分券", price: 11700, days: 3 },
+          { name: "5日分券", price: 19000, days: 5 },
+        ],
+      },
+      {
+        label: "早割",
+        from: "2026-11-04",
+        until: "2026-12-13",
+        how: "アソビュー",
+        lead: "、何日滑るかで選ぶ。3日分・5日分は1日ずつ分けて使える",
+        tickets: [
+          { name: "1日券", price: 4400 },
+          { name: "3日分券", price: 12300, days: 3 },
+          { name: "5日分券", price: 20000, days: 5 },
+        ],
+      },
+      { label: "宿泊者割引", how: "ホテル予約で", tickets: [{ name: "1日券", price: 5500 }] },
     ]}
-    list={6500}
+    list={[{ price: 6500, how: "窓口" }]}
     asOf="2026-10-25"
   />
 </LiftList>

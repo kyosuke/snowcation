@@ -47,6 +47,7 @@ seasons:
 ---
 
 import LiftList from "../../components/LiftList.astro";
+import LiftTicket from "../../components/LiftTicket.astro";
 import HotelBand from "../../components/HotelBand.astro";
 import Card from "../../components/Card.astro";
 import Stats from "../../components/Stats.astro";
@@ -107,6 +108,26 @@ import RouteExamples from "../../components/RouteExamples.astro";
   ]}
   note="運行時間はオンシーズンのもの。ゴンドラは15:00で上りが終わるので、午後は第1クワッドで回す。"
 >
+  <LiftTicket
+    groups={[
+      {
+        label: "宿泊者割引",
+        condition: "ホテルを公式サイトで予約",
+        lead: "すれば全日この価格。早割はない",
+        tickets: [{ name: "1日券 · 公式サイト予約", price: 3000, sub: "プレ・オン・春とも" }],
+      },
+      {
+        label: "宿泊者割引 · 旅行代理店予約",
+        how: "オンシーズン",
+        tickets: [{ name: "1日券", price: 3500 }],
+      },
+    ]}
+    list={[
+      { name: "土日祝", price: 5500, how: "窓口 · 年末年始も" },
+      { name: "平日", price: 4300, how: "窓口" },
+    ]}
+    asOf="2026-10-25"
+  />
   <Card title="ゲレンデの食事">
     <Dl
       items={[
@@ -132,8 +153,7 @@ import RouteExamples from "../../components/RouteExamples.astro";
     <Note>公式サイト予約ならチェックアウトは12:00。空きがあれば有料でレイトチェックアウトもできる（3時間単位）。</Note>
   </Card>
   <Card title="宿泊者特典">
-    <Stats items={[{ label: "1日券 大人 · 公式サイト予約", value: "3,000", unit: "円", strike: "5,500円" }]} />
-    <Note>旅行代理店・ツアー予約だと3,500円。土日など混雑時はゴンドラに優先乗車できる。</Note>
+    <Note>土日など混雑時はゴンドラに優先乗車できる。リフト券の割引はリフト券の欄に。</Note>
   </Card>
   <Card title="ワーケーション環境">
     <Dl
