@@ -1,5 +1,6 @@
 ---
 import Button from "./Button.astro";
+import Note from "./Note.astro";
 import { today, md } from "../lib/season";
 
 interface Ticket {
@@ -36,7 +37,12 @@ const when = (g: Group) =>
 const where = (g: Group) => [when(g), g.how].filter(Boolean).join(" · ");
 
 const alive = groups.filter((g) => !g.until || g.until >= t);
-const best: Group = alive[0] ?? { label: "定価", how: list[0]?.how, tickets: list.map((l) => ({ name: l.name ?? "1日券", price: l.price })) };
+// 割引が何もない時期は定価をタイルにする
+const best: Group = alive[0] ?? {
+  label: "定価",
+  lead: "いま選べる割引はない。",
+  tickets: list.map((l) => ({ name: l.name ?? "1日券", price: l.price, sub: l.how })),
+};
 const rest = alive.slice(1).map((g) => ({
   name: g.tickets.length > 1 ? `${g.label} ${g.tickets[0].name}` : g.label,
   price: g.tickets[0].price,
@@ -58,7 +64,7 @@ const asOfLabel = `${Number(asOf.slice(0, 4))}年${Number(asOf.slice(5, 7))}月$
     {buy && <Button href={buy.url} variant="outline">{buy.label}</Button>}
   </div>
   <p class="lead">
-    いま買うなら{best.label}。{bold && <strong>{bold}</strong>}{best.lead}
+    {alive.length ? `いま買うなら${best.label}。` : ""}{bold && <strong>{bold}</strong>}{best.lead}
   </p>
   <div class="tiles">
     {
@@ -84,6 +90,13 @@ const asOfLabel = `${Number(asOf.slice(0, 4))}年${Number(asOf.slice(5, 7))}月$
           </>
         ))}
       </dl>
+    )
+  }
+  {
+    Astro.slots.has("default") && (
+      <Note>
+        <slot />
+      </Note>
     )
   }
   <p class="foot">{asOfLabel}時点の情報。</p>
