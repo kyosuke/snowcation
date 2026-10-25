@@ -17,7 +17,7 @@ interface Group {
   until?: string; // YYYY-MM-DD。過ぎたらビルド時に落ちる
   condition?: string; // 期限の代わりに太字で出す条件（ホテルを公式サイトで予約 など）
   how?: string; // アソビュー / ホテル予約で など
-  lead?: string; // 太字の直後に続く文。読点や「すれば」から書く
+  lead?: string; // 太字の直後に続く文。読点や「すれば」から書く。期限つき（早割）のときだけ「いま買うなら〜。」が頭に付く
   tickets: Ticket[];
 }
 
@@ -67,7 +67,7 @@ const asOfLabel = `${Number(asOf.slice(0, 4))}年${Number(asOf.slice(5, 7))}月$
     {buy && <Button href={buy.url} variant="outline">{buy.label}</Button>}
   </div>
   <p class="lead">
-    {alive.length ? `いま買うなら${best.label}。` : ""}{bold && <strong>{bold}</strong>}{best.lead}
+    {best.until && `いま買うなら${best.label}。`}{bold && <strong>{bold}</strong>}{best.lead}
   </p>
   <div class="tiles">
     {
