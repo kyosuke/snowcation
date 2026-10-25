@@ -2,6 +2,7 @@
 interface Stop {
   label: string;
   kind?: "origin" | "hotel";
+  stay?: string; // 駅にいる時間（搭乗手続きなど）。箱の下にピルで出す
 }
 interface Leg {
   label: string; // 交通手段。<br> 相当は配列で
@@ -48,6 +49,11 @@ const hasRow2 = branches.length > 0;
         <>
           <div class="stop" data-kind={s.kind}>
             {s.label}
+            {s.stay && (
+              <div class="stay">
+                <span class="pill">{s.stay}</span>
+              </div>
+            )}
           </div>
           {i < legs.length && (
             <div class="leg">
@@ -120,6 +126,15 @@ const hasRow2 = branches.length > 0;
     background: #fff;
     color: var(--ink);
     border: 1px solid var(--ice-300);
+  }
+  .stop {
+    position: relative;
+  }
+  .stay {
+    position: absolute;
+    left: 50%;
+    top: calc(100% + 10px);
+    transform: translateX(-50%);
   }
   .stop[data-kind="origin"] {
     background: var(--ink);
