@@ -144,7 +144,10 @@ import RouteExamples from "../../components/RouteExamples.astro";
       },
       { label: "宿泊者割引", how: "ホテル予約で", tickets: [{ name: "1日券", price: 5500 }] },
     ]}
-    list={[{ price: 6500, how: "窓口" }]}
+    list={[
+      { name: "通常1日券", price: 6500, how: "窓口" },
+      { name: "午後券", price: 4900, how: "窓口" },
+    ]}
     asOf="2026-10-25"
   />
 </LiftList>

@@ -23,7 +23,7 @@ interface Group {
 interface Props {
   who?: string;
   groups: Group[]; // 安い順。期限内で先頭に残ったものがタイルになる
-  list: { name?: string; price: number; how?: string }[]; // 定価
+  list: { name: string; price: number; how?: string }[]; // 割引のない通常料金。公式の券種名で書く
   asOf: string; // YYYY-MM-DD
   buy?: { label: string; url: string };
 }
@@ -37,11 +37,11 @@ const when = (g: Group) =>
 const where = (g: Group) => [when(g), g.how].filter(Boolean).join(" · ");
 
 const alive = groups.filter((g) => !g.until || g.until >= t);
-// 割引が何もない時期は定価をタイルにする
+// 割引が何もない時期は通常料金をタイルにする
 const best: Group = alive[0] ?? {
-  label: "定価",
+  label: "通常料金",
   lead: "いま選べる割引はない。",
-  tickets: list.map((l) => ({ name: l.name ?? "1日券", price: l.price, sub: l.how })),
+  tickets: list.map((l) => ({ name: l.name, price: l.price, sub: l.how })),
 };
 const rest = alive.slice(1).map((g) => ({
   name: g.tickets.length > 1 ? `${g.label} ${g.tickets[0].name}` : g.label,
@@ -49,7 +49,7 @@ const rest = alive.slice(1).map((g) => ({
   where: where(g),
 }));
 const rows = alive.length
-  ? [...rest, ...list.map((l) => ({ name: l.name ? `定価 ${l.name}` : "定価", price: l.price, where: l.how }))]
+  ? [...rest, ...list.map((l) => ({ name: l.name, price: l.price, where: l.how }))]
   : [];
 const bold = best.until ? `${md(best.until)}まで` : best.condition;
 const asOfLabel = `${Number(asOf.slice(0, 4))}年${Number(asOf.slice(5, 7))}月${Number(asOf.slice(8, 10))}日`;
