@@ -57,7 +57,6 @@ export const collections = {
         seasons: z.array(
           z.object({
             label: z.string(), // "26-27"
-            note: z.string().optional(),
             areas: z.array(
               z.object({
                 name: z.string().optional(),
