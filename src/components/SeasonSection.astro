@@ -15,8 +15,8 @@ const open = isPreSeason(Astro.props.seasons);
 <section id="season" aria-labelledby="h-season" class="season">
   <div class="card">
     <div class="head">
-      <h2 id="h-season" class="h2">{current.label}シーズンの営業期間</h2>
-      {current.note && <span class="sub">{current.note}</span>}
+      <h2 id="h-season" class="h2">{current.label}シーズン</h2>
+      <span class="sub">営業期間の予定と実績</span>
     </div>
     {current.areas.map((a) => <SeasonTimeline name={a.name} periods={a.periods} closures={a.closures} />)}
   </div>
@@ -25,8 +25,8 @@ const open = isPreSeason(Astro.props.seasons);
       <details class="card" open={open}>
         <summary>
           <span class="head">
-            <span class="h2">{s.label}シーズンの営業期間</span>
-            <span class="sub">{s.note ?? "予定と実績"}</span>
+            <span class="h2">{s.label}シーズン</span>
+            <span class="sub">営業期間の予定と実績</span>
           </span>
           <IconChevron class="chev" aria-hidden="true" />
         </summary>
