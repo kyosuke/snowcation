@@ -5,15 +5,17 @@ interface Props {
   name: string;
   url: string;
   description: string;
+  /** ホテル名の上の一言。ゲレンデ直結でない宿はアクセス手段を書く */
+  kicker?: string;
 }
 
-const { name, url, description } = Astro.props;
+const { name, url, description, kicker = "スキーイン・スキーアウト" } = Astro.props;
 ---
 
 <section id="hotel" aria-labelledby="h-hotel" class="band">
   <div class="inner">
     <div class="head">
-      <div class="label kicker">泊まる</div>
+      <div class="label kicker">{kicker}</div>
       <h2 id="h-hotel">
         <a href={url} target="_blank" rel="noopener">{name}<IconOpen aria-hidden="true" /></a>
       </h2>
