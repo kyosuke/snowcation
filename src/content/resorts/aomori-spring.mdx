@@ -22,7 +22,7 @@ facts:
   slope:
     tags: ["ロングコース", "全22コース"]
     max: 30
-  access: { hours: 3.5, note: "羽田から青森空港、混乗タクシー" }
+  access: { hours: 4, note: "羽田から青森空港、混乗タクシー" }
 seasons:
   - label: "26-27"
     areas:
@@ -135,10 +135,10 @@ import RouteExamples from "../../components/RouteExamples.astro";
     />
   </Card>
 
-  <AccessCard slot="access" title="羽田からのアクセス" summary="最短 3時間30分 · 羽田 7:15 発 → ホテル 10:45 頃着">
+  <AccessCard slot="access" title="羽田からのアクセス" summary="最短 4時間 · 羽田 6:45 着 → ホテル 10:45 頃着">
     <AccessRoute
-      summary="羽田空港からJAL便で青森空港へ約75分、混乗タクシーでホテルへ約90分"
-      stops={[{ label: "羽田空港", kind: "origin" }, { label: "青森空港" }, { label: "ロックウッド・ホテル＆スパ", kind: "hotel" }]}
+      summary="羽田空港で搭乗手続き30分、JAL便で青森空港へ約75分、混乗タクシーでホテルへ約90分"
+      stops={[{ label: "羽田空港", kind: "origin", stay: "搭乗手続き 30分" }, { label: "青森空港" }, { label: "ロックウッド・ホテル＆スパ", kind: "hotel" }]}
       legs={[
         { label: "JAL便", duration: "約75分" },
         { label: "混乗タクシー\n三八五観光タクシー", duration: "約90分" },
@@ -155,6 +155,7 @@ import RouteExamples from "../../components/RouteExamples.astro";
           {
             label: "往路",
             legs: [
+              { mode: "空港", time: "羽田 6:45 着", note: "搭乗手続き 30分" },
               { mode: "飛行機", time: "羽田 7:15 → 青森 8:30", note: "JAL141 普通席 · 乗換余裕 45分" },
               { mode: "タクシー", time: "青森空港 9:15 → ホテル 10:45頃", note: "混乗タクシー（JAL141接続）" },
             ],
