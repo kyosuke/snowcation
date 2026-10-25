@@ -23,7 +23,7 @@ const slopeNote = [
 <section aria-label="基本情報" class="facts">
   <div class="card">
     <div class="label">標高</div>
-    <div class="stat-value">{n(facts.top)} <span class="stat-unit">m</span></div>
+    <div class="stat-value">{n(facts.top)}<span class="stat-unit">m</span></div>
     <div class="sub">ベース {n(facts.base)}m · 標高差 {n(facts.top - facts.base)}m<br />最長滑走 {n(facts.longest)}m</div>
   </div>
   {
@@ -59,8 +59,11 @@ const slopeNote = [
   </div>
   <div class="card">
     <div class="label">東京からのアクセス</div>
-    <div class="stat-value"><span class="stat-unit">約</span>{facts.access.hours} <span class="stat-unit">時間</span></div>
-    <div class="sub">{facts.access.note}</div>
+    <div class="stat-value"><span class="stat-unit pre">約</span>{facts.access.hours}<span class="stat-unit">時間</span></div>
+    <div class="sub">
+      {facts.access.note}
+      {facts.access.arrival && <><br />最短 {facts.access.arrival} ホテル着</>}
+    </div>
   </div>
 </section>
 
@@ -81,6 +84,12 @@ const slopeNote = [
     line-height: 1.6;
     color: var(--ink-2);
     font-variant-numeric: tabular-nums;
+  }
+  .stat-unit {
+    margin-left: 0.125em;
+  }
+  .stat-unit.pre {
+    margin: 0 0.125em 0 0;
   }
   .aspect {
     display: flex;
