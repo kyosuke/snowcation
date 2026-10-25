@@ -9,7 +9,6 @@ export interface Period {
 
 export interface Season {
   label: string;
-  note?: string;
   areas: {
     name?: string;
     periods: Period[];
