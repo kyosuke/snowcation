@@ -51,7 +51,8 @@ export const collections = {
             ratio: z.tuple([z.number(), z.number(), z.number()]).optional(),
             max: z.number().optional(),
           }),
-          access: z.object({ hours: z.number(), note: z.string() }),
+          // arrival: 最短のホテル着。着いた日に滑れるリゾートだけ書く
+          access: z.object({ hours: z.number(), note: z.string(), arrival: z.string().optional() }),
         }),
         // 先頭が最新シーズン。以降は過去シーズン（予定と実績）
         seasons: z.array(
