@@ -105,7 +105,7 @@ import RouteExamples from "../../components/RouteExamples.astro";
 
   <AccessCard slot="access" summary="最短 3時間35分 · 東京 8:45 発 → ホテル 12:20 着">
     <AccessRoute
-      summary="東京駅から東北新幹線で古川駅へ約120分、送迎シャトルバスで鳴子温泉駅を経由してホテルへ約70分。JR陸羽東線で鳴子温泉駅へ約46分、大崎市営バスでホテルへ約45分でも行ける"
+      summary="東京駅から東北新幹線やまびこで古川駅へ約2時間18分、送迎シャトルバスでホテルへ約70分。JR陸羽東線で鳴子温泉駅へ約46分、大崎市営バスでホテルへ約45分でも行ける"
       stops={[
         { label: "東京駅", kind: "origin" },
         { label: "古川駅" },
@@ -113,14 +113,11 @@ import RouteExamples from "../../components/RouteExamples.astro";
         { label: "ホテルオニコウベ", kind: "hotel" },
       ]}
       legs={[
-        { label: "東北新幹線\nはやぶさ / やまびこ", duration: "約120分" },
-        { label: "送迎シャトルバス", duration: "約50分" },
-        { label: "送迎シャトルバス", duration: "約20分" },
+        { label: "東北新幹線\nやまびこ", duration: "約2時間18分" },
+        { label: "JR 陸羽東線", duration: "約46分" },
+        { label: "大崎市営バス", duration: "約45分" },
       ]}
-      branches={[
-        { from: 1, to: 2, label: "JR 陸羽東線", duration: "約46分" },
-        { from: 2, to: 3, label: "大崎市営バス", duration: "約45分" },
-      ]}
+      branches={[{ from: 1, to: 3, label: "送迎シャトルバス", duration: "約70分" }]}
     />
     <Dl
       items={[
