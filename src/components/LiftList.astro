@@ -26,6 +26,8 @@ const { title = "リフト", statusUrl, groups, note } = Astro.props;
 // 公称最高速より遅めにして減速分を含める。30秒以上は切り上げ
 const SPEED = { gondola: 4.0, express: 4.0, fixed: 2.0 };
 const MAX_LENGTH = 4000;
+// 1,000m ごとの目盛り。バーの中は白、トラック上は Ink の破線で描く
+const TICKS = [1000, 2000, 3000].map((m) => (m / MAX_LENGTH) * 100);
 const cabinLabel = { narrow: "キャビン狭め", standard: "キャビン普通", wide: "キャビン広め" };
 
 const row = (l: Lift) => {
@@ -42,7 +44,8 @@ const row = (l: Lift) => {
     ...(l.cabin ? [cabinLabel[l.cabin]] : []),
     ...(l.hours ? [l.hours] : []),
   ].join(" · ");
-  return { ...l, minutes, chips, sub, width: Math.min(100, (l.length / MAX_LENGTH) * 100) };
+  const width = Math.min(100, (l.length / MAX_LENGTH) * 100);
+  return { ...l, minutes, chips, sub, width, ticks: TICKS.filter((t) => t < width).map((t) => (t / width) * 100) };
 };
 ---
 
@@ -69,7 +72,14 @@ const row = (l: Lift) => {
               </div>
               <div class="bar">
                 <div class="track">
-                  <div class="fill" style={`width: ${l.width}%`} />
+                  {TICKS.map((t) => (
+                    <div class="tick" style={`left: ${t}%`} aria-hidden="true" />
+                  ))}
+                  <div class="fill" style={`width: ${l.width}%`}>
+                    {l.ticks.map((t) => (
+                      <div class="tick" style={`left: ${t}%`} aria-hidden="true" />
+                    ))}
+                  </div>
                 </div>
                 <span class="value"><strong>{l.length.toLocaleString("ja-JP")}m</strong> / 約{l.minutes}分</span>
               </div>
@@ -162,6 +172,18 @@ const row = (l: Lift) => {
     inset: 0 auto 0 0;
     border-radius: 4px;
     background: var(--glacier);
+    overflow: hidden;
+  }
+  /* SeasonTimeline と同じ 2 層の目盛り。トラック上は Ink、バーの中は白 */
+  .tick {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    border-left: 1px dashed rgba(16, 35, 58, 0.26);
+  }
+  .fill .tick {
+    border-left-color: rgba(255, 255, 255, 0.7);
   }
   .value {
     width: 112px;
