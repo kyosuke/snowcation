@@ -27,9 +27,10 @@ interface Props {
   list: { name: string; price: number; how?: string }[]; // 割引のない通常料金。公式の券種名で書く
   asOf: string; // YYYY-MM-DD
   buy?: { label: string; url: string };
+  lead?: string; // 割引のグループが 1 つもないときの 1 文
 }
 
-const { who = "大人", groups, list, asOf, buy } = Astro.props;
+const { who = "大人", groups, list, asOf, buy, lead } = Astro.props;
 
 const t = today();
 const yen = (n: number) => Math.round(n).toLocaleString("ja-JP");
@@ -43,7 +44,7 @@ const alive = groups
 // 割引が何もない時期は通常料金をタイルにする
 const best: Group = alive[0] ?? {
   label: "通常料金",
-  lead: "いま選べる割引はない。",
+  lead: lead ?? "いま選べる割引はない。",
   tickets: list.map((l) => ({ name: l.name, price: l.price, sub: l.how })),
 };
 const rest = alive.slice(1).map((g) => ({
