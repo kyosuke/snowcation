@@ -32,7 +32,7 @@ export const collections = {
         note: z.string().optional(), // ヒーローに出す注意書き
         links: z.object({
           site: z.string().url(),
-          map: z.object({ label: z.string(), url: z.string().url() }),
+          yukiyama: z.string().url(), // yukiyama のスキー場ページ
           status: z.string().url().optional(), // リフト運行状況。省略時は site
         }),
         facts: z.object({
