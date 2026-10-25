@@ -25,9 +25,10 @@ const { title = "リフト", statusUrl, groups, note } = Astro.props;
 
 // 公称最高速より遅めにして減速分を含める。30秒以上は切り上げ
 const SPEED = { gondola: 4.0, express: 4.0, fixed: 2.0 };
-const MAX_LENGTH = 4000;
-// 1,000m ごとの目盛り。バーの中は白、トラック上は Ink の破線で描く
-const TICKS = [1000, 2000, 3000].map((m) => (m / MAX_LENGTH) * 100);
+// 1 行 2,000m。超えた分は次の行へ折り返す（文章の改行と同じで、2 行あれば長いとわかる）
+const LINE_LENGTH = 2000;
+// 1,000m の目盛り。バーの中は白、トラック上は Ink の破線で描く
+const TICK = 50;
 const cabinLabel = { narrow: "キャビン狭め", standard: "キャビン普通", wide: "キャビン広め" };
 
 const row = (l: Lift) => {
@@ -44,8 +45,11 @@ const row = (l: Lift) => {
     ...(l.cabin ? [cabinLabel[l.cabin]] : []),
     ...(l.hours ? [l.hours] : []),
   ].join(" · ");
-  const width = Math.min(100, (l.length / MAX_LENGTH) * 100);
-  return { ...l, minutes, chips, sub, width, ticks: TICKS.filter((t) => t < width).map((t) => (t / width) * 100) };
+  const lines = Array.from({ length: Math.ceil(l.length / LINE_LENGTH) }, (_, i) => {
+    const width = Math.min(100, ((l.length - i * LINE_LENGTH) / LINE_LENGTH) * 100);
+    return { width, tick: TICK < width ? (TICK / width) * 100 : null };
+  });
+  return { ...l, minutes, chips, sub, lines };
 };
 ---
 
@@ -71,15 +75,15 @@ const row = (l: Lift) => {
                 <div class="sub">{l.sub}</div>
               </div>
               <div class="bar">
-                <div class="track">
-                  {TICKS.map((t) => (
-                    <div class="tick" style={`left: ${t}%`} aria-hidden="true" />
+                <div class="tracks">
+                  {l.lines.map((line) => (
+                    <div class="track">
+                      <div class="tick" style={`left: ${TICK}%`} aria-hidden="true" />
+                      <div class="fill" style={`width: ${line.width}%`}>
+                        {line.tick !== null && <div class="tick" style={`left: ${line.tick}%`} aria-hidden="true" />}
+                      </div>
+                    </div>
                   ))}
-                  <div class="fill" style={`width: ${l.width}%`}>
-                    {l.ticks.map((t) => (
-                      <div class="tick" style={`left: ${t}%`} aria-hidden="true" />
-                    ))}
-                  </div>
                 </div>
                 <span class="value"><strong>{l.length.toLocaleString("ja-JP")}m</strong> / 約{l.minutes}分</span>
               </div>
@@ -160,9 +164,14 @@ const row = (l: Lift) => {
     align-items: center;
     gap: 10px;
   }
+  .tracks {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
   .track {
     position: relative;
-    flex: 1;
     height: 8px;
     border-radius: 4px;
     background: var(--snow-2);
