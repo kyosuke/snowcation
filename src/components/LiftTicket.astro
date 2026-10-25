@@ -1,0 +1,125 @@
+---
+import { today, md } from "../lib/season";
+
+interface Offer {
+  name: string;
+  price: number;
+  until?: string; // YYYY-MM-DD。過ぎたらビルド時に落とす
+  how?: string; // どこで買うか（公式WEB・ホテル予約で など）
+}
+
+interface Props {
+  ticket?: string;
+  offers: Offer[]; // 安い順。先頭に残ったものが「いま買うなら」
+  list: number; // 定価
+  listHow?: string;
+  asOf: string; // YYYY-MM-DD
+}
+
+const { ticket = "1日券 大人", offers, list, listHow = "窓口", asOf } = Astro.props;
+
+const t = today();
+const alive = offers.filter((o) => !o.until || o.until >= t);
+const [best, ...rest] = alive.length ? alive : [{ name: "定価", price: list, how: listHow }];
+const others = alive.length ? [...rest, { name: "定価", price: list, how: listHow }] : [];
+const yen = (n: number) => n.toLocaleString("ja-JP");
+const where = (o: Offer) => [o.until && `${md(o.until)}まで`, o.how].filter(Boolean).join(" · ");
+const asOfLabel = `${Number(asOf.slice(0, 4))}年${Number(asOf.slice(5, 7))}月${Number(asOf.slice(8, 10))}日`;
+---
+
+<div class="card ticket">
+  <div class="head">
+    <h3 class="h3">リフト券</h3>
+    <span class="kind">{ticket}</span>
+  </div>
+  <div class="body">
+    <div class="best">
+      <div class="label">いま買うなら · {best.name}</div>
+      <div class="stat-value">{yen(best.price)} <span class="stat-unit">円</span></div>
+      {
+        where(best) && (
+          <div class="where">
+            {best.until && <strong>{md(best.until)}まで</strong>}
+            {best.until && best.how && " · "}
+            {best.how}
+          </div>
+        )
+      }
+    </div>
+    {
+      others.length > 0 && (
+        <dl class="others nums">
+          {others.map((o) => (
+            <>
+              <dt>{o.name}</dt>
+              <dd class="price">{yen(o.price)}円</dd>
+              <dd class="how">{where(o)}</dd>
+            </>
+          ))}
+        </dl>
+      )
+    }
+  </div>
+  <p class="foot">{asOfLabel}時点の情報。</p>
+</div>
+
+<style>
+  .head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .kind {
+    font-size: var(--text-caption);
+    color: var(--ink-3);
+  }
+  .body {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 16px 40px;
+  }
+  .best {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .where {
+    font-size: var(--text-body-weak);
+    color: var(--ink-2);
+  }
+  .where strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .others {
+    flex: 1 1 260px;
+    margin: 0;
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    gap: 6px 16px;
+    align-content: end;
+    font-size: var(--text-body-weak);
+    line-height: 1.5;
+  }
+  .others dt {
+    color: var(--ink-3);
+    font-weight: 500;
+  }
+  .others dd {
+    margin: 0;
+  }
+  .price {
+    font-weight: 600;
+  }
+  .how {
+    color: var(--ink-3);
+  }
+  .foot {
+    font-size: var(--text-caption);
+    line-height: 1.6;
+    color: var(--ink-3);
+  }
+</style>

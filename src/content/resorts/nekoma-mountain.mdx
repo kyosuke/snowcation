@@ -54,6 +54,7 @@ seasons:
 ---
 
 import LiftList from "../../components/LiftList.astro";
+import LiftTicket from "../../components/LiftTicket.astro";
 import HotelBand from "../../components/HotelBand.astro";
 import Card from "../../components/Card.astro";
 import Stats from "../../components/Stats.astro";
@@ -114,7 +115,17 @@ import RouteExamples from "../../components/RouteExamples.astro";
       lifts: [{ name: "ニャルツチェア", capacity: 2, length: 750, safetyBar: true }],
     },
   ]}
-/>
+>
+  <LiftTicket
+    offers={[
+      { name: "超早割", price: 4200, until: "2026-11-03", how: "公式WEB" },
+      { name: "早割", price: 4400, until: "2026-12-13", how: "公式WEB" },
+      { name: "宿泊者割引", price: 5500, how: "ホテル予約で" },
+    ]}
+    list={6500}
+    asOf="2026-10-25"
+  />
+</LiftList>
 
 <HotelBand
   name="星野リゾート 磐梯山温泉ホテル"
@@ -124,13 +135,6 @@ import RouteExamples from "../../components/RouteExamples.astro";
   <Card title="チェックイン・チェックアウト">
     <Stats items={[{ label: "イン", value: "16:00" }, { label: "アウト", value: "14:00" }]} />
     <Note>チェックアウトが14:00と遅いので、最終日も午前中しっかり滑ってから部屋で着替え・荷物整理ができる。</Note>
-  </Card>
-  <Card title="宿泊者リフト割引">
-    <Stats items={[{ label: "1日券 大人 · 26-27", value: "5,500", unit: "円", strike: "6,500円" }]} />
-    <Note>
-      オープン前のWEB早割のほうが安いので、事前に手配できるなら早割で。26-27は超早割1日券 4,200円（10/1〜11/3）、早割1日券
-      4,400円（11/4〜12/13）、シーズン中のWEB割 5,900円。
-    </Note>
   </Card>
   <Card title="ワーケーション環境">
     <Dl
