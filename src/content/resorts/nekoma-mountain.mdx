@@ -53,6 +53,7 @@ seasons:
 ---
 
 import LiftList from "../../components/LiftList.astro";
+import LiftTicket from "../../components/LiftTicket.astro";
 import HotelBand from "../../components/HotelBand.astro";
 import Card from "../../components/Card.astro";
 import Stats from "../../components/Stats.astro";
@@ -113,7 +114,43 @@ import RouteExamples from "../../components/RouteExamples.astro";
       lifts: [{ name: "ニャルツチェア", capacity: 2, length: 750, safetyBar: true }],
     },
   ]}
-/>
+>
+  <LiftTicket
+    buy={{ label: "アソビューで買う", url: "https://www.asoview.com/channel/tickets/COI2KJnOiD/" }}
+    groups={[
+      {
+        label: "超早割",
+        from: "2026-10-01",
+        until: "2026-11-03",
+        how: "アソビュー",
+        lead: "、何日滑るかで選ぶ。3日分・5日分は1日ずつ分けて使える",
+        tickets: [
+          { name: "1日券", price: 4200 },
+          { name: "3日分券", price: 11700, days: 3 },
+          { name: "5日分券", price: 19000, days: 5 },
+        ],
+      },
+      {
+        label: "早割",
+        from: "2026-11-04",
+        until: "2026-12-13",
+        how: "アソビュー",
+        lead: "、何日滑るかで選ぶ。3日分・5日分は1日ずつ分けて使える",
+        tickets: [
+          { name: "1日券", price: 4400 },
+          { name: "3日分券", price: 12300, days: 3 },
+          { name: "5日分券", price: 20000, days: 5 },
+        ],
+      },
+      { label: "宿泊者割引", how: "ホテル予約で", tickets: [{ name: "1日券", price: 5500 }] },
+    ]}
+    list={[
+      { name: "通常1日券", price: 6500, how: "窓口" },
+      { name: "午後券", price: 4900, how: "窓口" },
+    ]}
+    asOf="2026-10-25"
+  />
+</LiftList>
 
 <HotelBand
   name="星野リゾート 磐梯山温泉ホテル"
@@ -123,13 +160,6 @@ import RouteExamples from "../../components/RouteExamples.astro";
   <Card title="チェックイン・チェックアウト">
     <Stats items={[{ label: "イン", value: "16:00" }, { label: "アウト", value: "14:00" }]} />
     <Note>チェックアウトが14:00と遅いので、最終日も午前中しっかり滑ってから部屋で着替え・荷物整理ができる。</Note>
-  </Card>
-  <Card title="宿泊者リフト割引">
-    <Stats items={[{ label: "1日券 大人 · 26-27", value: "5,500", unit: "円", strike: "6,500円" }]} />
-    <Note>
-      オープン前のWEB早割のほうが安いので、事前に手配できるなら早割で。26-27は超早割1日券 4,200円（10/1〜11/3）、早割1日券
-      4,400円（11/4〜12/13）、シーズン中のWEB割 5,900円。
-    </Note>
   </Card>
   <Card title="ワーケーション環境">
     <Dl

@@ -40,6 +40,7 @@ seasons:
 ---
 
 import LiftList from "../../components/LiftList.astro";
+import LiftTicket from "../../components/LiftTicket.astro";
 import HotelBand from "../../components/HotelBand.astro";
 import Card from "../../components/Card.astro";
 import Stats from "../../components/Stats.astro";
@@ -79,7 +80,28 @@ import RouteExamples from "../../components/RouteExamples.astro";
       ],
     },
   ]}
-/>
+>
+  <LiftTicket
+    buy={{ label: "申込書（公式）", url: "https://www.tazawako-ski.com/post-5866/" }}
+    groups={[
+      {
+        label: "1日券か5枚セット",
+        condition: "5枚セットは11/30まで",
+        lead: "、限定300セットで1枚4,800円。申込書をメールかFAXで送ると代引で届く（送料と手数料はスキー場負担）。5日滑らないなら窓口で1日券か5時間券",
+        tickets: [
+          { name: "1日券", price: 5800, sub: "窓口" },
+          { name: "5時間券", price: 5300, sub: "窓口" },
+          { name: "1日券5枚セット", price: 24000, days: 5, until: "2026-11-30" },
+        ],
+      },
+    ]}
+    list={[]}
+    asOf="2026-10-25"
+  >
+    去年は秋田冬アソビ割で、平日1日券＋食事券1,500円分（6,800円）が50%オフの3,400円だった（11/1発売、アソビューで購入）。今年の分はまだ発表されていない。
+    <a href="https://akita-hottokenai.jp/akitafuyuasobi">秋田冬アソビ割のページ</a>
+  </LiftTicket>
+</LiftList>
 
 <HotelBand
   kicker="ゲレンデまでバス約8分"

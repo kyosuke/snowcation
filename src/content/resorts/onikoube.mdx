@@ -33,6 +33,7 @@ seasons:
 ---
 
 import LiftList from "../../components/LiftList.astro";
+import LiftTicket from "../../components/LiftTicket.astro";
 import HotelBand from "../../components/HotelBand.astro";
 import Dl from "../../components/Dl.astro";
 import OnsenInfo from "../../components/OnsenInfo.astro";
@@ -63,7 +64,20 @@ import RouteExamples from "../../components/RouteExamples.astro";
       ],
     },
   ]}
-/>
+>
+  <LiftTicket
+    buy={{ label: "リフト料金（公式）", url: "https://www.onikoube.com/snow/lift-price/" }}
+    groups={[]}
+    list={[
+      { name: "1日券", price: 5000, how: "窓口" },
+      { name: "5時間券", price: 4000, how: "窓口" },
+    ]}
+    lead="窓口の通常料金。"
+    asOf="2026-10-25"
+  >
+    曜日によって割引があったりするので、現地のチケットセンターで確認する。
+  </LiftTicket>
+</LiftList>
 
 <HotelBand
   name="リゾートパーク ホテルオニコウベ"

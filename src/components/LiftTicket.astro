@@ -1,0 +1,196 @@
+---
+import Button from "./Button.astro";
+import Note from "./Note.astro";
+import { today, md } from "../lib/season";
+
+interface Ticket {
+  name: string;
+  price: number;
+  days?: number; // 複数日券。1日あたりの単価を出す
+  until?: string; // 券種だけに期限があるとき（グループの他の券種は残る）
+  sub?: string; // 単価の代わりに出す一言
+}
+
+interface Group {
+  label: string; // 超早割 / 宿泊者割引 など
+  from?: string; // YYYY-MM-DD
+  until?: string; // YYYY-MM-DD。過ぎたらビルド時に落ちる
+  condition?: string; // 期限の代わりに太字で出す条件（ホテルを公式サイトで予約 など）
+  how?: string; // アソビュー / ホテル予約で など
+  lead?: string; // 太字の直後に続く文。読点や「すれば」から書く。期限つき（早割）のときだけ「いま買うなら〜。」が頭に付く
+  tickets: Ticket[];
+}
+
+interface Props {
+  who?: string;
+  groups: Group[]; // 安い順。期限内で先頭に残ったものがタイルになる
+  list: { name: string; price: number; how?: string }[]; // 割引のない通常料金。公式の券種名で書く
+  asOf: string; // YYYY-MM-DD
+  buy?: { label: string; url: string };
+  lead?: string; // 割引のグループが 1 つもないときの 1 文
+}
+
+const { who = "大人", groups, list, asOf, buy, lead } = Astro.props;
+
+const t = today();
+const yen = (n: number) => Math.round(n).toLocaleString("ja-JP");
+const when = (g: Group) =>
+  g.from && g.until ? `${md(g.from)}〜${md(g.until)}` : g.until ? `${md(g.until)}まで` : g.from ? `${md(g.from)}〜` : undefined;
+const where = (g: Group) => [when(g), g.how].filter(Boolean).join(" · ");
+
+const alive = groups
+  .map((g) => ({ ...g, tickets: g.tickets.filter((k) => !k.until || k.until >= t) }))
+  .filter((g) => (!g.until || g.until >= t) && g.tickets.length > 0);
+// 割引が何もない時期は通常料金をタイルにする
+const best: Group = alive[0] ?? {
+  label: "通常料金",
+  lead: lead ?? "いま選べる割引はない。",
+  tickets: list.map((l) => ({ name: l.name, price: l.price, sub: l.how })),
+};
+const rest = alive.slice(1).map((g) => ({
+  name: g.tickets.length > 1 ? `${g.label} ${g.tickets[0].name}` : g.label,
+  price: g.tickets[0].price,
+  where: where(g),
+}));
+const rows = alive.length
+  ? [...rest, ...list.map((l) => ({ name: l.name, price: l.price, where: l.how }))]
+  : [];
+const bold = best.until ? `${md(best.until)}まで` : best.condition;
+const asOfLabel = `${Number(asOf.slice(0, 4))}年${Number(asOf.slice(5, 7))}月${Number(asOf.slice(8, 10))}日`;
+---
+
+<div class="card ticket">
+  <div class="head">
+    <div class="title">
+      <h3 class="h3">リフト券</h3>
+      <span class="who">{who}</span>
+    </div>
+    {buy && <Button href={buy.url} variant="outline">{buy.label}</Button>}
+  </div>
+  <p class="lead">
+    {best.until && `いま買うなら${best.label}。`}{bold && <strong>{bold}</strong>}{best.lead}
+  </p>
+  <div class="tiles">
+    {
+      best.tickets.map((k) => (
+        <div class="tile">
+          <div class="label">{k.name}</div>
+          <div class="stat-value">
+            {yen(k.price)}<span class="stat-unit">円</span>
+          </div>
+          <div class="sub">{k.sub ?? `1日あたり ${yen(k.price / (k.days ?? 1))}円`}</div>
+        </div>
+      ))
+    }
+  </div>
+  {
+    rows.length > 0 && (
+      <dl class="rows nums">
+        {rows.map((r) => (
+          <>
+            <dt>{r.name}</dt>
+            <dd class="price">{yen(r.price)}円</dd>
+            <dd class="where">{r.where}</dd>
+          </>
+        ))}
+      </dl>
+    )
+  }
+  {
+    Astro.slots.has("default") && (
+      <Note>
+        <slot />
+      </Note>
+    )
+  }
+  <p class="foot">{asOfLabel}時点の情報。</p>
+</div>
+
+<style>
+  /* 食事やスクールのカードと同じグリッドに置かれても、タイルの幅を保つため 1 行を占める */
+  .ticket {
+    grid-column: 1 / -1;
+  }
+  .head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 12px;
+  }
+  .title {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .who {
+    font-size: var(--text-caption);
+    color: var(--ink-3);
+  }
+  .lead {
+    font-size: var(--text-body-weak);
+    line-height: 1.6;
+    color: var(--ink-2);
+  }
+  .lead strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  /* タイルが 1 枚でも同じ幅にして、リゾート間で見え方を揃える */
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+  @media (max-width: 560px) {
+    .tiles {
+      grid-template-columns: 1fr;
+    }
+  }
+  .tile {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: var(--snow);
+    min-width: 0;
+  }
+  .tile .stat-value {
+    white-space: nowrap;
+  }
+  .tile .stat-unit {
+    margin-left: 4px;
+  }
+  .sub {
+    font-size: var(--text-caption);
+    color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+  }
+  .rows {
+    margin: 0;
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    gap: 6px 16px;
+    font-size: var(--text-body-weak);
+    line-height: 1.5;
+  }
+  .rows dt {
+    color: var(--ink-3);
+    font-weight: 500;
+  }
+  .rows dd {
+    margin: 0;
+  }
+  .price {
+    font-weight: 600;
+  }
+  .where {
+    color: var(--ink-3);
+  }
+  .foot {
+    font-size: var(--text-caption);
+    line-height: 1.6;
+    color: var(--ink-3);
+  }
+</style>
