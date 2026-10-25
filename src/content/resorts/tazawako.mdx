@@ -82,7 +82,17 @@ import RouteExamples from "../../components/RouteExamples.astro";
   ]}
 >
   <LiftTicket
-    groups={[]}
+    buy={{ label: "申込書（公式）", url: "https://www.tazawako-ski.com/post-5866/" }}
+    groups={[
+      {
+        label: "1日券5枚セット",
+        from: "2026-10-01",
+        until: "2026-11-30",
+        how: "申込書をメールかFAXで",
+        lead: "、限定300セット。代引で届き、送料と手数料はスキー場負担",
+        tickets: [{ name: "5枚セット", price: 24000, days: 5 }],
+      },
+    ]}
     list={[
       { name: "1日券", price: 5800, how: "窓口" },
       { name: "5時間券", price: 5300, how: "窓口" },
