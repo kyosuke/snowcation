@@ -1,0 +1,4 @@
+interface:
+  display_name: "スキー場・ホテルのペーパーカット"
+  short_description: "公式写真で地形と建物を調べ、統一した紙の質感でリゾート画像を生成・修正する"
+  default_prompt: "$ski-resort-paper-cut で、指定したスキー場とホテルを公式資料で調査し、シリーズ共通のペーパーカット画像を作成して。"
