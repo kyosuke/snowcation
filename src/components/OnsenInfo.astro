@@ -7,7 +7,7 @@ interface Props {
   hours: string;
   quality?: string;
   facilities?: ("indoor" | "outdoor" | "cold" | "sauna" | "washing")[];
-  amenities?: ("locker" | "dryer")[];
+  amenities?: "locker"[];
 }
 
 const { name, badge, hours, quality, facilities = [], amenities = [] } = Astro.props;
@@ -18,7 +18,6 @@ const labels = {
   sauna: "サウナ",
   washing: "洗い場",
   locker: "鍵付きロッカー",
-  dryer: "ドライヤー",
 };
 const chips = [...facilities, ...amenities].map((k) => labels[k]);
 ---
