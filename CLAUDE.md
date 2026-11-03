@@ -38,4 +38,5 @@ Snowcation — ゲレンデに泊まるスノーリゾートの個人メモ。As
 - PR の説明には概要・変更内容・テスト方法・関連 Issue を含める
 - リゾートは北→南の順に並べる。frontmatter の `order` で決まる（青森県 → 秋田県 → 宮城県 → 福島県）
 - 営業期間は frontmatter の `seasons` に書く。先頭が最新シーズンで、クローズは `closures` に理由つきで足す（見せ方は DESIGN.md）
-- リゾート画像の制作・修正は /codex-director で Codex に任せ、`$ski-resort-paper-cut` を使うよう依頼する
+- 新しいリゾートのページは /resort-page の手順で作る（施設情報と配置データを集めてから、MDX と画像を作る）
+- リゾート画像の制作・修正は /codex-director で Codex に任せ、`$ski-resort-paper-cut` を使うよう依頼する。配置の下絵（`output/resort-research/<slug>/guide.png`）があれば渡させる
