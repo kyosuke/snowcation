@@ -300,7 +300,11 @@ const sum = lifts.reduce(
   ],
   [0, 0],
 );
-assert(Math.hypot(...sum) > 1e-6, "Ambiguous representative downhill bearing");
+// 方位が相殺されても、--view-from を指定していれば自動の視点は要らない
+assert(
+  args["view-from"] !== undefined || Math.hypot(...sum) > 1e-6,
+  "Ambiguous representative downhill bearing; pass --view-from",
+);
 const downhill = (Math.atan2(...sum) / rad + 360) % 360,
   view = args["view-from"] === undefined ? downhill : Number(args["view-from"]);
 assert(Number.isFinite(view) && view >= 0 && view < 360, "view-from must be 0..<360");
@@ -439,6 +443,11 @@ async function render(map) {
     base[1] + toward[1] * distanceFromBase,
     Math.min(...lifts.map((l) => l.bottom_elevation)) + 130,
   ];
+  // 構図は斜面を下から見上げる前提。斜面の上側へ回すとカメラが地中に入る
+  assert(
+    ground(eye[0], eye[1]) < eye[2] - 30,
+    `Camera would be underground at view-from ${round(view)}°; view from the downhill side`,
+  );
   const summit = lifts
     .flatMap((l) => l.points)
     .reduce((a, b) => (a.elevation > b.elevation ? a : b));
