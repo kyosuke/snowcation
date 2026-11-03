@@ -1,5 +1,6 @@
 {
   "$schema": "https://unpkg.com/knip@5/schema.json",
   "ignoreDependencies": ["@iconify-json/material-symbols-light", "@iconify-json/simple-icons"],
-  "ignoreUnresolved": ["^~icons/"]
+  "ignoreUnresolved": ["^~icons/"],
+  "ignore": [".agents/**"]
 }

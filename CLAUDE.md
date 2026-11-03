@@ -36,6 +36,9 @@ Snowcation — ゲレンデに泊まるスノーリゾートの個人メモ。As
 - コミットメッセージは Conventional Commits 形式 (`feat:`, `fix:`, `docs:`, `chore:` など)
 - 新規作業は新しいブランチを作って行う
 - PR の説明には概要・変更内容・テスト方法・関連 Issue を含める
-- リゾートは北→南の順に並べる。frontmatter の `order` で決まる（青森県 → 秋田県 → 宮城県 → 福島県）
+- リゾートは北→南の順に並べる。frontmatter の `order` で決まる（青森県 → 岩手県 → 秋田県 → 宮城県 → 福島県）
+- ページに載せる数値・日付・時刻は、公式などの一次資料を開いて確かめる。調査を Codex に任せたときも、自分で裏取りする
+- 確かめられない値は載せない。公式以外の資料から採った値や、資料どうしで食い違う値は、どの資料から採ったかをユーザーへの報告に書く
 - 営業期間は frontmatter の `seasons` に書く。先頭が最新シーズンで、クローズは `closures` に理由つきで足す（見せ方は DESIGN.md）
-- リゾート画像の制作・修正は /codex-director で Codex に任せ、`$ski-resort-paper-cut` を使うよう依頼する
+- 新しいリゾートのページは /resort-page の手順で作る（施設情報と配置データを集めてから、MDX と画像を作る）
+- リゾート画像の制作・修正は /codex-director で Codex に任せ、`$ski-resort-paper-cut` を使うよう依頼する。配置の下絵（`output/resort-research/<slug>/guide.png`）があれば渡させる
