@@ -1,0 +1,184 @@
+---
+title: "網張温泉スキー場"
+name: "網張温泉"
+description: "岩手山の南麓、県内でいちばん高い所から滑れる休暇村のスキー場。樹氷原を抜けるコースとパウダーが魅力。"
+summary: "岩手山の中腹から樹氷原を抜けて滑る。宿はゲレンデまで徒歩2分の休暇村。"
+pref: "岩手県"
+area: "網張温泉"
+order: 2
+image: "../../assets/amihari.webp"
+imageAlt: "網張温泉スキー場のペーパーカットイラスト。林を抜けるゲレンデをチェアリフトが登り、麓に休暇村の宿が建つ"
+links:
+  site: "https://www.qkamura.or.jp/iwate/ski/"
+  yukiyama: "https://yukiyama-web.com/skiarea/16"
+facts:
+  top: 1350
+  base: 760
+  longest: 3000
+  aspect:
+    label: "南"
+    dirs: ["S"]
+    note: "リフトもコースも南へ下る。上部は南南西、中腹は南南東に振れる"
+  slope:
+    tags: ["樹氷原", "全7コース"]
+    ratio: [35, 50, 15]
+    max: 37
+  access: { hours: 4, note: "東北新幹線 盛岡駅から休暇村の無料送迎バス", arrival: "10:30" }
+seasons:
+  - label: "26-27"
+    areas:
+      - periods:
+          - { name: "営業期間", kind: "on", start: "2026-12-19", end: "2027-03-28" }
+  - label: "25-26"
+    areas:
+      - periods:
+          - { name: "営業期間", kind: "on", start: "2025-12-20", end: "2026-03-29" }
+---
+
+import LiftList from "../../components/LiftList.astro";
+import LiftTicket from "../../components/LiftTicket.astro";
+import HotelBand from "../../components/HotelBand.astro";
+import Card from "../../components/Card.astro";
+import Stats from "../../components/Stats.astro";
+import Note from "../../components/Note.astro";
+import Dl from "../../components/Dl.astro";
+import OnsenInfo from "../../components/OnsenInfo.astro";
+import AccessCard from "../../components/AccessCard.astro";
+import AccessRoute from "../../components/AccessRoute.astro";
+import RouteExamples from "../../components/RouteExamples.astro";
+
+<LiftList
+  statusUrl={frontmatter.links.site}
+  groups={[
+    {
+      lifts: [
+        { name: "第1ペアリフト A線", capacity: 2, length: 370 },
+        { name: "第1ペアリフト B線", capacity: 2, length: 580 },
+        { name: "第2ペアリフト", capacity: 2, length: 1080 },
+        { name: "第3ペアリフト", capacity: 2, length: 700 },
+      ],
+    },
+  ]}
+>
+  <LiftTicket
+    buy={{ label: "リフト券（公式）", url: "https://www.qkamura.or.jp/iwate/ski/" }}
+    groups={[
+      {
+        label: "早割 第2弾",
+        until: "2026-11-30",
+        how: "アソビュー",
+        lead: "、1日券が20%オフ。12/1からは10%オフの前売りになる",
+        tickets: [{ name: "1日券", price: 4640 }],
+      },
+      {
+        label: "前売り",
+        from: "2026-12-01",
+        how: "アソビュー",
+        tickets: [{ name: "1日券", price: 5220 }],
+      },
+    ]}
+    list={[
+      { name: "1日券", price: 5800, how: "窓口" },
+      { name: "4時間券", price: 4800, how: "窓口" },
+    ]}
+    asOf="2026-10-26"
+  >
+    50歳以上はシニア料金（1日券5,300円）。小学生は無料。
+  </LiftTicket>
+</LiftList>
+
+<HotelBand
+  kicker="ゲレンデまで徒歩2分"
+  name="休暇村 岩手網張温泉"
+  url="https://www.qkamura.or.jp/iwate/"
+  description="スキー場を運営する休暇村の宿。ゲレンデまで徒歩2分で、館内に2つの浴場がある。盛岡駅から宿泊者向けの無料送迎バスが出る。"
+>
+  <Card title="チェックイン・チェックアウト">
+    <Stats items={[{ label: "イン", value: "15:00" }, { label: "アウト", value: "10:00" }]} />
+  </Card>
+  <Card title="ワーケーション環境">
+    <Dl items={[["WiFi", "本館は全館で使える"]]} />
+  </Card>
+  <Card title="食事">
+    <Dl
+      items={[
+        ["夕食", "ビュッフェ。岩手の食材と郷土料理"],
+        ["朝食", "ビュッフェ"],
+      ]}
+    />
+  </Card>
+  <OnsenInfo
+    name="大釈の湯"
+    badge="西館"
+    hours="5:30〜24:00"
+    quality="単純温泉・硫黄泉"
+    facilities={["indoor", "outdoor", "washing"]}
+    amenities={["dryer"]}
+  >
+    露天風呂つき。朝5:30から入れる
+  </OnsenInfo>
+  <OnsenInfo
+    name="白泉の湯"
+    badge="東館"
+    hours="7:00〜24:00"
+    quality="単純温泉・硫黄泉"
+    facilities={["indoor", "washing"]}
+    amenities={["dryer"]}
+  >
+    内湯だけの浴場
+  </OnsenInfo>
+  <Card title="荷物の送り先">
+    <Dl
+      items={[
+        ["宛名", "休暇村 岩手網張温泉"],
+        ["住所", "〒020-0585 岩手県岩手郡雫石町長山字小松倉14-3"],
+        ["電話", "019-693-2211"],
+      ]}
+    />
+    <Note>宿泊日に近い日に着くよう送り、送り状に宿泊日を書く。着払いは受け付けない。</Note>
+  </Card>
+
+  <AccessCard slot="access" summary="最短 約4時間 · 東京 6:32 発 → ホテル 約10:30 着">
+    <AccessRoute
+      summary="東京駅から東北新幹線はやぶさで盛岡駅へ約2時間12分、休暇村の無料送迎バスで約1時間"
+      stops={[
+        { label: "東京駅", kind: "origin" },
+        { label: "盛岡駅" },
+        { label: "休暇村 岩手網張温泉", kind: "hotel" },
+      ]}
+      legs={[
+        { label: "東北新幹線\nはやぶさ", duration: "約2時間12分" },
+        { label: "休暇村送迎バス\n無料・要予約", duration: "約1時間" },
+      ]}
+    />
+    <Dl
+      items={[
+        ["送迎バス", "盛岡駅西口 ⇔ 休暇村 · 無料 · 宿泊者限定 · 電話は前日17時まで、メールは2日前までの予約制 · 予約のない便は走らない"],
+        ["盛岡駅発", "9:30 · 11:30 · 14:45 · 16:45"],
+        ["休暇村発", "8:30 · 10:30 · 13:45 · 15:45"],
+      ]}
+    />
+    <div>
+      <RouteExamples
+        title="ルート例 · 往路 6:32 東京発、復路 10:30 ホテル発"
+        open
+        columns={[
+          {
+            label: "往路",
+            legs: [
+              { mode: "新幹線", time: "東京 6:32 → 盛岡 8:44", note: "はやぶさ 1号 · 乗換余裕 46分" },
+              { mode: "バス", time: "盛岡 9:30 → ホテル 約10:30", note: "休暇村送迎バス · 前日17時までに要予約" },
+            ],
+          },
+          {
+            label: "復路",
+            legs: [
+              { mode: "バス", time: "ホテル 10:30 → 盛岡 約11:30", note: "休暇村送迎バス" },
+              { mode: "新幹線", time: "盛岡 11:50 → 東京", note: "約2時間10分" },
+            ],
+          },
+        ]}
+      />
+    </div>
+  </AccessCard>
+</HotelBand>
