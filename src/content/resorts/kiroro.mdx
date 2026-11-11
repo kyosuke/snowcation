@@ -1,0 +1,157 @@
+---
+title: "キロロスノーワールド"
+name: "キロロ"
+description: "朝里と長峰の2つの山に広がる、パウダーが魅力のスノーリゾート。宿は12歳以上が対象のクラブメッド・キロロ ピーク。"
+summary: "朝里と長峰の2つの山でパウダーを楽しむ。宿は12歳以上対象のクラブメッド。"
+pref: "北海道"
+area: "赤井川村"
+order: 1
+image: "../../assets/kiroro.webp"
+imageAlt: "キロロスノーワールドのペーパーカットイラスト。赤茶の低層ホテルの背後に丸い山並みが広がり、ゴンドラとチェアリフトが登る"
+links:
+  site: "https://www.kiroro.co.jp/ja/"
+  yukiyama: "https://yukiyama-web.com/skiarea/392"
+  status: "https://www.kiroro.co.jp/ja/dashboard/"
+facts:
+  top: 1180
+  base: 523
+  longest: 4050
+  aspect:
+    label: "西北西"
+    dirs: ["W"]
+    note: "リフトの多くは西〜北西へ下る。長峰側は西南西、ベース近くのリフトは北北西に振れる"
+  slope:
+    tags: ["パウダー", "全23コース"]
+    ratio: [14, 44, 42]
+    max: 36.8
+  access: { hours: 6, note: "羽田から新千歳空港、クラブメッドの空港送迎", arrival: "12:15" }
+seasons:
+  - label: "26-27"
+    areas:
+      - periods:
+          - { name: "初滑りシーズン", kind: "pre", start: "2026-11-28", end: "2026-12-11" }
+          - { name: "ハイシーズン", kind: "on", start: "2026-12-12", end: "2027-04-11" }
+          - { name: "春シーズン", kind: "spring", start: "2027-04-12", end: "2027-05-05" }
+---
+
+import LiftList from "../../components/LiftList.astro";
+import LiftTicket from "../../components/LiftTicket.astro";
+import HotelBand from "../../components/HotelBand.astro";
+import Card from "../../components/Card.astro";
+import Stats from "../../components/Stats.astro";
+import Dl from "../../components/Dl.astro";
+import AccessCard from "../../components/AccessCard.astro";
+import AccessRoute from "../../components/AccessRoute.astro";
+import RouteExamples from "../../components/RouteExamples.astro";
+
+<LiftList
+  title="ゴンドラ・リフト"
+  statusUrl={frontmatter.links.status}
+  groups={[
+    {
+      lifts: [
+        { name: "キロロゴンドラ", capacity: 6, length: 3300, type: "gondola" },
+        { name: "長峰第1エクスプレス", capacity: 4, length: 1580, type: "express", hood: true },
+        { name: "長峰第2エクスプレス", capacity: 4, length: 1040, type: "express", hood: true },
+        { name: "センターエクスプレス", capacity: 4, length: 1130, type: "express", hood: true },
+        { name: "余市第1エクスプレス", capacity: 4, length: 1766, type: "express", hood: true },
+        { name: "朝里第2エクスプレス", capacity: 2, length: 997, type: "express", hood: true },
+        { name: "余市第2リフト", capacity: 2, length: 407, type: "fixed" },
+        { name: "ファミリーリフト", capacity: 2, length: 234, type: "fixed" },
+        { name: "ゲートウェイエクスプレス", capacity: 4, length: 879, type: "express", hood: true },
+      ],
+    },
+  ]}
+  note="ゲートウェイエクスプレスは8人乗りのゴンドラと4人乗りのフード付きチェアが混ざる。ハイシーズンのチェアは9:00〜10:00と13:00〜14:00だけ運行。"
+>
+  <LiftTicket
+    groups={[]}
+    lead="クラブメッド・キロロ ピークに泊まれば、リフトパスは宿泊料に含まれる。"
+    list={[
+      { name: "1日券 ハイシーズン", price: 9200, how: "窓口" },
+      { name: "4時間券 ハイシーズン", price: 7800, how: "窓口" },
+      { name: "ナイター券 ハイシーズン", price: 3000, how: "窓口" },
+    ]}
+    asOf="2026-11-11"
+  >
+    初滑り・春シーズンは1日券5,800円・4時間券5,500円。Webストアで買うと通常料金から5%引き（シーズン券などは対象外）。ほかにICカード保証金500円（返却時に返金）。宿泊プランと14時以降に着くパッケージプランでは、到着日はリフトパスが使えない。
+  </LiftTicket>
+</LiftList>
+
+<HotelBand
+  name="クラブメッド・キロロ ピーク"
+  url="https://www.clubmed.co.jp/r/%E3%82%AD%E3%83%AD%E3%83%AD%E3%83%BB%E3%83%94%E3%83%BC%E3%82%AF/w"
+  description="マウンテンセンター隣のクラブメッド。12歳以上が対象のオールインクルーシブで、食事とリフトパスが宿泊料に含まれる。同じキロロのクラブメッド・キロロ グランド（高層棟）とは別の宿で、無料シャトルバスで約3分。"
+>
+  <Card title="チェックイン・チェックアウト">
+    <Stats items={[{ label: "イン", value: "15:00" }, { label: "アウト", value: "10:00" }]} />
+    <p>到着は15:00〜20:00。早く着いたら昼食が無料。</p>
+  </Card>
+  <Card title="ワーケーション環境">
+    <Dl items={[["WiFi", "客室で無料Wi-Fi"]]} />
+  </Card>
+  <Card title="食事">
+    <Dl
+      items={[
+        ["メインレストラン Otaru", "ビュッフェ（ライブキッチン）。食事はオールインクルーシブ"],
+        ["キロロ グランド", "専門レストランも利用できる。シャトルバスで約3分、コンシェルジュで予約"],
+      ]}
+    />
+  </Card>
+  <Card title="温泉">
+    <p>天然温泉の大浴場と露天風呂がある。宿泊者は自由に使える。</p>
+  </Card>
+  <Card title="宿泊者特典">
+    <Dl
+      items={[
+        ["リフトパス", "宿泊料に含まれる。到着日の利用条件はリフト券の欄に記載"],
+        ["グループレッスン", "スキー・スノーボード。全レベル、日本語・英語"],
+      ]}
+    />
+  </Card>
+
+  <AccessCard slot="access" summary="最短 約6時間 · 羽田 6:30 着 → ホテル 12:15 着">
+    <AccessRoute
+      summary="羽田空港で搭乗手続き30分、ANA便で新千歳空港へ約1時間30分、クラブメッド空港送迎でホテルへ約2時間15分"
+      stops={[
+        { label: "羽田空港", kind: "origin", stay: "搭乗手続 30分" },
+        { label: "新千歳空港" },
+        { label: "クラブメッド・キロロ ピーク", kind: "hotel" },
+      ]}
+      legs={[
+        { label: "ANA便", duration: "約1時間30分" },
+        { label: "クラブメッド空港送迎", duration: "約2時間15分" },
+      ]}
+    />
+    <Dl
+      items={[
+        ["空港送迎", "混載バスまたはタクシー · 片道11,400円 · 航空券付きプランは旅行代金に含む · 出発の14日前までに予約 · 毎日・全便には対応しない"],
+        ["新千歳空港発", "10:00 · 12:00 · 14:00 · 16:00 · 17:45 · 19:45（国内線ターミナル。出発30分前までに1階のクラブメッドカウンターで受付）"],
+        ["ピーク発", "7:00 · 8:15 · 9:45 · 11:15 · 12:50 · 15:00"],
+      ]}
+    />
+    <div>
+      <RouteExamples
+        title="ルート例 · 往路 7:00 羽田発、復路 9:45 ホテル発"
+        open
+        columns={[
+          {
+            label: "往路",
+            legs: [
+              { mode: "空港", time: "羽田 6:30 着", note: "搭乗手続き 30分" },
+              { mode: "飛行機", time: "羽田 7:00 → 新千歳 8:30", note: "NH0051 · 乗換余裕 90分" },
+              { mode: "バス", time: "新千歳 10:00 → ホテル 12:15", note: "クラブメッド空港送迎 KIR01" },
+            ],
+          },
+          {
+            label: "復路",
+            legs: [
+              { mode: "バス", time: "ホテル 9:45 → 新千歳 11:55", note: "KIR06 · 乗換余裕 95分" },
+              { mode: "飛行機", time: "新千歳 13:30 → 羽田 15:10", note: "NH0064" },
+            ],
+          },
+        ]}
+      />
+    </div>
+  </AccessCard>
+</HotelBand>
