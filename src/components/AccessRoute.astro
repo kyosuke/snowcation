@@ -23,7 +23,6 @@ interface Props {
 
 const { summary, stops, legs, branches = [] } = Astro.props;
 const cols = stops.length * 2 - 1;
-// 2行目の各列に、どの線を描くかを集める
 const row2 = Array.from({ length: cols }, (_, col) => {
   const covering = branches.filter((b) => col >= b.from * 2 && col <= b.to * 2);
   if (!covering.length) return null;

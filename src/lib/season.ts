@@ -32,6 +32,7 @@ export const todayPosition = (axisStart: number, axisEnd: number, t = today()) =
 };
 
 const nextDay = (iso: string) => new Date(Date.parse(iso) + 86400000).toISOString().slice(0, 10);
+const nextSeasonAnnouncementMonth = 7;
 
 /** その日にどこかのエリアが営業しているか。期間内でもクローズに入る日は休み */
 const isOpen = (season: Season, t: string) =>
@@ -53,10 +54,10 @@ export function status(seasons: Season[], t = today()) {
   const postponed = season?.areas.some((a) => a.closures.some((c) => !c.end && c.start <= t));
   if (season && postponed && !isOpen(season, t))
     return { label: "オープン延期・開始日未定", tone: "closed" };
-  // 実際に営業する最初と最後の日。オープン延期や早期終了の分だけ予定より狭まる
-  const days: string[] = [];
-  for (let d = first; d && last && d <= last; d = nextDay(d)) if (isOpen(season, d)) days.push(d);
-  const [open, close] = [days[0], days.at(-1)];
+  const openDays: string[] = [];
+  for (let d = first; d && last && d <= last; d = nextDay(d))
+    if (isOpen(season, d)) openDays.push(d);
+  const [open, close] = [openDays[0], openDays.at(-1)];
   if (!open || !close)
     return first && t < first && season?.areas.some((a) => a.closures.some((c) => !c.end))
       ? { label: `${md(first)} オープン予定`, tone: "pre" }
@@ -66,8 +67,7 @@ export function status(seasons: Season[], t = today()) {
     return isOpen(season, t)
       ? { label: "営業中", tone: "open" }
       : { label: "休業中", tone: "closed" };
-  // 終了後。夏以降は次シーズン未発表の扱い
-  return Number(t.slice(5, 7)) >= 7
+  return Number(t.slice(5, 7)) >= nextSeasonAnnouncementMonth
     ? { label: "シーズン前", tone: "off" }
     : { label: "シーズン終了", tone: "closed" };
 }

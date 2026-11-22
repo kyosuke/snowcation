@@ -23,11 +23,8 @@ interface Props {
 
 const { title = "リフト", statusUrl, groups, note } = Astro.props;
 
-// 公称最高速より遅めにして減速分を含める。30秒以上は切り上げ
 const SPEED = { gondola: 4.0, express: 4.0, fixed: 2.0 };
-// 1 行 2,000m。超えた分は次の行へ折り返す（文章の改行と同じで、2 行あれば長いとわかる）
 const LINE_LENGTH = 2000;
-// 1,000m の目盛り。バーの中は白、トラック上は Ink の破線で描く
 const TICK = 50;
 const cabinLabel = { narrow: "キャビン狭め", standard: "キャビン普通", wide: "キャビン広め" };
 
@@ -183,7 +180,6 @@ const row = (l: Lift) => {
     background: var(--glacier);
     overflow: hidden;
   }
-  /* SeasonTimeline と同じ 2 層の目盛り。トラック上は Ink、バーの中は白 */
   .tick {
     position: absolute;
     top: 0;
