@@ -22,7 +22,7 @@ const s = status(data.seasons);
       widths={compact ? [320, 640] : [400, 800]}
       sizes={compact ? "(min-width: 760px) 240px, 50vw" : "(min-width: 1120px) 360px, (min-width: 700px) 50vw, 100vw"}
     />
-    {!compact && <span class="status" data-tone={s.tone}>{s.label}</span>}
+    {!compact && <span class="status" data-tone={s.tone} data-seasons={JSON.stringify(data.seasons)}>{s.label}</span>}
   </div>
   <div class="body">
     <div class="label">{data.pref}</div>
@@ -30,6 +30,11 @@ const s = status(data.seasons);
     {!compact && <div class="summary">{data.summary}</div>}
   </div>
 </a>
+
+<script>
+  import { refreshStatus } from "../lib/season";
+  refreshStatus();
+</script>
 
 <style>
   .rcard {
