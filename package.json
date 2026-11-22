@@ -22,11 +22,8 @@
     "@iconify-json/material-symbols-light": "^1.2.97",
     "@iconify-json/simple-icons": "^1.2.100",
     "knip": "^5.85.0",
-    "oxfmt": "^0.41.0",
+    "oxfmt": "^0.79.0",
     "unplugin-icons": "^24.0.0",
     "wrangler": "^4.152.0"
-  },
-  "overrides": {
-    "tinypool": "2.1.2"
   }
 }
