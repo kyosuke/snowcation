@@ -22,7 +22,7 @@ facts:
   slope:
     tags: ["ロングコース", "全22コース"]
     max: 30
-  access: { hours: 4, note: "羽田から青森空港、混乗タクシー", arrival: "10:45" }
+  access: { hours: 4, note: "羽田から青森空港、青森スプリングライナー（完全事前予約制）" }
 seasons:
   - label: "26-27"
     areas:
@@ -56,7 +56,7 @@ import RouteExamples from "../../components/RouteExamples.astro";
         {
           name: "ゴンドラ",
           capacity: 6,
-          length: 3512,
+          length: 2967,
           type: "gondola",
           cabin: "standard",
           rack: true,
@@ -64,7 +64,7 @@ import RouteExamples from "../../components/RouteExamples.astro";
         {
           name: "クアッドリフト1",
           capacity: 4,
-          length: 2066,
+          length: 1700,
           type: "express",
           hood: true,
           footrest: true,
@@ -73,18 +73,18 @@ import RouteExamples from "../../components/RouteExamples.astro";
         {
           name: "クアッドリフト2",
           capacity: 4,
-          length: 1500,
+          length: 1449,
           type: "express",
           hood: true,
           safetyBar: true,
         },
-        { name: "ダイアモンドペアリフト", capacity: 2, length: 1192, safetyBar: true },
+        { name: "ダイアモンドペアリフト", capacity: 2, length: 1139, safetyBar: true },
       ],
     },
   ]}
 >
   <LiftTicket
-    buy={{ label: "リフト券（公式）", url: frontmatter.links.site }}
+    buy={{ label: "リフト券（公式）", url: "https://aomorispring.com/ja/ski/lift-passes" }}
     groups={[
       {
         label: "初日のリフト券",
@@ -99,12 +99,11 @@ import RouteExamples from "../../components/RouteExamples.astro";
       },
     ]}
     list={[
-      { name: "前売り 平日券5枚セット", price: 25000, how: "11/3まで · WEB限定" },
       { name: "1日券 ハイシーズン", price: 10800, how: "1/23〜2/14" },
       { name: "1日券 スプリングシーズン", price: 7000, how: "3/8〜4/4" },
       { name: "午後券 スプリングシーズン", price: 5500, how: "3/8〜4/4" },
     ]}
-    asOf="2026-10-25"
+    asOf="2026-11-22"
   />
 </LiftList>
 
@@ -114,63 +113,87 @@ import RouteExamples from "../../components/RouteExamples.astro";
   description="青森スプリング内にあるホテル。公式サイトでは客室数188室と案内されており、スキー滞在の拠点として使いやすい。"
 >
   <Card title="ワーケーション環境">
-    <Dl items={[["WiFi", "ホテル無料WiFiあり"], ["客室", "1名分のデスクあり"]]} />
+    <Dl
+      items={[
+        ["WiFi", "ホテル無料WiFiあり"],
+        ["客室", "1名分のデスクあり"],
+      ]}
+    />
   </Card>
   <Card title="食事">
     <Dl
       items={[
-        ["ロックウッド・ホール", "ビュッフェ。青森の郷土料理だけでなく多彩なメニュー。連泊客が飽きないよう、半分近くの料理が前日と変わっていた"],
+        [
+          "ロックウッド・ホール",
+          "ビュッフェ。青森の郷土料理だけでなく多彩なメニュー。連泊客が飽きないよう、半分近くの料理が前日と変わっていた",
+        ],
         ["レストラン海山", "もう1つのレストラン"],
       ]}
     />
   </Card>
-  <OnsenInfo name="大浴場" hours="利用時間は公式サイトを確認" facilities={["indoor", "outdoor", "washing"]} />
-  <Card title="JALツアー（鯵ヶ沢3日間コース）">
-    <Dl
-      items={[
-        ["対象便", "往路は青森空港に14:30までに到着する便、復路は青森空港を11:55以降に出発する便"],
-        ["予約", "原則として出発日の7日前まで"],
-        ["対象期間", "2025年12月13日〜2026年3月29日 出発"],
-      ]}
-    />
-  </Card>
-
-  <AccessCard slot="access" title="羽田からのアクセス" summary="最短 4時間 · 羽田 6:45 着 → ホテル 10:45 頃着">
+  <OnsenInfo
+    name="大浴場"
+    hours="利用時間は公式サイトを確認"
+    facilities={["indoor", "outdoor", "washing"]}
+  />
+  <AccessCard
+    slot="access"
+    title="羽田からのアクセス"
+    summary="羽田から青森空港へ約1時間10分 · 青森空港 16:00 発 → ホテル 17:00 着"
+  >
     <AccessRoute
-      summary="羽田空港で搭乗手続き30分、JAL便で青森空港へ約75分、混乗タクシーでホテルへ約90分"
-      stops={[{ label: "羽田空港", kind: "origin", stay: "搭乗手続 30分" }, { label: "青森空港" }, { label: "ロックウッド・ホテル＆スパ", kind: "hotel" }]}
+      summary="羽田から青森空港へ約1時間10分。青森スプリングライナーは空港16:00発・ホテル17:00着の完全事前予約制"
+      stops={[
+        { label: "羽田空港", kind: "origin" },
+        { label: "青森空港" },
+        { label: "ロックウッド・ホテル＆スパ", kind: "hotel" },
+      ]}
       legs={[
-        { label: "JAL便", duration: "約75分" },
-        { label: "混乗タクシー\n三八五観光タクシー", duration: "約90分" },
+        { label: "航空便", duration: "約1時間10分" },
+        { label: "青森スプリングライナー\n完全事前予約制", duration: "約1時間" },
       ]}
     />
     <Note>
-      羽田発のJALツアーを使い、青森空港からは混乗タクシーで移動するパターンが手配・移動ともに使いやすい。混乗タクシーは全員そろい次第出発するので、予定より早く出ることがある。過去は往路が9:15発予定に対して8:45頃出発・10:15頃ホテル着、復路が15:30発予定に対して約15分早発・16:45頃空港着だった。
+      2026-27冬季の運行時刻は新青森駅 15:30 発 → 青森空港 16:00 発 → ホテル 17:00
+      着。完全事前予約制。詳しくは<a href="https://aomorispring.com/ja/access">公式アクセス案内</a>
+      を確認（2026年11月22日確認）。
     </Note>
     <div>
       <RouteExamples
-        title="ルート例 · 往路 7:15 羽田発、復路 15:30 ホテル発"
+        title="過去のルート例 · 2025-26シーズン"
         open
         columns={[
           {
             label: "往路",
             legs: [
               { mode: "空港", time: "羽田 6:45 着", note: "搭乗手続き 30分" },
-              { mode: "飛行機", time: "羽田 7:15 → 青森 8:30", note: "JAL141 普通席 · 乗換余裕 45分" },
-              { mode: "タクシー", time: "青森空港 9:15 → ホテル 10:45頃", note: "混乗タクシー（JAL141接続）" },
+              {
+                mode: "飛行機",
+                time: "羽田 7:15 → 青森 8:30",
+                note: "JAL141 普通席 · 乗換余裕 45分",
+              },
+              {
+                mode: "タクシー",
+                time: "青森空港 9:15 → ホテル 10:45頃",
+                note: "混乗タクシー（JAL141接続）",
+              },
             ],
           },
           {
             label: "復路",
             legs: [
-              { mode: "タクシー", time: "ホテル 15:30 → 青森空港 17:00頃", note: "混乗タクシー（JAL148接続）· 乗換余裕 60分" },
+              {
+                mode: "タクシー",
+                time: "ホテル 15:30 → 青森空港 17:00頃",
+                note: "混乗タクシー（JAL148接続）· 乗換余裕 60分",
+              },
               { mode: "飛行機", time: "青森 18:00 → 羽田 19:30", note: "JAL148 普通席" },
             ],
           },
         ]}
       />
       <RouteExamples
-        title="過去の利用例（2泊3日）"
+        title="過去の利用例（2泊3日・2025-26シーズン）"
         columns={[
           {
             label: "1日目",
