@@ -12,7 +12,7 @@ export interface Season {
   areas: {
     name?: string;
     periods: Period[];
-    closures: { start: string; end: string; reason?: string }[];
+    closures: { start: string; end?: string; reason?: string }[];
   }[];
 }
 
@@ -38,7 +38,7 @@ const isOpen = (season: Season, t: string) =>
   season.areas.some(
     (a) =>
       a.periods.some((p) => p.start <= t && t <= p.end) &&
-      !a.closures.some((c) => c.start <= t && t <= c.end),
+      !a.closures.some((c) => c.start <= t && (!c.end || t <= c.end)),
   );
 
 /** 先頭シーズンの予定とクローズから営業状況のチップを決める */
@@ -50,11 +50,17 @@ export function status(seasons: Season[], t = today()) {
     .map((p) => p.end)
     .sort()
     .at(-1);
+  const postponed = season?.areas.some((a) => a.closures.some((c) => !c.end && c.start <= t));
+  if (season && postponed && !isOpen(season, t))
+    return { label: "オープン延期・開始日未定", tone: "closed" };
   // 実際に営業する最初と最後の日。オープン延期や早期終了の分だけ予定より狭まる
   const days: string[] = [];
   for (let d = first; d && last && d <= last; d = nextDay(d)) if (isOpen(season, d)) days.push(d);
   const [open, close] = [days[0], days.at(-1)];
-  if (!open || !close) return { label: "シーズン前", tone: "off" };
+  if (!open || !close)
+    return first && t < first && season?.areas.some((a) => a.closures.some((c) => !c.end))
+      ? { label: `${md(first)} オープン予定`, tone: "pre" }
+      : { label: "シーズン前", tone: "off" };
   if (t < open) return { label: `${md(open)} オープン予定`, tone: "pre" };
   if (t <= close)
     return isOpen(season, t)

@@ -11,7 +11,7 @@ const period = z.object({
 
 const closure = z.object({
   start: z.string(),
-  end: z.string(),
+  end: z.string().optional(),
   reason: z.string().optional(),
 });
 

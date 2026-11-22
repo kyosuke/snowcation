@@ -4,7 +4,7 @@ import { md, todayPosition, type Period } from "../lib/season";
 interface Props {
   name?: string;
   periods: Period[];
-  closures?: { start: string; end: string; reason?: string }[];
+  closures?: { start: string; end?: string; reason?: string }[];
 }
 
 const { name, periods, closures = [] } = Astro.props;
@@ -40,7 +40,7 @@ const segments = periods.map((p, i) => {
 
 const closureSegments = closures.map((c) => {
   const left = pct(parseStart(c.start));
-  const right = pct(parseEnd(c.end));
+  const right = c.end ? pct(parseEnd(c.end)) : 100;
   const l = periods.some((p) => p.start === c.start) ? 8 : 0;
   const r = periods.some((p) => p.end === c.end) ? 8 : 0;
   return { ...c, left, width: right - left, radius: `${l}px ${r}px ${r}px ${l}px` };
@@ -48,6 +48,7 @@ const closureSegments = closures.map((c) => {
 
 const todayPct = todayPosition(axisStart.getTime(), axisEnd.getTime());
 const range = (p: { start: string; end: string }) => `${md(p.start)}〜${md(p.end)}`;
+const closureRange = (c: { start: string; end?: string }) => `${md(c.start)}〜${c.end ? md(c.end) : "未定"}`;
 ---
 
 <div class="timeline" data-axis-start={axisStart.getTime()} data-axis-end={axisEnd.getTime()}>
@@ -73,7 +74,7 @@ const range = (p: { start: string; end: string }) => `${md(p.start)}〜${md(p.en
         <div
           class="closure"
           style={`left: ${c.left}%; width: ${c.width}%; border-radius: ${c.radius}`}
-          title={`クローズ ${range(c)}`}
+          title={`クローズ ${closureRange(c)}`}
         />
       ))
     }
@@ -92,7 +93,7 @@ const range = (p: { start: string; end: string }) => `${md(p.start)}〜${md(p.en
       closureSegments.length > 0 && (
         <li>
           <span class="key closure-key" /><strong>クローズ</strong>
-          {closureSegments.map((c) => `${range(c)}${c.reason ? `（${c.reason}）` : ""}`).join("・")}
+          {closureSegments.map((c) => `${closureRange(c)}${c.reason ? `（${c.reason}）` : ""}`).join("・")}
         </li>
       )
     }
