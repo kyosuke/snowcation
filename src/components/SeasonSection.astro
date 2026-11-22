@@ -8,7 +8,6 @@ interface Props {
 }
 
 const [current, ...past] = Astro.props.seasons;
-// シーズン前は前シーズンを開いて比較できるようにし、始まったら畳む
 const open = isPreSeason(Astro.props.seasons);
 ---
 

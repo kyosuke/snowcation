@@ -41,7 +41,6 @@ const where = (g: Group) => [when(g), g.how].filter(Boolean).join(" · ");
 const alive = groups
   .map((g) => ({ ...g, tickets: g.tickets.filter((k) => !isExpired(k.until, t)) }))
   .filter((g) => !isExpired(g.until, t) && g.tickets.length > 0);
-// 割引が何もない時期は通常料金をタイルにする
 const best: Group = alive[0] ?? {
   label: "通常料金",
   lead: lead ?? "いま選べる割引はない。",
@@ -124,7 +123,7 @@ const asOfLabel = `${Number(asOf.slice(0, 4))}年${Number(asOf.slice(5, 7))}月$
   const yen = (n: number) => Math.round(n).toLocaleString("ja-JP");
 
   for (const el of document.querySelectorAll<HTMLElement>(".ticket[data-lift-ticket]")) {
-    // Astro のスコープ属性を動的生成した要素にも引き継ぐ
+    // Astro の局所スタイルは生成属性で対象を絞るため、追加要素にも同じ属性が必要。
     const scope = el.getAttributeNames().find((name) => name.startsWith("data-astro-cid-"));
     const text = (tag: string, className: string, value: string) => {
       const node = document.createElement(tag);
@@ -188,7 +187,6 @@ const asOfLabel = `${Number(asOf.slice(0, 4))}年${Number(asOf.slice(5, 7))}月$
 </script>
 
 <style>
-  /* 食事やスクールのカードと同じグリッドに置かれても、タイルの幅を保つため 1 行を占める */
   .ticket {
     grid-column: 1 / -1;
   }
@@ -217,7 +215,6 @@ const asOfLabel = `${Number(asOf.slice(0, 4))}年${Number(asOf.slice(5, 7))}月$
     color: var(--ink);
     font-weight: 600;
   }
-  /* タイルが 1 枚でも同じ幅にして、リゾート間で見え方を揃える */
   .tiles {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));

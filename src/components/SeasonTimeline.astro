@@ -9,7 +9,6 @@ interface Props {
 
 const { name, periods, closures = [] } = Astro.props;
 
-// 11/1〜5月末の固定軸。開始日は朝、終了日は夕方として幅を取る
 const parseStart = (s: string) => new Date(`${s}T06:00:00+09:00`);
 const parseEnd = (s: string) => new Date(`${s}T18:00:00+09:00`);
 const first = parseStart(periods[0].start);
@@ -33,7 +32,6 @@ const segments = periods.map((p, i) => {
     left,
     width: right - left,
     radius: `${i === 0 ? 8 : 0}px ${i === periods.length - 1 ? 8 : 0}px ${i === periods.length - 1 ? 8 : 0}px ${i === 0 ? 8 : 0}px`,
-    // バーの中の月区切りは白で描く（トラック側の線はバーに隠れる）
     lines: boundaries.filter((b) => b > left && b < right).map((b) => ((b - left) / (right - left)) * 100),
   };
 });
@@ -148,7 +146,6 @@ const closureRange = (c: { start: string; end?: string }) => `${md(c.start)}〜$
   .key[data-kind="spring"] {
     background: var(--ice-300);
   }
-  /* 予定の塗りを透かす白ストライプ */
   .closure {
     background: repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.88) 0 3px, rgba(255, 255, 255, 0.35) 3px 8px);
     box-shadow: inset 0 0 0 1px rgba(16, 35, 58, 0.18);

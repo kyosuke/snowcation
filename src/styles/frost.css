@@ -11,20 +11,19 @@
   --ink-3: #5b6e83;
   --glacier: #1f6fe0;
   --glacier-deep: #1858b8;
-  --dawn: #f2b46a; /* 装飾専用。文字には使わない */
+  --dawn: #f2b46a;
   --open: #1b7f4b;
   --limited: #9a5a14;
   --closed: #b9302a;
 
-  /* 16px × 8 / n の調和数列 */
-  --text-display-strong: 4rem; /* n=2 */
-  --text-heading-strong: 2.667rem; /* n=3 */
-  --text-heading-regular: 2rem; /* n=4 */
-  --text-heading-weak: 1.6rem; /* n=5 */
-  --text-body-strong: 1.333rem; /* n=6 */
-  --text-body-regular: 1rem; /* n=8 */
-  --text-body-weak: 0.889rem; /* n=9 */
-  --text-caption: 0.8rem; /* n=10 */
+  --text-display-strong: 4rem;
+  --text-heading-strong: 2.667rem;
+  --text-heading-regular: 2rem;
+  --text-heading-weak: 1.6rem;
+  --text-body-strong: 1.333rem;
+  --text-body-regular: 1rem;
+  --text-body-weak: 0.889rem;
+  --text-caption: 0.8rem;
 
   --font-sans: Inter, "Noto Sans JP", system-ui, sans-serif;
   --font-wordmark: Outfit, Inter, sans-serif;
@@ -61,7 +60,6 @@ body {
   color: var(--ink);
   background: var(--snow);
   -webkit-font-smoothing: antialiased;
-  /* .band が cqw で全幅へ広がるための基準 */
   container-type: inline-size;
 }
 
@@ -113,7 +111,6 @@ svg {
   padding-inline: var(--gutter);
 }
 
-/* 全幅の帯。本文コンテナの中から左右へはみ出す */
 .band {
   margin-inline: calc(50% - 50cqw);
   padding: var(--section-gap) var(--gutter);
@@ -170,7 +167,6 @@ svg {
   gap: 6px;
 }
 
-/* 営業状況。イラストの上ではガラス、白地では Snow 2 */
 .status {
   display: inline-flex;
   align-items: center;

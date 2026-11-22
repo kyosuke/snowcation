@@ -1,8 +1,7 @@
 import assert from "node:assert/strict";
 import { isExpired, isPreSeason, status, todayPosition, type Season } from "./season.ts";
 
-// グランデコ 26-27: 予定は 11/21 から、11/21〜23 はオープン延期
-const seasons: Season[] = [
+const grandecoSeasonWithDelayedOpening: Season[] = [
   {
     label: "26-27",
     areas: [
@@ -21,7 +20,7 @@ const seasons: Season[] = [
     ],
   },
 ];
-const label = (t: string) => status(seasons, t).label;
+const label = (t: string) => status(grandecoSeasonWithDelayedOpening, t).label;
 
 assert.equal(label("2026-11-20"), "11/24 オープン予定");
 assert.equal(label("2026-11-22"), "11/24 オープン予定");
@@ -29,6 +28,8 @@ assert.equal(label("2026-11-24"), "営業中");
 assert.equal(label("2027-01-10"), "休業中");
 assert.equal(label("2027-04-04"), "営業中");
 assert.equal(label("2027-04-05"), "シーズン終了");
+assert.equal(label("2027-06-30"), "シーズン終了");
+assert.equal(label("2027-07-01"), "シーズン前");
 assert.equal(label("2027-08-01"), "シーズン前");
 assert.equal(status([], "2026-11-22").label, "シーズン前");
 
@@ -47,8 +48,8 @@ assert.equal(status(unknownReopenDate, "2026-11-20").label, "11/21 オープン�
 assert.equal(status(unknownReopenDate, "2026-11-21").label, "オープン延期・開始日未定");
 assert.equal(status(unknownReopenDate, "2026-11-24").label, "オープン延期・開始日未定");
 assert.equal(status(unknownReopenDate, "2027-04-12").label, "オープン延期・開始日未定");
-assert.equal(isPreSeason(seasons, "2026-11-20"), true);
-assert.equal(isPreSeason(seasons, "2026-11-21"), false);
+assert.equal(isPreSeason(grandecoSeasonWithDelayedOpening, "2026-11-20"), true);
+assert.equal(isPreSeason(grandecoSeasonWithDelayedOpening, "2026-11-21"), false);
 assert.equal(isExpired(undefined, "2026-11-22"), false);
 assert.equal(isExpired("2026-11-22", "2026-11-22"), false);
 assert.equal(isExpired("2026-11-21", "2026-11-22"), true);

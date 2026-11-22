@@ -75,7 +75,6 @@ async function cached(name, url) {
 }
 const osmUrl = `https://api.openstreetmap.org/api/0.6/map.json?bbox=${args.bbox}`;
 const osm = JSON.parse(await cached("osm.json", osmUrl));
-// A cached bbox must never silently substitute another request.
 assert(
   osm.bounds &&
     Math.abs(osm.bounds.minlon - west) < 1e-7 &&
@@ -300,7 +299,6 @@ const sum = lifts.reduce(
   ],
   [0, 0],
 );
-// 方位が相殺されても、--view-from を指定していれば自動の視点は要らない
 assert(
   args["view-from"] !== undefined || Math.hypot(...sum) > 1e-6,
   "Ambiguous representative downhill bearing; pass --view-from",
@@ -332,7 +330,6 @@ const hotel = {
     "OSM footprint extruded by fixed illustrative height; coordinate input uses a 50x36m placeholder",
 };
 const heights = [...features.flatMap((f) => f.points.map((p) => p.elevation)), hotel.elevation];
-// Features use the same piecewise planar ground as the mesh to avoid burial.
 const nx = Math.ceil((bounds[2] - bounds[0]) / 25),
   ny = Math.ceil((bounds[3] - bounds[1]) / 25),
   dx = (bounds[2] - bounds[0]) / nx,
@@ -368,7 +365,6 @@ const width = 1536,
     [151, 86, 44],
     [65, 134, 64],
   ];
-// Ear clipping preserves concave OSM building footprints.
 function triangulate(points) {
   const cross = (a, b, c) => (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]);
   const order = points.map((_, i) => i);
@@ -407,18 +403,18 @@ function triangulate(points) {
   result.push(order);
   return result;
 }
-const testPolygon = [
+const concaveHotelFootprint = [
   [0, 0],
   [2, 0],
   [2, 2],
   [1, 1],
   [0, 2],
 ];
-const testTriangles = triangulate(testPolygon);
-assert.equal(testTriangles.length, 3);
+const triangulatedConcaveHotelFootprint = triangulate(concaveHotelFootprint);
+assert.equal(triangulatedConcaveHotelFootprint.length, 3);
 assert.equal(
-  testTriangles.reduce((sum, t) => {
-    const [a, b, c] = t.map((i) => testPolygon[i]);
+  triangulatedConcaveHotelFootprint.reduce((sum, t) => {
+    const [a, b, c] = t.map((i) => concaveHotelFootprint[i]);
     return sum + Math.abs((b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0])) / 2;
   }, 0),
   3,
@@ -443,7 +439,6 @@ async function render(map) {
     base[1] + toward[1] * distanceFromBase,
     Math.min(...lifts.map((l) => l.bottom_elevation)) + 130,
   ];
-  // 構図は斜面を下から見上げる前提。斜面の上側へ回すとカメラが地中に入る
   assert(
     ground(eye[0], eye[1]) < eye[2] - 30,
     `Camera would be underground at view-from ${round(view)}°; view from the downhill side`,
@@ -531,7 +526,6 @@ async function render(map) {
     depth[i] = adjusted;
     for (let c = 0; c < 3; c++) image[i * 3 + c] = color[c];
   }
-  // Nearer samples must win regardless of painting order.
   paint(0, 0, 2, [10, 20, 30]);
   paint(0, 0, 1, [99, 99, 99]);
   assert.equal(depth[0], 2);
@@ -691,11 +685,10 @@ async function render(map) {
     triangle(roof, [245, 249, 250]);
   }
   for (const f of [...courses, ...lifts]) {
-    // Wide course strokes must not act as floating occluders over lift cables.
+    // コース描画後は太い線がケーブルを隠すため、リフト描画前に地形の深度へ戻す。
     if (f === lifts[0]) depth.set(terrainDepth);
     const lift = liftTypes.has(f.type),
       color = lift ? colors[lifts.indexOf(f) % colors.length] : [252, 253, 255];
-    // shortcut: polygon fill is sampled at mesh cells; refine the mesh for narrow areas.
     if (f.area) {
       const polygon = f.points.map((p) => xy(p.lat, p.lon));
       for (let j = 0; j < ny; j++)
