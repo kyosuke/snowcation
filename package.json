@@ -25,5 +25,8 @@
     "oxfmt": "^0.41.0",
     "unplugin-icons": "^24.0.0",
     "wrangler": "^4.152.0"
+  },
+  "overrides": {
+    "tinypool": "2.1.2"
   }
 }
