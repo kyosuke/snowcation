@@ -11,7 +11,8 @@
     "deploy": "astro build && wrangler deploy",
     "knip": "knip",
     "format": "oxfmt --write .",
-    "format:check": "oxfmt --check ."
+    "format:check": "oxfmt --check .",
+    "test": "node src/lib/season.test.ts"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.1.1",

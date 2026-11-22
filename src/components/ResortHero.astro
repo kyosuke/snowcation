@@ -22,7 +22,7 @@ const s = status(data.seasons);
     <div class="card glass">
       <div class="row">
         <div class="label pref">{data.pref} · {data.area}</div>
-        <span class="status" data-tone={s.tone}>{s.label}</span>
+        <span class="status" data-tone={s.tone} data-seasons={JSON.stringify(data.seasons)}>{s.label}</span>
       </div>
       <h1>{data.title}</h1>
       <p class="muted">{data.description}</p>
@@ -41,6 +41,11 @@ const s = status(data.seasons);
     </div>
   </div>
 </div>
+
+<script>
+  import { refreshStatus } from "../lib/season";
+  refreshStatus();
+</script>
 
 <style>
   .hero {

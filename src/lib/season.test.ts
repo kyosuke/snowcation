@@ -1,0 +1,34 @@
+import assert from "node:assert/strict";
+import { status, type Season } from "./season.ts";
+
+// グランデコ 26-27: 予定は 11/21 から、11/21〜23 はオープン延期
+const seasons: Season[] = [
+  {
+    label: "26-27",
+    areas: [
+      {
+        periods: [
+          { name: "プレ", kind: "pre", start: "2026-11-21", end: "2026-12-11" },
+          { name: "全面", kind: "on", start: "2026-12-12", end: "2027-03-22" },
+          { name: "春", kind: "spring", start: "2027-03-23", end: "2027-04-11" },
+        ],
+        closures: [
+          { start: "2026-11-21", end: "2026-11-23" },
+          { start: "2027-01-10", end: "2027-01-10" },
+          { start: "2027-04-05", end: "2027-04-11" },
+        ],
+      },
+    ],
+  },
+];
+const label = (t: string) => status(seasons, t).label;
+
+assert.equal(label("2026-11-20"), "11/24 オープン予定");
+assert.equal(label("2026-11-22"), "11/24 オープン予定");
+assert.equal(label("2026-11-24"), "営業中");
+assert.equal(label("2027-01-10"), "休業中");
+assert.equal(label("2027-04-04"), "営業中");
+assert.equal(label("2027-04-05"), "シーズン終了");
+assert.equal(label("2027-08-01"), "シーズン前");
+assert.equal(status([], "2026-11-22").label, "シーズン前");
+console.log("ok");
