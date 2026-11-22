@@ -1,7 +1,7 @@
 ---
 import Button from "./Button.astro";
 import Note from "./Note.astro";
-import { today, md } from "../lib/season";
+import { isExpired, today, md } from "../lib/season";
 
 interface Ticket {
   name: string;
@@ -14,7 +14,7 @@ interface Ticket {
 interface Group {
   label: string; // 超早割 / 宿泊者割引 など
   from?: string; // YYYY-MM-DD
-  until?: string; // YYYY-MM-DD。過ぎたらビルド時に落ちる
+  until?: string; // YYYY-MM-DD。過ぎたら表示から外れる
   condition?: string; // 期限の代わりに太字で出す条件（ホテルを公式サイトで予約 など）
   how?: string; // アソビュー / ホテル予約で など
   lead?: string; // 太字の直後に続く文。読点や「すれば」から書く。期限つき（早割）のときだけ「いま買うなら〜。」が頭に付く
@@ -39,8 +39,8 @@ const when = (g: Group) =>
 const where = (g: Group) => [when(g), g.how].filter(Boolean).join(" · ");
 
 const alive = groups
-  .map((g) => ({ ...g, tickets: g.tickets.filter((k) => !k.until || k.until >= t) }))
-  .filter((g) => (!g.until || g.until >= t) && g.tickets.length > 0);
+  .map((g) => ({ ...g, tickets: g.tickets.filter((k) => !isExpired(k.until, t)) }))
+  .filter((g) => !isExpired(g.until, t) && g.tickets.length > 0);
 // 割引が何もない時期は通常料金をタイルにする
 const best: Group = alive[0] ?? {
   label: "通常料金",
@@ -59,7 +59,7 @@ const bold = best.until ? `${md(best.until)}まで` : best.condition;
 const asOfLabel = `${Number(asOf.slice(0, 4))}年${Number(asOf.slice(5, 7))}月${Number(asOf.slice(8, 10))}日`;
 ---
 
-<div class="card ticket">
+<div class="card ticket" data-lift-ticket={JSON.stringify({ groups, list, lead })}>
   <div class="head">
     <div class="title">
       <h3 class="h3">リフト券</h3>
@@ -83,19 +83,15 @@ const asOfLabel = `${Number(asOf.slice(0, 4))}年${Number(asOf.slice(5, 7))}月$
       ))
     }
   </div>
-  {
-    rows.length > 0 && (
-      <dl class="rows nums">
-        {rows.map((r) => (
-          <>
-            <dt>{r.name}</dt>
-            <dd class="price">{yen(r.price)}円</dd>
-            <dd class="where">{r.where}</dd>
-          </>
-        ))}
-      </dl>
-    )
-  }
+  <dl class="rows nums" style={rows.length ? undefined : "display: none"}>
+    {rows.map((r) => (
+      <>
+        <dt>{r.name}</dt>
+        <dd class="price">{yen(r.price)}円</dd>
+        <dd class="where">{r.where}</dd>
+      </>
+    ))}
+  </dl>
   {
     Astro.slots.has("default") && (
       <Note>
@@ -105,6 +101,91 @@ const asOfLabel = `${Number(asOf.slice(0, 4))}年${Number(asOf.slice(5, 7))}月$
   }
   <p class="foot">{asOfLabel}時点の情報。</p>
 </div>
+
+<script>
+  import { isExpired, md } from "../lib/season";
+
+  interface Ticket {
+    name: string;
+    price: number;
+    days?: number;
+    until?: string;
+    sub?: string;
+  }
+  interface Group {
+    label: string;
+    from?: string;
+    until?: string;
+    condition?: string;
+    how?: string;
+    lead?: string;
+    tickets: Ticket[];
+  }
+  const yen = (n: number) => Math.round(n).toLocaleString("ja-JP");
+
+  for (const el of document.querySelectorAll<HTMLElement>(".ticket[data-lift-ticket]")) {
+    // Astro のスコープ属性を動的生成した要素にも引き継ぐ
+    const scope = el.getAttributeNames().find((name) => name.startsWith("data-astro-cid-"));
+    const text = (tag: string, className: string, value: string) => {
+      const node = document.createElement(tag);
+      node.className = className;
+      node.textContent = value;
+      if (scope) node.setAttribute(scope, "");
+      return node;
+    };
+    const { groups, list, lead } = JSON.parse(el.dataset.liftTicket!) as {
+      groups: Group[];
+      list: { name: string; price: number; how?: string }[];
+      lead?: string;
+    };
+    const alive = groups
+      .map((g) => ({ ...g, tickets: g.tickets.filter((k) => !isExpired(k.until)) }))
+      .filter((g) => !isExpired(g.until) && g.tickets.length > 0);
+    const best: Group = alive[0] ?? {
+      label: "通常料金",
+      lead: lead ?? "いま選べる割引はない。",
+      tickets: list.map((l) => ({ name: l.name, price: l.price, sub: l.how })),
+    };
+    const rest = alive.slice(1).map((g) => ({
+      name: g.tickets.length > 1 ? `${g.label} ${g.tickets[0].name}` : g.label,
+      price: g.tickets[0].price,
+      where: [g.from && g.until ? `${md(g.from)}〜${md(g.until)}` : g.until ? `${md(g.until)}まで` : g.from ? `${md(g.from)}〜` : undefined, g.how].filter(Boolean).join(" · "),
+    }));
+    const bold = best.until ? `${md(best.until)}まで` : best.condition;
+
+    const paragraph = el.querySelector(".lead")!;
+    paragraph.replaceChildren();
+    if (best.until) paragraph.append(`いま買うなら${best.label}。`);
+    if (bold) paragraph.append(text("strong", "", bold));
+    paragraph.append(best.lead ?? "");
+
+    el.querySelector(".tiles")!.replaceChildren(
+      ...best.tickets.map((k) => {
+        const value = text("div", "stat-value", yen(k.price));
+        value.append(text("span", "stat-unit", "円"));
+        const tile = text("div", "tile", "");
+        tile.append(
+          text("div", "label", k.name),
+          value,
+          text("div", "sub", k.sub ?? `1日あたり ${yen(k.price / (k.days ?? 1))}円`),
+        );
+        return tile;
+      }),
+    );
+    const rows = alive.length
+      ? [...rest, ...list.map((l) => ({ name: l.name, price: l.price, where: l.how }))]
+      : [];
+    const rowList = el.querySelector<HTMLElement>(".rows")!;
+    rowList.style.display = rows.length ? "" : "none";
+    rowList.replaceChildren(
+      ...rows.flatMap((r) => [
+        text("dt", "", r.name),
+        text("dd", "price", `${yen(r.price)}円`),
+        text("dd", "where", r.where ?? ""),
+      ]),
+    );
+  }
+</script>
 
 <style>
   /* 食事やスクールのカードと同じグリッドに置かれても、タイルの幅を保つため 1 行を占める */
