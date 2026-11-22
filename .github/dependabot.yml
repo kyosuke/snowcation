@@ -4,8 +4,8 @@ updates:
     directory: "/"
     schedule:
       interval: weekly
-      day: monday
-      time: "09:00"
+      day: wednesday
+      time: "06:00"
       timezone: Asia/Tokyo
     open-pull-requests-limit: 5
     commit-message:
@@ -25,8 +25,8 @@ updates:
     directory: "/"
     schedule:
       interval: weekly
-      day: monday
-      time: "09:00"
+      day: wednesday
+      time: "06:00"
       timezone: Asia/Tokyo
     open-pull-requests-limit: 5
     commit-message:
