@@ -16,11 +16,20 @@ export interface Season {
   }[];
 }
 
-/** JST の今日を YYYY-MM-DD で返す。ビルド時に評価される（営業状況チップだけはブラウザでも描き直す） */
+/** JST の今日を YYYY-MM-DD で返す。SSR の初期表示とブラウザの日付判定に使う */
 export const today = () =>
   new Intl.DateTimeFormat("sv-SE", { timeZone: "Asia/Tokyo" }).format(new Date());
 
 export const md = (iso: string) => `${Number(iso.slice(5, 7))}/${Number(iso.slice(8, 10))}`;
+
+export const isExpired = (until: string | undefined, t = today()) => !!until && until < t;
+
+export const todayPosition = (axisStart: number, axisEnd: number, t = today()) => {
+  const time = Date.parse(`${t}T06:00:00+09:00`);
+  return time >= axisStart && time < axisEnd
+    ? ((time - axisStart) / (axisEnd - axisStart)) * 100
+    : null;
+};
 
 const nextDay = (iso: string) => new Date(Date.parse(iso) + 86400000).toISOString().slice(0, 10);
 
@@ -63,6 +72,26 @@ export function refreshStatus() {
     const s = status(JSON.parse(el.dataset.seasons!));
     el.textContent = s.label;
     el.dataset.tone = s.tone;
+  }
+}
+
+/** ビルド後の日付でタイムラインの今日線を描き直す */
+export function refreshTimelineToday() {
+  for (const el of document.querySelectorAll<HTMLElement>(".timeline[data-axis-start]")) {
+    const line = el.querySelector<HTMLElement>(".today");
+    if (!line) continue;
+    const position = todayPosition(Number(el.dataset.axisStart), Number(el.dataset.axisEnd));
+    line.hidden = position === null;
+    if (position !== null) line.style.left = `${position}%`;
+  }
+}
+
+/** ビルド後の日付で前シーズンのカードを開閉する */
+export function refreshPastSeasons() {
+  for (const el of document.querySelectorAll<HTMLElement>(".season[data-seasons]")) {
+    const open = isPreSeason(JSON.parse(el.dataset.seasons!));
+    for (const details of el.querySelectorAll<HTMLDetailsElement>("details[data-past-season]"))
+      details.open = open;
   }
 }
 

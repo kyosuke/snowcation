@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { status, type Season } from "./season.ts";
+import { isExpired, isPreSeason, status, todayPosition, type Season } from "./season.ts";
 
 // グランデコ 26-27: 予定は 11/21 から、11/21〜23 はオープン延期
 const seasons: Season[] = [
@@ -31,4 +31,14 @@ assert.equal(label("2027-04-04"), "営業中");
 assert.equal(label("2027-04-05"), "シーズン終了");
 assert.equal(label("2027-08-01"), "シーズン前");
 assert.equal(status([], "2026-11-22").label, "シーズン前");
+assert.equal(isPreSeason(seasons, "2026-11-20"), true);
+assert.equal(isPreSeason(seasons, "2026-11-21"), false);
+assert.equal(isExpired(undefined, "2026-11-22"), false);
+assert.equal(isExpired("2026-11-22", "2026-11-22"), false);
+assert.equal(isExpired("2026-11-21", "2026-11-22"), true);
+
+const axisStart = Date.parse("2026-11-01T06:00:00+09:00");
+const axisEnd = Date.parse("2027-06-01T06:00:00+09:00");
+assert.equal(todayPosition(axisStart, axisEnd, "2026-11-01"), 0);
+assert.equal(todayPosition(axisStart, axisEnd, "2027-06-01"), null);
 console.log("ok");

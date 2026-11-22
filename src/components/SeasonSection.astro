@@ -12,7 +12,7 @@ const [current, ...past] = Astro.props.seasons;
 const open = isPreSeason(Astro.props.seasons);
 ---
 
-<section id="season" aria-labelledby="h-season" class="season">
+<section id="season" aria-labelledby="h-season" class="season" data-seasons={JSON.stringify(Astro.props.seasons)}>
   <div class="card">
     <div class="head">
       <h2 id="h-season" class="h2">{current.label}シーズン</h2>
@@ -22,7 +22,7 @@ const open = isPreSeason(Astro.props.seasons);
   </div>
   {
     past.map((s) => (
-      <details class="card" open={open}>
+      <details class="card" data-past-season open={open}>
         <summary>
           <span class="head">
             <span class="h2">{s.label}シーズン</span>
@@ -39,6 +39,11 @@ const open = isPreSeason(Astro.props.seasons);
     ))
   }
 </section>
+
+<script>
+  import { refreshPastSeasons } from "../lib/season";
+  refreshPastSeasons();
+</script>
 
 <style>
   .season {

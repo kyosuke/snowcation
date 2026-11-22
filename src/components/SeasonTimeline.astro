@@ -1,5 +1,5 @@
 ---
-import { md, today, type Period } from "../lib/season";
+import { md, todayPosition, type Period } from "../lib/season";
 
 interface Props {
   name?: string;
@@ -46,12 +46,11 @@ const closureSegments = closures.map((c) => {
   return { ...c, left, width: right - left, radius: `${l}px ${r}px ${r}px ${l}px` };
 });
 
-const t = parseStart(today());
-const todayPct = t >= axisStart && t < axisEnd ? pct(t) : null;
+const todayPct = todayPosition(axisStart.getTime(), axisEnd.getTime());
 const range = (p: { start: string; end: string }) => `${md(p.start)}〜${md(p.end)}`;
 ---
 
-<div class="timeline">
+<div class="timeline" data-axis-start={axisStart.getTime()} data-axis-end={axisEnd.getTime()}>
   {name && <h3 class="h3">{name}</h3>}
   <div class="track">
     {boundaries.map((b) => <div class="gridline" style={`left: ${b}%`} aria-hidden="true" />)}
@@ -78,7 +77,7 @@ const range = (p: { start: string; end: string }) => `${md(p.start)}〜${md(p.en
         />
       ))
     }
-    {todayPct !== null && <div class="today" style={`left: ${todayPct}%`} title="今日" />}
+    <div class="today" style={`left: ${todayPct ?? 0}%`} title="今日" hidden={todayPct === null} />
   </div>
   <div class="axis">{monthLabels.map((m) => <span style={`left: ${m.center}%`}>{m.label}</span>)}</div>
   <ul class="legend">
@@ -99,6 +98,11 @@ const range = (p: { start: string; end: string }) => `${md(p.start)}〜${md(p.en
     }
   </ul>
 </div>
+
+<script>
+  import { refreshTimelineToday } from "../lib/season";
+  refreshTimelineToday();
+</script>
 
 <style>
   .timeline {
