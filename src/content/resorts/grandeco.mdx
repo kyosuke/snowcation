@@ -23,7 +23,12 @@ facts:
     tags: ["緩斜面多め", "ロングコース"]
     ratio: [40, 45, 15]
     max: 33
-  access: { hours: 3.5, note: "東北新幹線 郡山駅から磐越西線とシャトルバス", arrival: "10:10" }
+  access:
+    {
+      hours: 3.5,
+      note: "東北新幹線 郡山駅から磐越西線、猪苗代駅から無料予約シャトル",
+      arrival: "10:10",
+    }
 seasons:
   - label: "26-27"
     areas:
@@ -31,6 +36,8 @@ seasons:
           - { name: "プレシーズン", kind: "pre", start: "2026-11-21", end: "2026-12-11" }
           - { name: "全面営業", kind: "on", start: "2026-12-12", end: "2027-03-22" }
           - { name: "春シーズン", kind: "spring", start: "2027-03-23", end: "2027-04-11" }
+        closures:
+          - { start: "2026-11-21", end: "2026-11-21", reason: "オープン延期" }
   - label: "25-26"
     areas:
       - periods:
@@ -105,6 +112,7 @@ import RouteExamples from "../../components/RouteExamples.astro";
   note="運行時間はオンシーズンのもの。ゴンドラは15:00で上りが終わるので、午後は第1クワッドで回す。"
 >
   <LiftTicket
+    buy={{ label: "リフト券（公式）", url: "https://grandecoresort.co.jp/snow/ticket/" }}
     groups={[
       {
         label: "宿泊者割引",
@@ -120,7 +128,7 @@ import RouteExamples from "../../components/RouteExamples.astro";
       {
         label: "早割",
         until: "2026-12-12",
-        how: "アソビュー · 完売",
+        how: "アソビュー",
         tickets: [{ name: "1日券", price: 3600 }],
       },
     ]}
@@ -128,8 +136,13 @@ import RouteExamples from "../../components/RouteExamples.astro";
       { name: "1日券 オンシーズン 土日祝", price: 5500, how: "窓口 · 年末年始も" },
       { name: "1日券 オンシーズン 平日", price: 4300, how: "窓口" },
     ]}
-    asOf="2026-10-25"
-  />
+    asOf="2026-11-22"
+  >
+    公式宿泊者料金は<a href="https://grandecoresort.co.jp/hotel/ticket/">ホテル料金表</a>
+    、早割の販売状況は
+    <a href="https://www.asoview.com/item/ticket/ticket0000058157/">アソビュー販売ページ</a>
+    で確認（2026年11月22日確認）。
+  </LiftTicket>
   <Card title="ゲレンデの食事">
     <Dl
       items={[
@@ -194,9 +207,9 @@ import RouteExamples from "../../components/RouteExamples.astro";
     <Note>送状の備考欄に「チェックイン日」と「宿泊者名」を必ず書く。</Note>
   </Card>
 
-  <AccessCard slot="access" summary="最短 3時間30分 · 東京 6:40 発 → ホテル 10:10 着">
+  <AccessCard slot="access" summary="猪苗代駅からホテルまで無料予約シャトルで約50分">
     <AccessRoute
-      summary="東京駅から東北新幹線で郡山駅へ約80〜100分、磐越西線で猪苗代駅へ約40分、無料シャトルバスでホテルへ約40分。土日・特定日は郡山駅から有料路線バスでホテルへ約120分"
+      summary="東京駅から東北新幹線で郡山駅へ約80〜100分、磐越西線で猪苗代駅へ約40分、無料予約シャトルでホテルへ約50分。土日・特定日は郡山駅から有料路線バスも運行"
       stops={[
         { label: "東京駅", kind: "origin" },
         { label: "郡山駅" },
@@ -206,18 +219,21 @@ import RouteExamples from "../../components/RouteExamples.astro";
       legs={[
         { label: "東北新幹線\nやまびこ / つばさ", duration: "約80〜100分" },
         { label: "JR 磐越西線", duration: "約40分" },
-        { label: "無料シャトルバス\n予約制", duration: "約40分" },
+        { label: "無料シャトルバス\n予約制", duration: "約50分" },
       ]}
       branches={[{ from: 1, to: 3, label: "有料路線バス\n土日・特定日・年末年始", duration: "約120分" }]}
     />
     <Dl
       items={[
-        ["シャトルバス", "猪苗代駅 ⇔ ホテル · 無料 · 前日17:00までの予約制 · 定員に達すると乗れない · 運行 11/28〜4/11"],
+        ["シャトルバス", "猪苗代駅 ⇔ ホテル · 無料 · 前日17:00までの予約制 · 定員に達すると乗れない · 運行 2026/11/28〜2027/4/11"],
         ["猪苗代駅発", "9:20 · 12:10 · 17:00（磐越西線 郡山 8:29 / 11:15 / 16:15 発に接続）"],
         ["ホテル発", "8:00 · 11:00 · 15:45（猪苗代 8:57 / 11:58 / 16:53 発の郡山行きに接続）"],
         ["路線バス", "郡山駅 ⇔ ホテル · 片道 2,250円 · 土日・特定日・年末年始のみ · 郡山 8:10 発 → ホテル 10:00 着、ホテル 16:30 発 → 郡山 18:20 着"],
       ]}
     />
+    <Note>
+      時刻・運行期間は<a href="https://grandecoresort.co.jp/snow/access/">公式アクセス案内</a>を確認（2026年11月22日確認）。
+    </Note>
     <div>
       <RouteExamples
         title="往路ルート例 · 6:40 東京発 → 10:10 ホテル着"

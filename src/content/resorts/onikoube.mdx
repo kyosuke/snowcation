@@ -22,7 +22,7 @@ facts:
   slope:
     tags: ["コース多彩", "全10コース"]
     max: 30
-  access: { hours: 3.5, note: "東北新幹線 古川駅からシャトルバス", arrival: "12:20" }
+  access: { hours: 3.5, note: "東北新幹線 古川駅から完全予約制シャトルバス" }
 seasons:
   - label: "26-27"
     areas:
@@ -40,6 +40,7 @@ import LiftList from "../../components/LiftList.astro";
 import LiftTicket from "../../components/LiftTicket.astro";
 import HotelBand from "../../components/HotelBand.astro";
 import Dl from "../../components/Dl.astro";
+import Note from "../../components/Note.astro";
 import OnsenInfo from "../../components/OnsenInfo.astro";
 import AccessCard from "../../components/AccessCard.astro";
 import AccessRoute from "../../components/AccessRoute.astro";
@@ -77,7 +78,7 @@ import RouteExamples from "../../components/RouteExamples.astro";
       { name: "5時間券", price: 4000, how: "窓口" },
     ]}
     lead="窓口の通常料金。"
-    asOf="2026-10-25"
+    asOf="2026-11-22"
   >
     曜日によって割引があったりするので、現地のチケットセンターで確認する。
   </LiftTicket>
@@ -106,7 +107,7 @@ import RouteExamples from "../../components/RouteExamples.astro";
     露天風呂とサウナを備えた温泉施設
   </OnsenInfo>
 
-  <AccessCard slot="access" summary="最短 3時間35分 · 東京 8:45 発 → ホテル 12:20 着">
+  <AccessCard slot="access" summary="古川駅からホテルまで約70分 · 冬季シャトルは完全予約制">
     <AccessRoute
       summary="東京駅から東北新幹線やまびこで古川駅へ約2時間18分、送迎シャトルバスでホテルへ約70分。JR陸羽東線で鳴子温泉駅へ約46分、大崎市営バスでホテルへ約45分でも行ける"
       stops={[
@@ -124,34 +125,17 @@ import RouteExamples from "../../components/RouteExamples.astro";
     />
     <Dl
       items={[
-        ["シャトルバス", "古川駅 ⇔ ホテル · 鳴子温泉駅経由 · スノーシーズン 12/13〜3/22 運行"],
-        ["古川駅発", "11:10 · 17:10（鳴子温泉駅 12:00 · 18:00 発、ホテル 12:20 · 18:20 着）"],
-        ["ホテル発", "9:30 · 11:00（鳴子温泉駅 9:50 · 11:20 着、古川駅 10:40 · 12:10 着）"],
+        ["シャトルバス", "古川駅・鳴子温泉駅・仙台空港 ⇔ ホテル · 完全予約制（出発3日前まで） · スノーシーズン 2026/12/12〜2027/3/22"],
+        ["ホテル行き", "古川駅 10:20 → 鳴子温泉駅 11:10 → ホテル 11:30 · 古川駅 18:10 → 鳴子温泉駅 19:00 → ホテル 19:20（2便目は仙台空港 17:00 発）"],
+        ["ホテル発", "ホテル 9:00 → 鳴子温泉駅 9:20 → 古川駅 10:10 · ホテル 11:40 → 鳴子温泉駅 12:00 → 古川駅 12:50 → 仙台空港 14:00"],
       ]}
     />
+    <Note>
+      時刻・運行期間は<a href="https://www.oni3800.com/access/">ホテル公式アクセス案内</a>を確認（2026年11月22日確認）。
+    </Note>
     <div>
       <RouteExamples
-        title="往路ルート例 · 7:56 東京発 → 12:20 ホテル着"
-        open
-        columns={[
-          {
-            label: "余裕あり · 東京 7:56 発",
-            legs: [
-              { mode: "新幹線", time: "東京 7:56 → 古川 9:47", note: "はやぶさ 103号 · 乗換余裕 1時間23分、駅中のタリーズで待つ" },
-              { mode: "バス", time: "古川 11:10 → ホテル 12:20", note: "シャトルバス 1便" },
-            ],
-          },
-          {
-            label: "最短 · 東京 8:45 発",
-            legs: [
-              { mode: "新幹線", time: "東京 8:45 → 古川 11:03", note: "やまびこ 53号 · 乗換余裕 7分、バス乗り場へ急ぐ" },
-              { mode: "バス", time: "古川 11:10 → ホテル 12:20", note: "シャトルバス 1便" },
-            ],
-          },
-        ]}
-      />
-      <RouteExamples
-        title="過去の利用例"
+        title="過去の利用例（2025-26シーズン）"
         columns={[
           {
             label: "往路",
