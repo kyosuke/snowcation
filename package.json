@@ -19,8 +19,8 @@
     "astro": "^7.4.2"
   },
   "devDependencies": {
-    "@iconify-json/material-symbols-light": "^1.2.97",
-    "@iconify-json/simple-icons": "^1.2.100",
+    "@iconify-json/material-symbols-light": "^1.2.102",
+    "@iconify-json/simple-icons": "^1.2.103",
     "knip": "^5.85.0",
     "oxfmt": "^0.79.0",
     "unplugin-icons": "^24.0.0",
